@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <style>
+    .container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 1fr); 
+        column-gap: 5px;
+        row-gap: 5px;
+        padding: 10px;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        grid-template-areas: 
+            "spanCalc spanCalc spanCalc spanCalc"
+            "headTask headTask headTask headTask"
+            "zeros divis multi deduc"
+            "seven eight nine adds"
+            "four five six del"
+            "one two three equal";
+        grid-auto-flow: row;
+    }
+
+    /* Верх */
+    .span-elem { grid-area: spanCalc; }
+    .input-elem { 
+        grid-area: headTask; 
+        border: 1px solid gray;
+        border-radius: 10px;
+    }
+
+    /* Операции */
+    .division { grid-area: divis; }
+    .multip   { grid-area: multi; }
+    .deduc    { grid-area: deduc; }
+    .add      { grid-area: adds; }
+    .delete   { grid-area: del; }
+    .equal    { grid-area: equal; }
+
+    /* Цифры */
+    .zero  { grid-area: zeros; }
+    .one   { grid-area: one; }
+    .two   { grid-area: two; }
+    .three { grid-area: three; }
+    .four  { grid-area: four; }
+    .five  { grid-area: five; }
+    .six   { grid-area: six; }
+    .seven { grid-area: seven; }
+    .eight { grid-area: eight; }
+    .nine  { grid-area: nine; }
+
+    /* Центровка */
+    .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+</head>
+<body>
+<div class="flex">
+<div class="container">
+  <div class="span-elem"></div>
+  <div class="input-elem"></div>
+  <button class="division oper">/</button>
+  <button class="multip oper">x</button>
+  <button class="deduc oper">-</button>
+  <button class="add oper">+</button>
+  <button class="equal">=</button>
+  <button class="delete oper">del</button>
+  <button class="one num">1</button>
+  <button class="two num">2</button>
+  <button class="three num">3</button>
+  <button class="four num">4</button>
+  <button class="five num">5</button>
+  <button class="six num">6</button>
+  <button class="seven num">7</button>
+  <button class="eight num">8</button>
+  <button class="nine num">9</button>
+  <button class="zero num">0</button>
+</div>
+</div>
+<script type='module' src="./static/js/browser.js"></script>
+<!-- <script type="module" src="./js/calcc.js"></script> -->
+</body>
+</html>

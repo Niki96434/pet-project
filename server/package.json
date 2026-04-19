@@ -5,8 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "test": "",
-    "start": "node ./server/src/app.ts",
-    "dev": "nodemon ./server/src/app.ts"
+    "start": "ts-node src/app.ts",
+    "dev": "nodemon src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,11 @@
   "type": "module",
   "dependencies": {
     "@types/express": "^5.0.6",
+    "better-sqlite3": "^12.9.0",
     "express": "^5.2.1",
     "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13"
   }
 }

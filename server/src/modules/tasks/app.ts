@@ -1,23 +1,15 @@
 import express from 'express';
-import { Router } from 'express';
-import { getTaskById, getAllTasks, createTask, updateTask, deleteTask } from './tasks.route';
+import tasksRouter from './tasks.route.ts';
 
 const app = express();
-const route = Router();
 app.use(express.json());
-
+app.use('/', tasksRouter);
 const PORT = '3000';
 
-route.get('/tasks', getTaskById);
-
-route.get('/tasks/:id', getAllTasks);
-
-route.post('/tasks', createTask);
-
-route.put('/tasks/:id', updateTask);
-
-route.delete('/tasks/:id', deleteTask);
+app.use((req, res) => {
+    res.status(404).json({ error: 'Nothing found' })
+});
 
 app.listen(PORT, () => {
-    console.log('The server is running on port=3000')
+    console.log(`The server is running on port=${PORT}`)
 });

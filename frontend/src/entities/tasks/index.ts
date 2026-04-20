@@ -1,0 +1,1 @@
+export type { TaskProp } from './model/task';

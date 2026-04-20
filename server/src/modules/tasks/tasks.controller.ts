@@ -1,91 +1,70 @@
 import type { Request, Response } from 'express';
-import { db } from './db.ts';
+import TaskService from './tasks.service.ts';
 
-export function getAllTasks(req: Request, res: Response) {
-    try {
-        const getState = db.prepare('SELECT * FROM tasks');
-        const tasks = getState.all();
-        res.status(200).json({ data: tasks });
-    } catch (e) {
-        res.status(500).json({ error: 'Server error' });
+class TaskController {
 
-    }
-}
-
-export function getTaskById(req: Request, res: Response) {
-    const { id } = req.params;
-    if (Number(id)) {
+    static getAllTasks(req: Request, res: Response) {
         try {
-            const getState = db.prepare('SELECT * FROM tasks WHERE id = ?');
-            const task = getState.get(Number(id));
-            if (task) {
-                res.status(200).json({ data: task });
-            } else {
-                res.status(404).json({ error: 'tasks not exist' });
-            }
+            const tasks = TaskService.getAllTasks();
+            res.status(200).json({ data: tasks });
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
-        }
-    } else {
-        res.status(404).json({ error: 'task not found' })
-    }
-}
 
-export function createTask(req: Request, res: Response) {
-    const task = req.body;
-    if (task.title.trim() !== '') {
+        }
+    }
+
+    static getTaskById(req: Request, res: Response) {
+        const { id } = req.params;
+        if (!Number(id)) {
+            return res.status(404).json({ error: 'task not found' })
+        }
         try {
-            const postState = db.prepare('INSERT INTO tasks (title, description) VALUES (?,?)');
-            postState.run(task.title, task.description);
+            const task = TaskService.getTaskById(Number(id));
             res.status(200).json({ data: task });
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
         }
-    } else {
-        res.status(400).json({ error: 'tasks have invalid data' });
+    }
+
+    static createTask(req: Request, res: Response) {
+        const task = req.body;
+        if (task.title.trim() === '') {
+            return res.status(400).json({ error: 'task have invalid data' });
+        }
+        try {
+            const newTask = TaskService.createTask(task);
+            res.status(200).json({ data: newTask });
+        } catch (e) {
+            res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    static updateTask(req: Request, res: Response) {
+        const { id } = req.params;
+        const task = req.body;
+        if (!Number(id)) {
+            return res.status(400).json({ error: 'id is not valid' });
+        }
+        try {
+            const updatedTask = TaskService.updateTask(Number(id), task);
+            res.status(200).json({ data: updatedTask });
+        } catch (e) {
+            res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    static deleteTask(req: Request, res: Response) {
+        const { id } = req.params;
+        if (!Number(id)) {
+            return res.status(400).json({ error: 'task not exist' })
+        }
+        try {
+            TaskService.deleteTask(Number(id));
+            res.status(204).json({ message: 'Task deleted successfully' });
+        } catch (e) {
+            res.status(500).json({ error: 'Server error' });
+        }
     }
 }
 
-export function updateTask(req: Request, res: Response) {
-    const { id } = req.params;
-    const { title, description } = req.body;
-    if (Number(id)) {
-        const getTaskState = db.prepare('SELECT * FROM tasks WHERE id = ?');
-        const task = getTaskState.get(Number(id));
-        if (task) {
-            try {
-                const putTaskState = db.prepare('UPDATE tasks SET title = ?, description = ? WHERE id = ?');
-                putTaskState.run(title, description, Number(id));
-                const updatedTask = getTaskState.get(Number(id));
-                res.status(200).json({ data: updatedTask });
-            } catch (e) {
-                res.status(500).json({ error: 'Server error' });
-            }
-        } else {
-            res.status(404).json({ error: 'task is not found' })
-        }
-    } else {
-        res.status(400).json({ error: 'id is not valid' })
-    }
-}
-
-export function deleteTask(req: Request, res: Response) {
-    const { id } = req.params;
-    if (Number(id)) {
-        const getState = db.prepare('SELECT * FROM tasks WHERE id = ?');
-        const existedTask = getState.get(Number(id));
-        if (existedTask) {
-            try {
-                const delState = db.prepare('DELETE FROM tasks WHERE id = ?');
-                delState.run(Number(id));
-                res.status(204).json({ message: 'Task deleted successfully' });
-            } catch (e) {
-                res.status(500).json({ error: 'Server error' });
-            }
-        } else {
-            res.status(404).json({ error: 'task is not exist' });
-        }
-    } else {
-        res.status(400).json({ error: 'task not exist' })
-    }
-}
+export default TaskController

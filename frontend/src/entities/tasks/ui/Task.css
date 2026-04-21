@@ -1,17 +1,40 @@
 .task-card {
-    width: 300px;
-    height: 50px;
+    width: 306px;
+    height: 76px;
+    border: 1px solid #d9d9dc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #F9F8FF;
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+.task-top {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 6px;
+    align-items: center;
 }
 
 .task-checkbox {
     background-image: url('./../../../assets/unactiveCheckbox.svg');
-    width: 30px;
-    height: 30px;
+    width: 17px;
+    height: 17px;
+    border-color: #BBBABE;
 }
 
 .task-checkbox:active {
     background-image: url('./../../../assets/activeCheckbox.svg');
+}
+
+.task-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.category-and-date {
+    display: flex;
+    justify-content: flex-end;
+    color: #BBBABE;
 }

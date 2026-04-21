@@ -1,8 +1,10 @@
+import TaskList from "./entities/tasks/ui/TaskList"
+
 function App() {
 
   return (
     <div>
-      <p>Hello, world</p>
+      <TaskList />
     </div>
   )
 }

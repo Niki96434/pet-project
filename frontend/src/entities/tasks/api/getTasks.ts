@@ -7,6 +7,7 @@ export const getTasks = async () => {
         return response.data.data
     } catch (e) {
         console.log(e);
-        return []
+        return null
     }
 }
+

@@ -28,7 +28,7 @@ class TaskController {
 
     static createTask(req: Request, res: Response) {
         const task = req.body;
-        if (task.title.trim() === '') {
+        if (task.title.trim() === '' || task.title.length > 30) {
             return res.status(400).json({ error: 'task have invalid data' });
         }
         try {

@@ -22,8 +22,8 @@ class TaskRepository {
     }
 
     static createTask(task: Task) {
-        const postState = db.prepare('INSERT INTO tasks (title, description) VALUES (?,?) RETURNING id, title, description')
-            .get(task.title, task.description);
+        const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate) VALUES (?,?,?,?) RETURNING id, title, description, category, deadlineDate')
+            .get(task.title, task.description, task.category, task.deadlineDate);
         if (!postState) {
             throw new Error('network error')
         }
@@ -31,8 +31,8 @@ class TaskRepository {
     }
 
     static updateTask(id: number, taskProperty: Task) {
-        const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ? WHERE id = ? RETURNING id, title, description')
-            .get(taskProperty.title, taskProperty.description, Number(id));
+        const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
+            .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id));
         console.log(updatedTask);
         if (!updatedTask) {
             throw new Error('network error')

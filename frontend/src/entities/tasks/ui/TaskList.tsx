@@ -9,7 +9,7 @@ export default function TaskList() {
         return <div>Загрузка...</div>
     }
 
-    if (!tasks) {
+    if (!tasks || tasks.length === 0) {
         return <div>Задачи не найдены</div>
     }
 
@@ -18,12 +18,12 @@ export default function TaskList() {
             <div className="header-task-list">
                 <div className="header-img"></div>
                 <p>Todos</p>
-                <button className="plus-img"></button>
+                <button className="plus-img" aria-label="Add task" />
             </div>
             <hr />
             <div className="task-list">
                 {tasks.map((task) => {
-                    return <Task key={task.id} id={task.id} title={task.title} />
+                    return <Task key={task.id} {...task} />
                 })}
             </div>
         </div>

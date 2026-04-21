@@ -11,8 +11,10 @@ try {
   db.exec(`
     CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT NOT NULL
+    title VARCHAR(30) NOT NULL,
+    description TEXT,
+    category TEXT NOT NULL,
+    deadlineDate TEXT NOT NULL
   );
   `);
 } catch (err) {

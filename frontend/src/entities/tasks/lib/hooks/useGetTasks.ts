@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { TaskProp } from "../../model/task";
+import type { Task } from "../../model/types";
 import { getTasks } from "../../api/getTasks";
 
 export function useGetTasks() {
-    const [tasks, setTasks] = useState<TaskProp[] | null>(null);
+    const [tasks, setTasks] = useState<Task[] | null>(null);
     const [isLoading, setLoading] = useState<boolean>(true);
     useEffect(() => {
         const loadData = async () => {

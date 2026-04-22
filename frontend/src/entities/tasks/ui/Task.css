@@ -22,15 +22,23 @@
     width: 17px;
     height: 17px;
     border-color: #BBBABE;
+    text-decoration: none;
+    color: black;
 }
 
-.task-checkbox:active {
+.task-checkbox:checked {
     background-image: url('./../../../assets/activeCheckbox.svg');
 }
 
 .task-title {
     font-size: 16px;
     font-weight: 700;
+}
+
+.task-checkbox:checked+p {
+    text-decoration-color: #FD71AF;
+    text-decoration: line-through;
+    color: #FD71AF;
 }
 
 .category-and-date {

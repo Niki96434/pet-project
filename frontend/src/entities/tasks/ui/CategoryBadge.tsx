@@ -1,8 +1,8 @@
 import './CategoryBadge.css';
-import type { TaskProp } from './../model/task';
+import type { Category } from '../model/types';
 
-interface CategoryBadgeProp {
-    category: TaskProp['category'];
+interface CategoryBadgeProps {
+    category: Category;
 }
 
 const categoryList = {
@@ -13,9 +13,9 @@ const categoryList = {
     Misc: { color: '#7B68EE', backgroundColor: '#7c68ee90', }
 }
 
-export default function CategoryBadge({ category }: CategoryBadgeProp) {
-    const { color, backgroundColor } = categoryList[category];
+export default function CategoryBadge({ category }: CategoryBadgeProps) {
+    const { color, backgroundColor } = categoryList[category] ?? categoryList.Misc;
     return (
-        <div className="badge" style={{ backgroundColor, color }}>{category}</div>
+        <div className="category-badge" style={{ backgroundColor, color }}>{category}</div>
     )
 }

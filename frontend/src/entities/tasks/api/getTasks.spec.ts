@@ -1,7 +1,7 @@
 import { vi, it, describe, expect, afterEach } from 'vitest';
 import axios from 'axios';
 import { getTasks } from './getTasks';
-import type { TaskProp } from '../model/task';
+import type { TaskProp } from '../model/types';
 vi.mock('axios');
 
 describe('check getTasks function', () => {

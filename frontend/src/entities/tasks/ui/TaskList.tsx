@@ -1,6 +1,8 @@
 import Task from "./Task";
 import { useGetTasks } from "../lib/hooks/useGetTasks";
 import './TaskList.css';
+import HeaderTaskList from "./HeaderTaskList";
+import headerIcon from './../../../assets/Category.svg';
 
 export default function TaskList() {
     const { tasks, isLoading } = useGetTasks();
@@ -15,11 +17,7 @@ export default function TaskList() {
 
     return (
         <div className="list-container">
-            <div className="header-task-list">
-                <div className="header-img"></div>
-                <p>Todos</p>
-                <button className="plus-img" aria-label="Add task" />
-            </div>
+            <HeaderTaskList headerIcon={headerIcon} children={'Todos'} />
             <hr />
             <div className="task-list">
                 {tasks.map((task) => {

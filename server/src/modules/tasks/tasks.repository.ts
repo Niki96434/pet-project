@@ -3,7 +3,7 @@ import type Task from './types.ts';
 
 
 class TaskRepository {
-
+     
     static getAllTasks() {
         const tasks = db.prepare('SELECT * FROM tasks').all();
         if (!tasks) {

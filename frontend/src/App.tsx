@@ -1,10 +1,10 @@
-import TaskList from "./entities/tasks/ui/TaskList"
+import HomePage from "./pages/ui/HomePage";
 
 function App() {
 
   return (
     <div>
-      <TaskList />
+      <HomePage />
     </div>
   )
 }

@@ -1,23 +1,19 @@
 import Task from "./Task";
-import { useGetTasks } from "../lib/hooks/useGetTasks";
 import './TaskList.css';
 import HeaderTaskList from "./HeaderTaskList";
 import headerIcon from './../../../assets/Category.svg';
+import type { TaskType } from "../model/types";
 
-export default function TaskList() {
-    const { tasks, isLoading } = useGetTasks();
+interface TaskListProps {
+    handleModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    tasks: TaskType[];
+}
 
-    if (isLoading) {
-        return <div>Загрузка...</div>
-    }
-
-    if (!tasks || tasks.length === 0) {
-        return <div>Задачи не найдены</div>
-    }
+export default function TaskList({ handleModal, tasks }: TaskListProps) {
 
     return (
-        <div className="list-container">
-            <HeaderTaskList headerIcon={headerIcon} children={'Todos'} />
+        <div className="list-container" onClick={(e) => e.stopPropagation()}>
+            <HeaderTaskList handleModal={handleModal} headerIcon={headerIcon} children={'Todos'} />
             <hr />
             <div className="task-list">
                 {tasks.map((task) => {

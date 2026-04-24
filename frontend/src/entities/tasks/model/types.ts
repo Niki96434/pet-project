@@ -1,9 +1,17 @@
-export type Category = 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
+export const Category = ['Health', 'Life', 'Work', 'Study', 'Misc'] as const;
+export type CategoryType = typeof Category[number];
 
-export interface Task {
+export interface TaskType {
     id: number;
     title: string;
     description?: string;
     deadlineDate: string;
-    category: Category;
+    category: CategoryType;
+}
+
+export interface FormDataType {
+    title: string;
+    description: string;
+    category: CategoryType;
+    deadlineDate: string;
 }

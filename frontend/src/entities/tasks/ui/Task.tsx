@@ -1,8 +1,8 @@
 import './Task.css';
-import type { Task } from '../model/types';
+import type { TaskType } from '../model/types';
 import CategoryBadge from './CategoryBadge';
 
-export default function Task({ title, category, deadlineDate }: Task) {
+export default function Task({ title, category, deadlineDate }: TaskType) {
     return (
         <div className="task-card">
             <div className='task-top'>

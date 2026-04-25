@@ -2,22 +2,22 @@ import Task from "./Task";
 import './TaskList.css';
 import HeaderTaskList from "./HeaderTaskList";
 import headerIcon from './../../../assets/Category.svg';
-import type { TaskType } from "../model/types";
+import type { FormDataType } from "../model/types";
 
 interface TaskListProps {
     handleModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    tasks: TaskType[];
+    optimisticTodos: FormDataType[];
 }
 
-export default function TaskList({ handleModal, tasks }: TaskListProps) {
+export default function TaskList({ handleModal, optimisticTodos }: TaskListProps) {
 
     return (
         <div className="list-container" onClick={(e) => e.stopPropagation()}>
             <HeaderTaskList handleModal={handleModal} headerIcon={headerIcon} children={'Todos'} />
             <hr />
             <div className="task-list">
-                {tasks.map((task) => {
-                    return <Task key={task.id} {...task} />
+                {optimisticTodos.map((task: FormDataType, index: number) => {
+                    return <Task key={index} {...task} />
                 })}
             </div>
         </div>

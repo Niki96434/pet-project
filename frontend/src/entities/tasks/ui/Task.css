@@ -1,6 +1,6 @@
 .task-card {
     width: 306px;
-    height: 76px;
+    height: 110px;
     border: 1px solid #d9d9dc;
     border-radius: 10px;
     display: flex;
@@ -8,6 +8,7 @@
     background-color: #F9F8FF;
     padding: 5px;
     box-sizing: content-box;
+    position: relative;
 }
 
 .task-top {
@@ -51,4 +52,18 @@
     position: absolute;
     color: #BBBABE;
     right: 0px;
+}
+
+.ellipsis-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url('./../../../assets/ellipsis.svg');
+    margin-left: auto;
+}
+
+.active-menu {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #FD71AF;
 }

@@ -1,12 +1,15 @@
 .list-container {
     width: 335px;
     position: relative;
+    display: flex;
+    gap: 3px;
+    flex-direction: column;
 }
 
 .task-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 3px;
     max-height: 312px;
     overflow-y: scroll;
     overflow-x: hidden;

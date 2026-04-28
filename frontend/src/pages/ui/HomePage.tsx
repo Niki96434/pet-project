@@ -1,24 +1,32 @@
-import { useState, useOptimistic } from "react";
+import { useState } from "react";
 import TaskList from "../../entities/tasks/ui/TaskList";
 import TaskModalForm from './../../entities/tasks/ui/TaskModalForm';
-import { useGetTasks } from "./../../entities/tasks/lib/hooks/useGetTasks";
-import type { FormDataType } from "../../entities/tasks/model/types";
+import { taskApi } from './../../entities/tasks/api/taskApi';
+import type { TaskType } from "../../entities/tasks/model/types";
+import { useQuery } from "@tanstack/react-query";
 
 export default function HomePage() {
     const [isOpen, setOpenModal] = useState<boolean>(false);
-    const { tasks, setTasks, isLoading } = useGetTasks();
-    const [optimisticTodos, setOptimisticTodo] = useOptimistic<FormDataType[], FormDataType>(tasks ?? [], (state, newTask: FormDataType) => {
-        return [newTask, ...state]
+
+    const { data: tasks, status, error, isFetching } = useQuery<TaskType[]>({
+        queryKey: ['todos'],
+        queryFn: taskApi.getTasks,
+        retry: false,
     });
 
-    if (isLoading) {
-        return <div>Загрузка...</div>
+    if (status === 'pending') {
+        return <span>Загрузка...</span>
+    }
+
+    if (status === 'error') {
+        return <span>Ошибка: {error.message}</span>
     }
 
     return (
-        <div id='home-page-container' onClick={() => setOpenModal(false)}>
-            <TaskList optimisticTodos={optimisticTodos} handleModal={() => setOpenModal(true)} />
-            {isOpen && <TaskModalForm setTasks={setTasks} setOptimisticTodo={setOptimisticTodo} handleModal={() => setOpenModal(false)} />}
+        <div className='homepage-container' id='home-page-container' onClick={() => setOpenModal(false)}>
+            {isFetching && <div>Обновление...</div>}
+            <TaskList tasks={tasks ?? []} handleModal={() => setOpenModal(true)} />
+            {isOpen && <TaskModalForm handleModal={() => setOpenModal(false)} />}
         </div>
     )
 }

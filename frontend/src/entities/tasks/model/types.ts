@@ -9,9 +9,17 @@ export interface TaskType {
     category: CategoryType;
 }
 
-export interface FormDataType {
+export type menuActionType = 'edit' | 'del' | '';
+
+export interface CreateTaskDto {
     title: string;
-    description: string;
-    category: CategoryType;
+    description?: string;
     deadlineDate: string;
+    category: CategoryType;
+}
+
+export interface TaskListDto {
+    data: {
+        data: TaskType[];
+    }
 }

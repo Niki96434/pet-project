@@ -1,46 +1,56 @@
 import FormInput from '../../../shared/ui/FormInput';
 import CategorySelect from './CategorySelect';
-import { Category, type CategoryType, type FormDataType } from '../model/types';
+import { Category, type CategoryType, type CreateTaskDto } from '../model/types';
 import './TaskModalForm.css';
-import React from 'react';
-import usePostTask from '../lib/hooks/usePostTask';
-
+import { useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { taskApi } from './../api/taskApi';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 interface TaskModalFormProps {
     handleModal: () => void;
-    setOptimisticTodo: (arg: FormDataType) => void;
-    setTasks: React.Dispatch<React.SetStateAction<FormDataType[]>>;
 }
 
-export default function TaskModalForm({ handleModal, setOptimisticTodo, setTasks }: TaskModalFormProps) {
+export default function TaskModalForm({ handleModal }: TaskModalFormProps) {
 
-    const { loadData, isLoading } = usePostTask();
+    const queryClient = useQueryClient();
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-    async function handleSubmit(formData: FormData) {
-        const freshFormData: FormDataType = {
+    const mutationCreateTask = useMutation({
+        mutationFn: (newTask: CreateTaskDto) => taskApi.createTask(newTask),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['todos'] });
+            handleModal();
+        },
+        onError: (error) => { console.log(error) }
+    });
+
+    const createTask = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const freshFormData: CreateTaskDto = {
             title: formData.get('title') as string,
             description: formData.get('description') as string,
             category: formData.get('category') as CategoryType,
-            deadlineDate: formData.get('deadlineDate') as string || '',
+            deadlineDate: (formData.get('deadlineDate') ?? '')?.toString().split('/').join('-'),
         }
-        setOptimisticTodo(freshFormData);
-        const newTask = await loadData(freshFormData);
-        if (newTask) {
-            setTasks((tasks) => [...tasks, newTask]);
-            handleModal();
-        }
+        mutationCreateTask.mutate(freshFormData);
     }
 
     return (
-        <form action={handleSubmit} id='task-form' className='task-form-container' onClick={(e) => e.stopPropagation()}>
-            <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
-            <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
-            <CategorySelect categories={Category} />
-            {/* https://kiarash-z.github.io/react-modern-calendar-datepicker/docs/getting-started для записи даты дедлайна*/}
-            <div className='form-button-container'>
-                <button type='button' className='close-button' onClick={handleModal}>Cancel</button>
-                <button type='submit' className='submit-button' disabled={isLoading}>{isLoading ? 'Adding...' : 'Add task'}</button>
-            </div>
-        </form >
+        <div className='form-wrapper'>
+            <form id='task-form' className='task-form-container' onSubmit={(e) => createTask(e)} onClick={(e) => e.stopPropagation()}>
+                <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
+                <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
+                <CategorySelect categories={Category} />
+                <DatePicker name={'deadlineDate'} selected={startDate} onChange={(date: Date | null) => setStartDate(date)} />
+                <div className='form-button-container'>
+                    <button type='button' className='close-button' onClick={handleModal}>Cancel</button>
+                    <button type='submit' className='submit-button' disabled={mutationCreateTask.isPending}>Add task</button>
+                </div>
+            </form >
+        </div>
     )
 }

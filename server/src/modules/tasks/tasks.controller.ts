@@ -6,7 +6,7 @@ class TaskController {
     static getAllTasks(req: Request, res: Response) {
         try {
             const tasks = TaskService.getAllTasks();
-            res.status(200).json({ data: tasks });
+            res.status(200).json(tasks);
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
 
@@ -20,7 +20,7 @@ class TaskController {
         }
         try {
             const task = TaskService.getTaskById(Number(id));
-            res.status(200).json({ data: task });
+            res.status(200).json(task);
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
         }
@@ -33,7 +33,7 @@ class TaskController {
         }
         try {
             const newTask = TaskService.createTask(task);
-            res.status(200).json({ data: newTask });
+            res.status(200).json(newTask);
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
         }
@@ -47,7 +47,7 @@ class TaskController {
         }
         try {
             const updatedTask = TaskService.updateTask(Number(id), task);
-            res.status(200).json({ data: updatedTask });
+            res.status(200).json(updatedTask);
         } catch (e) {
             res.status(500).json({ error: 'Server error' });
         }

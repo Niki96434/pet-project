@@ -1,6 +1,6 @@
 import { FormInput } from '../../../shared';
 import CategorySelect from './CategorySelect';
-import { Category, type CategoryType, type CreateTaskDto } from '../model/types';
+import { Categories, type CategoryType, type CreateTaskDto } from '../model/types';
 import './AddTaskForm.css';
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { taskApi } from '../api/taskApi';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import { toaster } from "../../../shared/lib/ui/toaster";
 
 interface AddTaskFormProps {
     handleModal: () => void;
@@ -23,8 +24,17 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['todos'] });
             handleModal();
+            toaster.create({
+                title: 'Задача успешно добавилась!',
+                type: 'success',
+            });
         },
-        onError: (error) => { console.log(error) }
+        onError: () => {
+            toaster.create({
+                title: 'Задачу не удалось добавить',
+                type: 'error',
+            });
+        }
     });
 
     const createTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +54,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
             <form id='task-form' className='task-form-container' onSubmit={(e) => createTask(e)} onClick={(e) => e.stopPropagation()}>
                 <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
                 <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
-                <CategorySelect categories={Category} />
+                <CategorySelect categories={Categories} />
                 <DatePicker name={'deadlineDate'} selected={startDate} onChange={(date: Date | null) => setStartDate(date)} />
                 <div className='form-button-container'>
                     <button type='button' className='close-button' onClick={handleModal}>Cancel</button>

@@ -1,7 +1,7 @@
 import { FormInput } from '../../../shared';
 import CategorySelect from './CategorySelect';
-import { Category, type CategoryType, type UpdateTaskDto } from '../model/types';
-import './TaskModalForm.css';
+import { Categories, type CategoryType, type UpdateTaskDto } from '../model/types';
+import './EditTaskForm.css';
 import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -45,7 +45,7 @@ export function EditTaskForm({ taskId, handleModal }: TaskModalFormProps) {
             <form id='task-form' className='task-form-container' onSubmit={(e) => updateTaskFields(e)} onClick={(e) => e.stopPropagation()}>
                 <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
                 <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
-                <CategorySelect categories={Category} />
+                <CategorySelect categories={Categories} />
                 <DatePicker name={'deadlineDate'} selected={startDate} onChange={(date: Date | null) => setStartDate(date)} />
                 <div className='form-button-container'>
                     <button type='button' className='close-button' onClick={handleModal}>Cancel</button>

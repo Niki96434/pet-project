@@ -1,5 +1,5 @@
-export const Category = ['Health', 'Life', 'Work', 'Study', 'Misc'] as const;
-export type CategoryType = typeof Category[number];
+export const Categories = ['Health', 'Life', 'Work', 'Study', 'Misc'] as const;
+export type CategoryType = typeof Categories[number];
 
 export interface TaskType {
     id: number;

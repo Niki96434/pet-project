@@ -1,6 +1,12 @@
 .form-wrapper {
-    position: absolute;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #30303097;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
 }
 
 .task-form-container {
@@ -11,6 +17,7 @@
     flex-direction: column;
     gap: 25px;
     padding: 20px;
+    background-color: white;
 }
 
 .close-button {

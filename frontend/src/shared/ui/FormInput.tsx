@@ -6,7 +6,7 @@ interface FormInputProps {
     placeholder: string;
 }
 
-export default function FormInput({ children, name, placeholder }: FormInputProps) {
+export function FormInput({ children, name, placeholder }: FormInputProps) {
     return (
         <>
             <label>{children}

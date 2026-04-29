@@ -10,7 +10,7 @@ interface TaskListProps {
     tasks: TaskType[];
 }
 
-export default function TaskList({ handleModal, tasks }: TaskListProps) {
+export function TaskList({ handleModal, tasks }: TaskListProps) {
 
     return (
         <div className="list-container" onClick={(e) => e.stopPropagation()}>

@@ -1,4 +1,4 @@
-import FormInput from '../../../shared/ui/FormInput';
+import { FormInput } from '../../../shared';
 import CategorySelect from './CategorySelect';
 import { Category, type CategoryType, type CreateTaskDto } from '../model/types';
 import './TaskModalForm.css';
@@ -13,7 +13,7 @@ interface TaskModalFormProps {
     handleModal: () => void;
 }
 
-export default function TaskModalForm({ handleModal }: TaskModalFormProps) {
+export function TaskModalForm({ handleModal }: TaskModalFormProps) {
 
     const queryClient = useQueryClient();
     const [startDate, setStartDate] = useState<Date | null>(new Date());

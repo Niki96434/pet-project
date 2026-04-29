@@ -1,4 +1,4 @@
-import HomePage from "./pages/ui/HomePage";
+import TasksPage from "../pages/tasks-page";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <HomePage />
+      <TasksPage />
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   )

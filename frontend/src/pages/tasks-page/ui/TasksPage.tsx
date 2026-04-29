@@ -1,11 +1,12 @@
 import { useState } from "react";
-import TaskList from "../../entities/tasks/ui/TaskList";
-import TaskModalForm from './../../entities/tasks/ui/TaskModalForm';
-import { taskApi } from './../../entities/tasks/api/taskApi';
-import type { TaskType } from "../../entities/tasks/model/types";
+import { TaskList } from "./../../../entities/tasks";
+import { TaskModalForm } from '../../../entities/tasks';
+import { taskApi } from '../../../entities/tasks/api/taskApi';
+import type { TaskType } from "../../../entities/tasks/model/types";
 import { useQuery } from "@tanstack/react-query";
+import './TaskPage.css';
 
-export default function HomePage() {
+export default function TasksPage() {
     const [isOpen, setOpenModal] = useState<boolean>(false);
 
     const { data: tasks, status, error, isFetching } = useQuery<TaskType[]>({

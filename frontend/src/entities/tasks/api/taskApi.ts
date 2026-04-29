@@ -1,12 +1,12 @@
 import type { CreateTaskDto, TaskType } from '../model/types';
-import { api } from './index';
+import { apiClient } from '../../../shared/api/apiClient';
 
 export const taskApi = {
     getTasks: async () => {
-        const response = await api.get<Promise<TaskType[]>>('/tasks');
+        const response = await apiClient.get<Promise<TaskType[]>>('/tasks');
         return response.data
     },
-    createTask: async (task: CreateTaskDto) => api.post('/tasks', task),
-    deleteTask: async (id: string) => api.delete(`/tasks/${id}`),
+    createTask: async (task: CreateTaskDto) => apiClient.post('/tasks', task),
+    deleteTask: async (id: string) => apiClient.delete(`/tasks/${id}`),
 }
 

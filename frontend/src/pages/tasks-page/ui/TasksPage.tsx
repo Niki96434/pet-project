@@ -30,7 +30,7 @@ export default function TasksPage() {
             {isFetching && <div>Обновление...</div>}
             <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} handleEditModal={() => setOpenEditTaskModal(true)} />
             {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
-            {isOpenEditTaskModal && <EditTaskForm taskId={'1'} handleModal={() => setOpenEditTaskModal(false)} />}
+            {isOpenEditTaskModal && <EditTaskForm handleModal={() => setOpenEditTaskModal(false)} />}
         </div>
     )
 }

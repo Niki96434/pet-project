@@ -6,12 +6,11 @@ import type { TaskType } from "../model/types";
 
 
 interface TaskListProps {
-    handleEditModal: () => void;
     handleModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
     tasks: TaskType[];
 }
 
-export function TaskList({ handleEditModal, handleModal, tasks }: TaskListProps) {
+export function TaskList({ handleModal, tasks }: TaskListProps) {
 
     return (
         <div className="list-container" onClick={(e) => e.stopPropagation()}>
@@ -19,7 +18,7 @@ export function TaskList({ handleEditModal, handleModal, tasks }: TaskListProps)
             <hr />
             <div className="task-list">
                 {tasks.map((task: TaskType) => {
-                    return <Task key={task.id} {...task} handleEditModal={handleEditModal} />
+                    return <Task key={task.id} {...task} />
                 })}
             </div>
         </div>

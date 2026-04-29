@@ -3,16 +3,12 @@ import type { TaskType } from '../model/types';
 import CategoryBadge from './CategoryBadge';
 import DropdownMenu from './DropdownMenu';
 
-interface TaskProp extends TaskType {
-    handleEditModal: () => void;
-}
-
-export default function Task({ id, title, category, deadlineDate, handleEditModal }: TaskProp) {
+export default function Task({ id, title, category, deadlineDate }: TaskType) {
 
     return (
         <>
             <div className="task-card">
-                <DropdownMenu id={id} handleEditModal={handleEditModal} />
+                <DropdownMenu id={id} />
                 <div className='task-top'>
                     <input className='task-checkbox' type='checkbox' />
                     <p className='task-title'>{title}</p>

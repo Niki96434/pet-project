@@ -5,13 +5,13 @@ import { useState } from "react";
 import ellipsis from './../../../assets/ellipsis.svg';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { taskApi } from './../../tasks/api/taskApi';
+import { useEditTaskStore } from '../model/store';
 
 interface DropdownMenuProps {
     id: number;
-    handleEditModal: () => void;
 }
 
-export default function DropdownMenu({ id, handleEditModal }: DropdownMenuProps) {
+export default function DropdownMenu({ id }: DropdownMenuProps) {
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
@@ -23,6 +23,14 @@ export default function DropdownMenu({ id, handleEditModal }: DropdownMenuProps)
             });
         }
     });
+
+    const updateTaskId = useEditTaskStore((state) => state.setTaskId);
+    const handleEditModal = useEditTaskStore((state) => state.handleEditModal)
+
+    const editClick = () => {
+        handleEditModal();
+        updateTaskId(id);
+    }
 
     return (
         <Stack gap="4" align="flex-end">
@@ -37,7 +45,7 @@ export default function DropdownMenu({ id, handleEditModal }: DropdownMenuProps)
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content>
-                            <Menu.Item value="edit" onClick={handleEditModal}>Редактировать</Menu.Item>
+                            <Menu.Item value="edit" onClick={editClick}>Редактировать</Menu.Item>
                             <Menu.Item value="del" onClick={() => mutationDelete.mutate()}>Удалить</Menu.Item>
                         </Menu.Content>
                     </Menu.Positioner>

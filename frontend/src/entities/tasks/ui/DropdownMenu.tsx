@@ -8,9 +8,10 @@ import { taskApi } from './../../tasks/api/taskApi';
 
 interface DropdownMenuProps {
     id: number;
+    handleEditModal: () => void;
 }
 
-export default function DropdownMenu({ id }: DropdownMenuProps) {
+export default function DropdownMenu({ id, handleEditModal }: DropdownMenuProps) {
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
@@ -21,10 +22,6 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
                 queryKey: ['todos'],
             });
         }
-    });
-
-    const mutationEdit = useMutation({
-        mutationFn: async () => { }
     });
 
     return (
@@ -40,7 +37,7 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content>
-                            <Menu.Item value="edit" onClick={() => mutationEdit.mutate()}>Редактировать</Menu.Item>
+                            <Menu.Item value="edit" onClick={handleEditModal}>Редактировать</Menu.Item>
                             <Menu.Item value="del" onClick={() => mutationDelete.mutate()}>Удалить</Menu.Item>
                         </Menu.Content>
                     </Menu.Positioner>

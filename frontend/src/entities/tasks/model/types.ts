@@ -18,6 +18,13 @@ export interface CreateTaskDto {
     category: CategoryType;
 }
 
+export interface UpdateTaskDto {
+    title?: string;
+    description?: string;
+    deadlineDate?: string;
+    category?: CategoryType;
+}
+
 export interface TaskListDto {
     data: {
         data: TaskType[];

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { TaskList } from "./../../../entities/tasks";
-import { TaskModalForm } from '../../../entities/tasks';
+import { AddTaskForm } from '../../../entities/tasks';
 import { taskApi } from '../../../entities/tasks/api/taskApi';
 import type { TaskType } from "../../../entities/tasks/model/types";
 import { useQuery } from "@tanstack/react-query";
-import './TaskPage.css';
+import './TasksPage.css';
+import { EditTaskForm } from "../../../entities/tasks/ui/EditTaskForm";
 
 export default function TasksPage() {
-    const [isOpen, setOpenModal] = useState<boolean>(false);
+    const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false);
+    const [isOpenEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false);
 
     const { data: tasks, status, error, isFetching } = useQuery<TaskType[]>({
         queryKey: ['todos'],
@@ -24,10 +26,11 @@ export default function TasksPage() {
     }
 
     return (
-        <div className='homepage-container' id='home-page-container' onClick={() => setOpenModal(false)}>
+        <div className='homepage-container' id='home-page-container' onClick={() => setOpenAddTaskModal(false)}>
             {isFetching && <div>Обновление...</div>}
-            <TaskList tasks={tasks ?? []} handleModal={() => setOpenModal(true)} />
-            {isOpen && <TaskModalForm handleModal={() => setOpenModal(false)} />}
+            <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} handleEditModal={() => setOpenEditTaskModal(true)} />
+            {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
+            {isOpenEditTaskModal && <EditTaskForm taskId={'1'} handleModal={() => setOpenEditTaskModal(false)} />}
         </div>
     )
 }

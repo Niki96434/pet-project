@@ -1,2 +1,2 @@
 export { TaskList } from './ui/TaskList';
-export { TaskModalForm } from './ui/TaskModalForm';
+export { AddTaskForm } from './ui/AddTaskForm';

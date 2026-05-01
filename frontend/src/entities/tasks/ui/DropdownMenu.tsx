@@ -5,7 +5,7 @@ import { useState } from "react";
 import ellipsis from './../../../assets/ellipsis.svg';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { taskApi } from './../../tasks/api/taskApi';
-import { useEditTaskStore } from '../model/store';
+import { openModal, setTaskId, useEditTaskStore } from '../model/store';
 
 interface DropdownMenuProps {
     id: number;
@@ -15,6 +15,10 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
+    useEditTaskStore(setTaskId(id));
+
+    const openEditModal = useEditTaskStore(openModal);
+
     const mutationDelete = useMutation({
         mutationFn: async () => {
             await taskApi.deleteTask(id.toString());
@@ -23,14 +27,6 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
             });
         }
     });
-
-    const updateTaskId = useEditTaskStore((state) => state.setTaskId);
-    const handleEditModal = useEditTaskStore((state) => state.handleEditModal)
-
-    const editClick = () => {
-        handleEditModal();
-        updateTaskId(id);
-    }
 
     return (
         <Stack gap="4" align="flex-end">
@@ -45,7 +41,7 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content>
-                            <Menu.Item value="edit" onClick={editClick}>Редактировать</Menu.Item>
+                            <Menu.Item value="edit" onClick={() => openEditModal()}>Редактировать</Menu.Item>
                             <Menu.Item value="del" onClick={() => mutationDelete.mutate()}>Удалить</Menu.Item>
                         </Menu.Content>
                     </Menu.Positioner>

@@ -1,10 +1,17 @@
+.form-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #666666;
+}
+
 .task-form-container {
     width: 408px;
     height: 502px;
-    border: 3px dashed #FD71AF;
+    border: 3px solid #FD71AF;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
     padding: 20px;
 }
 
@@ -28,9 +35,19 @@
     background-color: #ba5281;
 }
 
+.submit-button:disabled {
+    color: #66666680;
+    cursor: not-allowed;
+}
+
 .form-button-container {
     display: flex;
     flex-direction: row;
     gap: 10px;
     justify-content: flex-end;
+}
+
+.error-hint {
+    color: red;
+    font-weight: 700;
 }

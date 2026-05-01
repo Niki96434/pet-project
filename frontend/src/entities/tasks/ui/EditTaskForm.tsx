@@ -1,37 +1,51 @@
 import { FormInput } from '../../../shared';
 import CategorySelect from './CategorySelect';
-import { Categories, type CategoryType, type UpdateTaskDto } from '../model/types';
+import { Categories, type TaskType, type UpdateTaskDto } from '../model/types';
 import './EditTaskForm.css';
-import { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { taskApi } from '../api/taskApi';
-import { useQueryClient } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
-import { useEditTaskStore } from '../model/store';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useEditTaskStore, getTaskId } from '../model/store';
 import { toaster } from './../../../shared/lib/ui/toaster';
+import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 
-interface TaskModalFormProps {
-    handleModal: () => void;
+interface EditFormProps {
+    closeEditModal: () => void;
 }
 
-export function EditTaskForm({ handleModal }: TaskModalFormProps) {
+export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
     const queryClient = useQueryClient();
+    const id = useEditTaskStore(getTaskId);
 
-    const [startDate, setStartDate] = useState<Date | null>(new Date());
+    const { data: task, isLoading } = useQuery<TaskType>({
+        queryKey: ['todo', id],
+        queryFn: () => taskApi.getTaskById(id.toString()),
+        retry: 1,
+    });
 
-    const taskId = useEditTaskStore((state) => state.taskId);
+    const { register, handleSubmit, formState: { errors, isValid }, control } = useForm<UpdateTaskDto>({
+        values: task ? {
+            title: task.title || '',
+            description: task.description || '',
+            category: task.category || 'Misc',
+            deadlineDate: task.deadlineDate || '',
+        } : undefined,
+        delayError: 500,
+        mode: "onChange",
+    }
+    );
 
     const updateTaskMutation = useMutation({
         mutationFn: ({ id, data }: { id: string, data: UpdateTaskDto }) => taskApi.updateTask(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['todos'] });
-            handleModal();
             toaster.create({
                 title: 'Задача успешно сохранилась',
                 type: 'success'
             });
+            closeEditModal();
         },
         onError: () => {
             toaster.create({
@@ -41,28 +55,39 @@ export function EditTaskForm({ handleModal }: TaskModalFormProps) {
         }
     });
 
-    const updateTaskFields = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const freshFormData: UpdateTaskDto = {
-            title: formData.get('title') as string,
-            description: formData.get('description') as string,
-            category: formData.get('category') as CategoryType,
-            deadlineDate: (formData.get('deadlineDate') ?? '')?.toString().split('/').join('-'),
-        }
-        updateTaskMutation.mutate({ id: taskId.toString(), data: freshFormData });
+    const onSubmit: SubmitHandler<UpdateTaskDto> = (data) => {
+        updateTaskMutation.mutate({ id: id.toString(), data: data });
+        console.log(data);
+    };
+
+    if (isLoading) {
+        return <div>Загрузка..</div>
     }
 
     return (
-        <form id='task-form' className='task-form-container' onSubmit={(e) => updateTaskFields(e)} onClick={(e) => e.stopPropagation()}>
-            <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
-            <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
-            <CategorySelect categories={Categories} />
-            <DatePicker name={'deadlineDate'} selected={startDate} onChange={(date: Date | null) => setStartDate(date)} />
-            <div className='form-button-container'>
-                <button type='button' className='close-button' onClick={handleModal}>Cancel</button>
-                <button type='submit' className='submit-button' disabled={updateTaskMutation.isPending}>Save task</button>
-            </div>
-        </form >
+        <div className='form-wrapper'>
+            <form id='task-form' className='task-form-container' onSubmit={handleSubmit(onSubmit)} onClick={(e) => e.stopPropagation()}>
+                <FormInput placeholder={' Do my homework'} children={'Title'} {...register("title", {
+                    required: 'Поле обязательно к заполнению', minLength: {
+                        value: 5,
+                        message: 'Минимум 5 символов'
+                    }
+                })} />
+                <div className='error-hint'>{errors.title && `* ${errors.title?.message}`}</div>
+                <FormInput placeholder={' Prepare for the math test'} children={'Description'} {...register("description", {
+                    required: 'Описание должно быть заполнено'
+                })} />
+                <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>
+                <CategorySelect categories={Categories} {...register("category", { required: true })} />
+                <Controller control={control} name='deadlineDate' render={({ field }) => {
+                    console.log(field.value);
+                    return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? "")} value={field.value} onBlur={field.onBlur} />
+                }} />
+                <div className='form-button-container'>
+                    <button type='button' className='close-button' onClick={() => closeEditModal()}>Cancel</button>
+                    <button type='submit' className='submit-button' disabled={updateTaskMutation.isPending || !isValid}>Save task</button>
+                </div>
+            </form >
+        </div>
     )
 }

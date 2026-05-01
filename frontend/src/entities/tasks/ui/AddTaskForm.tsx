@@ -52,8 +52,8 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={(e) => createTask(e)} onClick={(e) => e.stopPropagation()}>
-                <FormInput placeholder={'Do my homework'} children={'Title'} name={'title'} />
-                <FormInput placeholder={'Prepare for the math test'} children={'Description'} name={'description'} />
+                <FormInput placeholder={'Do my homework'} children={'Title'} />
+                <FormInput placeholder={'Prepare for the math test'} children={'Description'} />
                 <CategorySelect categories={Categories} />
                 <DatePicker name={'deadlineDate'} selected={startDate} onChange={(date: Date | null) => setStartDate(date)} />
                 <div className='form-button-container'>

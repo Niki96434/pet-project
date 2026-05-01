@@ -6,15 +6,17 @@ import type { TaskType } from "../../../entities/tasks/model/types";
 import { useQuery } from "@tanstack/react-query";
 import './TasksPage.css';
 import { EditTaskForm } from "../../../entities/tasks/ui/EditTaskForm";
+import { useEditTaskStore } from "../../../entities/tasks/model/store";
 
 export default function TasksPage() {
     const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false);
-    const [isOpenEditTaskModal, setOpenEditTaskModal] = useState<boolean>(false);
+    const isOpenEditModal = useEditTaskStore((state) => state.isEditModalOpen);
+    const closeEditModal = useEditTaskStore((state) => state.handleCloseModal);
 
-    const { data: tasks, status, error, isFetching } = useQuery<TaskType[]>({
+    const { data: tasks, status, error } = useQuery<TaskType[]>({
         queryKey: ['todos'],
         queryFn: taskApi.getTasks,
-        retry: false,
+        retry: 1,
     });
 
     if (status === 'pending') {
@@ -25,12 +27,19 @@ export default function TasksPage() {
         return <span>Ошибка: {error.message}</span>
     }
 
+    const closeAllModal = () => {
+        if (isOpenAddTaskModal) {
+            setOpenAddTaskModal(false);
+        } else if (isOpenEditModal) {
+            closeEditModal()
+        }
+    }
+
     return (
-        <div className='homepage-container' id='home-page-container' onClick={() => setOpenAddTaskModal(false)}>
-            {isFetching && <div>Обновление...</div>}
-            <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} handleEditModal={() => setOpenEditTaskModal(true)} />
+        <div className='homepage-container' id='home-page-container' onClick={closeAllModal}>
+            <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
             {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
-            {isOpenEditTaskModal && <EditTaskForm handleModal={() => setOpenEditTaskModal(false)} />}
+            {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}
         </div>
     )
 }

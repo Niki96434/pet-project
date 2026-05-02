@@ -33,7 +33,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
             deadlineDate: task.deadlineDate || '',
         } : undefined,
         delayError: 500,
-        mode: "onChange",
+        mode: 'onChange',
     }
     );
 

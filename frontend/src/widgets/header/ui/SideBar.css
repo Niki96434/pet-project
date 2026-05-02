@@ -1,0 +1,15 @@
+.sidebar-wrapper {
+    width: 94px;
+    height: 100%;
+    background-color: rgb(235, 225, 243);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 38px;
+}
+
+.todos-icon,
+.dashboard-icon {
+    width: 45px;
+    height: 45px;
+}

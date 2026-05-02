@@ -1,0 +1,13 @@
+.spa-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-and-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.outlet-style {
+    margin: 27px;
+}

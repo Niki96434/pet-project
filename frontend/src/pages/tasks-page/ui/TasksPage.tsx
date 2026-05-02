@@ -4,7 +4,6 @@ import { AddTaskForm } from '../../../entities/tasks';
 import { taskApi } from '../../../entities/tasks/api/taskApi';
 import type { TaskType } from "../../../entities/tasks/model/types";
 import { useQuery } from "@tanstack/react-query";
-import './TasksPage.css';
 import { EditTaskForm } from "../../../entities/tasks/ui/EditTaskForm";
 import { useEditTaskStore } from "../../../entities/tasks/model/store";
 
@@ -36,7 +35,7 @@ export default function TasksPage() {
     }
 
     return (
-        <div className='homepage-container' id='home-page-container' onClick={closeAllModal}>
+        <div onClick={closeAllModal}>
             <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
             {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
             {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}

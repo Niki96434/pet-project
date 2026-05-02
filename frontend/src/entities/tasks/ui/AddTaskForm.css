@@ -40,9 +40,18 @@
     background-color: #ba5281;
 }
 
+.submit-button:disabled {
+    color: #666666b6;
+}
+
 .form-button-container {
     display: flex;
     flex-direction: row;
     gap: 10px;
     justify-content: flex-end;
+}
+
+input {
+    border: 1px solid #FD71AF;
+    border-radius: 3px;
 }

@@ -57,7 +57,6 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
     const onSubmit: SubmitHandler<UpdateTaskDto> = (data) => {
         updateTaskMutation.mutate({ id: id.toString(), data: data });
-        console.log(data);
     };
 
     if (isLoading) {
@@ -80,7 +79,6 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
                 <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>
                 <CategorySelect categories={Categories} {...register("category", { required: true })} />
                 <Controller control={control} name='deadlineDate' render={({ field }) => {
-                    console.log(field.value);
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? "")} value={field.value} onBlur={field.onBlur} />
                 }} />
                 <div className='form-button-container'>

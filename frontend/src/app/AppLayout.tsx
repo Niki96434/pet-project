@@ -4,17 +4,19 @@ import { Toaster } from "../shared/lib/ui/toaster";
 import { Outlet } from 'react-router';
 import { NavBar, SideBar } from '../widgets/header';
 import './AppLayout.css';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
 function AppLayout() {
+  const [isActive, setMenuActive] = useState<boolean>(false);
   return (
     <div className='spa-layout'>
-      <NavBar />
+      <NavBar isActive={isActive} setMenuActive={setMenuActive} />
       <QueryClientProvider client={queryClient}>
         <div className='sidebar-and-content'>
-          <SideBar />
-          <div className='outlet-style'>
+          <SideBar isActive={isActive} />
+          <div className={`outlet-style ${isActive ? '' : 'outlet-flex'}`}>
             <Outlet />
             <Toaster />
           </div>

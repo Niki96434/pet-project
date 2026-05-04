@@ -3,6 +3,7 @@
     height: 100vh;
     position: fixed;
     background-color: #666666;
+    z-index: 9999;
 }
 
 .task-form-container {

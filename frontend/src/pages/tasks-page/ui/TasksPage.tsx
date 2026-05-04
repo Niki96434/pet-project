@@ -14,7 +14,7 @@ export default function TasksPage() {
     const closeEditModal = useEditTaskStore((state) => state.handleCloseModal);
 
     const { handleSelectDay, value } = useTasksByDay();
-    const { tasks, status, error } = useTasksQuery();
+    const { tasks, status, error } = useTasksQuery(`${value[0].day > 10 ? value[0].day : '0' + value[0].day}.${value[0].month > 10 ? value[0].month : '0' + value[0].month}.${value[0].year}`);
 
     if (status === 'pending') {
         return <span>Загрузка...</span>
@@ -34,10 +34,12 @@ export default function TasksPage() {
 
     return (
         <div className='todos-page' onClick={closeAllModal}>
-            <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
-            <Calendar value={value} onValueChange={handleSelectDay} />
-            {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
+            <div className="list-and-calendar">
+                <Calendar value={value} onValueChange={handleSelectDay} />
+                <TaskList tasks={tasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
+            </div>
             {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}
+            {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
         </div>
     )
 }

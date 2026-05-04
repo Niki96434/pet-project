@@ -1,5 +1,12 @@
 .todos-page {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 15px;
+}
+
+.list-and-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

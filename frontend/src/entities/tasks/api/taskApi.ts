@@ -13,5 +13,6 @@ export const taskApi = {
     },
     updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Promise<TaskType>>(`/tasks/${id}`, task),
     deleteTask: (id: string) => apiClient.delete(`/tasks/${id}`),
+    filterTasks: (selectedDay) => void;
 }
 

@@ -16,7 +16,7 @@ function AppLayout() {
       <QueryClientProvider client={queryClient}>
         <div className='sidebar-and-content'>
           <SideBar isActive={isActive} />
-          <div className={`outlet-style ${isActive ? '' : 'outlet-flex'}`}>
+          <div className={`${isActive ? 'outlet-flex-right' : 'outlet-flex-left'}`}>
             <Outlet />
             <Toaster />
           </div>

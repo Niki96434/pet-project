@@ -4,6 +4,7 @@
     display: flex;
     gap: 3px;
     flex-direction: column;
+    margin: 15px;
 }
 
 .task-list {

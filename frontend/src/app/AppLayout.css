@@ -8,6 +8,12 @@
     flex-direction: row;
 }
 
-.outlet-style {
-    margin: 27px;
+.outlet-flex-left {
+    transform: translateX(-80px);
+    transition: transform 1s ease;
+}
+
+.outlet-flex-right {
+    transform: translateX(0);
+    transition: transform 1s ease;
 }

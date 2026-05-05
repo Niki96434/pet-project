@@ -1,14 +1,13 @@
-import { FormInput } from '../../../shared';
-import CategorySelect from './CategorySelect';
-import { Categories, type CreateTaskDto } from '../model/types';
+import { FormInput } from '../../../../shared/ui';
+import { CategorySelect } from '../../../../entities/tasks';
+import { Categories } from '../../../../entities/tasks/model/types';
 import './AddTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { taskApi } from '../api/taskApi';
-import { useQueryClient } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
-import { toaster } from "../../../shared/lib/ui/toaster";
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
+import { useForm } from 'react-hook-form';
+import { type CreateTaskDto } from '../../../../entities/tasks/model/types';
 
 interface AddTaskFormProps {
     handleModal: () => void;
@@ -16,25 +15,7 @@ interface AddTaskFormProps {
 
 export function AddTaskForm({ handleModal }: AddTaskFormProps) {
 
-    const queryClient = useQueryClient();
-
-    const mutationCreateTask = useMutation({
-        mutationFn: (newTask: CreateTaskDto) => taskApi.createTask(newTask),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] });
-            handleModal();
-            toaster.create({
-                title: 'Задача успешно добавилась!',
-                type: 'success',
-            });
-        },
-        onError: () => {
-            toaster.create({
-                title: 'Задачу не удалось добавить',
-                type: 'error',
-            });
-        }
-    });
+    const { mutationCreateTask, createTask } = useCreateTaskMutation({ handleModal });
 
     const { register, handleSubmit, formState: { errors, isValid }, control } = useForm<CreateTaskDto>({
         values: {
@@ -46,10 +27,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
         delayError: 500,
         mode: 'onChange'
     });
-    const createTask = (data: CreateTaskDto) => {
-        mutationCreateTask.mutate(data);
-    }
-
+    // добавить утилиту для форматирования даты, сейчас она зависит от страны
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(createTask)} onClick={(e) => e.stopPropagation()}>

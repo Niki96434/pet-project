@@ -7,7 +7,7 @@ interface CategorySelectProps {
     ref: RefCallBack;
 }
 
-export default function CategorySelect({ categories, ref, ...props }: CategorySelectProps) {
+export function CategorySelect({ categories, ref, ...props }: CategorySelectProps) {
     return (
         <>
             <label htmlFor='select-category'>Category

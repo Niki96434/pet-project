@@ -1,14 +1,12 @@
-import { FormInput } from '../../../shared';
-import CategorySelect from './CategorySelect';
-import { Categories, type TaskType, type UpdateTaskDto } from '../model/types';
+import { FormInput } from '../../../../shared/ui';
+import { CategorySelect, taskApi, Categories, type TaskType, type UpdateTaskDto } from './../../../../entities/tasks';
+import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { taskApi } from '../api/taskApi';
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { useEditTaskStore, getTaskId } from '../model/store';
-import { toaster } from './../../../shared/lib/ui/toaster';
+import { useQuery } from '@tanstack/react-query';
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
+import { useEditTaskMutation } from '../model/useEditTaskMutation';
 
 interface EditFormProps {
     closeEditModal: () => void;
@@ -16,7 +14,6 @@ interface EditFormProps {
 
 export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
-    const queryClient = useQueryClient();
     const id = useEditTaskStore(getTaskId);
 
     const { data: task, isLoading } = useQuery<TaskType>({
@@ -37,28 +34,11 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
     }
     );
 
-    const updateTaskMutation = useMutation({
-        mutationFn: ({ id, data }: { id: string, data: UpdateTaskDto }) => taskApi.updateTask(id, data),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] });
-            toaster.create({
-                title: 'Задача успешно сохранилась',
-                type: 'success'
-            });
-            closeEditModal();
-        },
-        onError: () => {
-            toaster.create({
-                title: 'Задачу не удалось сохранить',
-                type: 'error'
-            })
-        }
-    });
+    const { updateTaskMutation } = useEditTaskMutation({ closeEditModal });
 
     const onSubmit: SubmitHandler<UpdateTaskDto> = (data) => {
         updateTaskMutation.mutate({ id: id.toString(), data: data });
     };
-
     if (isLoading) {
         return <div>Загрузка..</div>
     }

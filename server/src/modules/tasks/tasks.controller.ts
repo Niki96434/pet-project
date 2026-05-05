@@ -3,13 +3,12 @@ import TaskService from './tasks.service.ts';
 
 class TaskController {
 
-    static getAllTasks(req: Request, res: Response) {
+    static getTasks(req: Request, res: Response) {
         try {
-            const tasks = TaskService.getAllTasks();
+            const tasks = TaskService.getTasks();
             res.status(200).json(tasks);
         } catch (e) {
-            res.status(500).json({ error: 'Server error' });
-
+            res.status(500).json({ error: (e instanceof Error) ? e.message : 'Server error' });
         }
     }
 

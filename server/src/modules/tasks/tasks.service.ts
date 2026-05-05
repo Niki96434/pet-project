@@ -3,9 +3,9 @@ import type Task from "./types.ts";
 
 class TaskService {
 
-    static getAllTasks() {
+    static getTasks() {
         try {
-            const tasks = TaskRepository.getAllTasks();
+            const tasks = TaskRepository.getTasks();
             return tasks
         } catch (e) {
             throw e

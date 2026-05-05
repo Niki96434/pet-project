@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3';
 
 export const db = new Database('tasks.db', {
-  verbose: console.log,
+  // verbose: console.log,
   timeout: 5000
 });
 

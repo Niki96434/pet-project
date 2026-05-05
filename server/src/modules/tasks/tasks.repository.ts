@@ -3,13 +3,14 @@ import type Task from './types.ts';
 
 
 class TaskRepository {
-     
-    static getAllTasks() {
-        const tasks = db.prepare('SELECT * FROM tasks').all();
-        if (!tasks) {
-            throw new Error('No tasks found')
+
+    static getTasks() {
+        try {
+            const tasks = db.prepare('SELECT * FROM tasks').all();
+            return tasks
+        } catch (e) {
+            throw e
         }
-        return tasks
     }
 
     static getTaskById(id: number) {
@@ -33,7 +34,6 @@ class TaskRepository {
     static updateTask(id: number, taskProperty: Task) {
         const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
             .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id));
-        console.log(updatedTask);
         if (!updatedTask) {
             throw new Error('network error')
         }

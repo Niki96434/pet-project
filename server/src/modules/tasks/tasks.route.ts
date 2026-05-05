@@ -3,7 +3,7 @@ import TaskController from './tasks.controller.ts';
 
 const route = express.Router();
 
-route.get('/tasks', TaskController.getAllTasks);
+route.get('/tasks', TaskController.getTasks);
 
 route.get('/tasks/:id', TaskController.getTaskById);
 

@@ -1,8 +1,10 @@
-export default interface Task {
+export const Categories = ['Health', 'Life', 'Work', 'Study', 'Misc'] as const;
+export type CategoryType = typeof Categories[number];
+
+export default interface TaskType {
     id: number;
     title: string;
     description?: string;
     deadlineDate: string;
-    category: 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
+    category: CategoryType;
 }
-

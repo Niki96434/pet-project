@@ -1,49 +1,63 @@
 import { db } from './db.ts';
-import type Task from './types.ts';
+import type TaskType from './types.ts';
 
+export interface ITaskRepository {
+    getTasks(): TaskType[];
+    getTaskById(id: number): TaskType | undefined;
+    createTask(task: TaskType): TaskType;
+    updateTask(id: number, task: TaskType): TaskType;
+    deleteTask(id: number): boolean;
+}
 
-class TaskRepository {
+class TaskRepository implements ITaskRepository {
 
-    static getTasks() {
+    getTasks() {
         try {
-            const tasks = db.prepare('SELECT * FROM tasks').all();
+            const tasks = db.prepare('SELECT * FROM tasks').all() as TaskType[] | [];
             return tasks
         } catch (e) {
             throw e
         }
     }
 
-    static getTaskById(id: number) {
-        const task = db.prepare('SELECT * FROM tasks WHERE id = ?')
-            .get(Number(id));
-        if (!task) {
-            throw new Error('Task not found')
+    getTaskById(id: number) {
+        try {
+            const task = db.prepare('SELECT * FROM tasks WHERE id = ?')
+                .get(Number(id)) as TaskType;
+            return task
+        } catch (e) {
+            throw e
         }
-        return task
     }
 
-    static createTask(task: Task) {
-        const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate) VALUES (?,?,?,?) RETURNING id, title, description, category, deadlineDate')
-            .get(task.title, task.description, task.category, task.deadlineDate);
-        if (!postState) {
-            throw new Error('network error')
+    createTask(task: TaskType) {
+        try {
+            const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate) VALUES (?,?,?,?) RETURNING id, title, description, category, deadlineDate')
+                .get(task.title, task.description, task.category, task.deadlineDate) as TaskType;
+            return postState
+        } catch (e) {
+            throw e
         }
-        return postState
     }
 
-    static updateTask(id: number, taskProperty: Task) {
-        const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
-            .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id));
-        if (!updatedTask) {
-            throw new Error('network error')
+    updateTask(id: number, taskProperty: TaskType) {
+        try {
+            const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
+                .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id)) as TaskType;
+            return updatedTask
+        } catch (e) {
+            throw e
         }
-        return updatedTask
     }
 
-    static deleteTask(id: number) {
-        const delState = db.prepare('DELETE FROM tasks WHERE id = ?');
-        delState.run(Number(id));
-        return true
+    deleteTask(id: number) {
+        try {
+            const delState = db.prepare('DELETE FROM tasks WHERE id = ?');
+            delState.run(Number(id));
+            return true
+        } catch (e) {
+            throw e
+        }
     }
 }
 

@@ -1,42 +1,56 @@
-import TaskRepository from "./tasks.repository.ts";
-import type Task from "./types.ts";
+import type TaskType from "./types.ts";
+import ITaskRepository from './tasks.repository.ts'
 
-class TaskService {
+export interface ITaskService {
+    getTasks(): TaskType[];
+    getTaskById(id: number): TaskType | undefined;
+    createTask(task: TaskType): TaskType;
+    updateTask(id: number, task: TaskType): TaskType;
+    deleteTask(id: number): boolean;
+}
 
-    static getTasks() {
+class TaskService implements ITaskService {
+
+    private taskRepository: ITaskRepository;
+
+    constructor(taskRepository: ITaskRepository) {
+        this.taskRepository = taskRepository
+    }
+
+    getTasks() {
         try {
-            const tasks = TaskRepository.getTasks();
+            const tasks = this.taskRepository.getTasks();
             return tasks
         } catch (e) {
             throw e
         }
     }
 
-    static getTaskById(id: number) {
+    getTaskById(id: number) {
         try {
-            const task = TaskRepository.getTaskById(id);
+            const task = this.taskRepository.getTaskById(id);
             return task
         } catch (e) {
             throw e
         }
     }
 
-    static createTask(task: Task) {
+    createTask(task: TaskType) {
         try {
-            const createdTask = TaskRepository.createTask(task);
-            return createdTask
+            const newTask = this.taskRepository.createTask(task);
+            return newTask
         } catch (e) {
             throw e
         }
     }
 
-    static updateTask(id: number, task: Task) {
-        const existedTask = TaskRepository.getTaskById(id);
+    updateTask(id: number, task: TaskType) {
+        const existedTask = this.taskRepository.getTaskById(id);
         if (!existedTask) {
             throw new Error(`task with ${id} not found`);
         }
         try {
-            const updatedTask = TaskRepository.updateTask(id, task);
+            const updatedTask = this.taskRepository.updateTask(id, task);
             console.log(updatedTask);
             return updatedTask
         } catch (e) {
@@ -44,12 +58,12 @@ class TaskService {
         }
     }
 
-    static deleteTask(id: number) {
-        const existedTask = TaskRepository.getTaskById(id);
+    deleteTask(id: number) {
+        const existedTask = this.taskRepository.getTaskById(id);
         if (!existedTask) {
             throw new Error('deleteTask function error')
         }
-        TaskRepository.deleteTask(id);
+        this.taskRepository.deleteTask(id);
         return true
     }
 }

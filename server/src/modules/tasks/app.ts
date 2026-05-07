@@ -1,6 +1,7 @@
 import express from 'express';
 import tasksRouter from './tasks.route.ts';
 import cors from 'cors';
+import { errorHandler } from './tasks.middleware.ts';
 
 const PORT = '3000';
 
@@ -11,9 +12,7 @@ app.use(cors());
 
 app.use('/api', tasksRouter);
 
-app.use((req, res) => {
-    res.status(404).json({ error: 'Nothing found' });
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`The server is running on port=${PORT}`)

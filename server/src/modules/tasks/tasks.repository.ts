@@ -1,12 +1,13 @@
 import { db } from './db.ts';
 import type TaskType from './types.ts';
+import { DBError } from './customErrors.ts';
 
 export interface ITaskRepository {
     getTasks(): TaskType[];
     getTaskById(id: number): TaskType | undefined;
     createTask(task: TaskType): TaskType;
     updateTask(id: number, task: TaskType): TaskType;
-    deleteTask(id: number): boolean;
+    deleteTask(id: number): boolean | undefined;
 }
 
 class TaskRepository implements ITaskRepository {
@@ -15,8 +16,8 @@ class TaskRepository implements ITaskRepository {
         try {
             const tasks = db.prepare('SELECT * FROM tasks').all() as TaskType[] | [];
             return tasks
-        } catch (e) {
-            throw e
+        } catch {
+            throw new DBError('Ошибка получения всех задач')
         }
     }
 
@@ -25,8 +26,8 @@ class TaskRepository implements ITaskRepository {
             const task = db.prepare('SELECT * FROM tasks WHERE id = ?')
                 .get(Number(id)) as TaskType;
             return task
-        } catch (e) {
-            throw e
+        } catch {
+            throw new DBError('Ошибка получения задачи по id')
         }
     }
 
@@ -35,8 +36,8 @@ class TaskRepository implements ITaskRepository {
             const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate) VALUES (?,?,?,?) RETURNING id, title, description, category, deadlineDate')
                 .get(task.title, task.description, task.category, task.deadlineDate) as TaskType;
             return postState
-        } catch (e) {
-            throw e
+        } catch {
+            throw new DBError('Ошибка создания задачи')
         }
     }
 
@@ -45,20 +46,21 @@ class TaskRepository implements ITaskRepository {
             const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
                 .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id)) as TaskType;
             return updatedTask
-        } catch (e) {
-            throw e
+        } catch {
+            throw new DBError('Ошибка обновления задачи')
         }
     }
 
     deleteTask(id: number) {
         try {
             const delState = db.prepare('DELETE FROM tasks WHERE id = ?');
-            delState.run(Number(id));
+            delState.run(id);
             return true
         } catch (e) {
-            throw e
+            throw new DBError('Ошибка удаления задачи');
         }
     }
 }
 
 export default TaskRepository
+

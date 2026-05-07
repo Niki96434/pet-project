@@ -1,5 +1,6 @@
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import type ITaskService from './tasks.service.ts';
+import { TasksValidator } from './tasks.validator.ts';
 
 class TaskController {
 
@@ -9,65 +10,63 @@ class TaskController {
         this.taskService = taskService;
     }
 
-    getTasks(req: Request, res: Response) {
+    getTasks(req: Request, res: Response, next: NextFunction) {
         try {
             const tasks = this.taskService.getTasks();
             res.status(200).json(tasks);
         } catch (e) {
-            res.status(500).json({ error: (e instanceof Error) ? e.message : 'Server error' });
+            next(e);
         }
     }
 
-    getTaskById(req: Request, res: Response) {
-        const { id } = req.params;
-        if (!Number(id)) {
-            return res.status(404).json({ error: 'task not found' })
-        }
+    getTaskById(req: Request, res: Response, next: NextFunction) {
         try {
+            const { id } = req.params;
+            TasksValidator.checkTaskId(Number(id));
+
             const task = this.taskService.getTaskById(Number(id));
             res.status(200).json(task);
         } catch (e) {
-            res.status(500).json({ error: 'Server error' });
+            next(e);
         }
     }
 
-    createTask(req: Request, res: Response) {
-        const task = req.body;
-        if (task.title.trim() === '' || task.title.length > 30) {
-            return res.status(400).json({ error: 'task have invalid data' });
-        }
+    createTask(req: Request, res: Response, next: NextFunction) {
         try {
+            const task = req.body;
+            TasksValidator.isValidTaskFields(task);
+
             const newTask = this.taskService.createTask(task);
             res.status(200).json(newTask);
         } catch (e) {
-            res.status(500).json({ error: 'Server error' });
+            next(e);
         }
     }
 
-    updateTask(req: Request, res: Response) {
-        const { id } = req.params;
-        const task = req.body;
-        if (!Number(id)) {
-            return res.status(400).json({ error: 'id is not valid' });
-        }
+    updateTask(req: Request, res: Response, next: NextFunction) {
         try {
+            const { id } = req.params;
+            const task = req.body;
+
+            TasksValidator.checkTaskId(Number(id));
+            TasksValidator.isValidTaskFields(task);
+
             const updatedTask = this.taskService.updateTask(Number(id), task);
             res.status(200).json(updatedTask);
         } catch (e) {
-            res.status(500).json({ error: 'Server error' });
+            next(e);
         }
     }
 
-    deleteTask(req: Request, res: Response) {
-        const { id } = req.params;
-        if (!Number(id)) {
-            return res.status(400).json({ error: 'task not exist' })
-        }
+    deleteTask(req: Request, res: Response, next: NextFunction) {
         try {
+            const { id } = req.params;
+            TasksValidator.checkTaskId(Number(id));
+
             this.taskService.deleteTask(Number(id));
             res.status(204).json({ message: 'Task deleted successfully' });
         } catch (e) {
-            res.status(500).json({ error: 'Server error' });
+            next(e);
         }
     }
 }

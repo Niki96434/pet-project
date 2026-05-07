@@ -1,11 +1,12 @@
 import type TaskType from "./types.ts";
 import ITaskRepository from './tasks.repository.ts'
+import { isExistTaskError } from "./customErrors.ts";
 
 export interface ITaskService {
     getTasks(): TaskType[];
     getTaskById(id: number): TaskType | undefined;
     createTask(task: TaskType): TaskType;
-    updateTask(id: number, task: TaskType): TaskType;
+    updateTask(id: number, task: TaskType): TaskType | undefined;
     deleteTask(id: number): boolean;
 }
 
@@ -45,26 +46,30 @@ class TaskService implements ITaskService {
     }
 
     updateTask(id: number, task: TaskType) {
-        const existedTask = this.taskRepository.getTaskById(id);
-        if (!existedTask) {
-            throw new Error(`task with ${id} not found`);
-        }
         try {
+            const existedTask = this.taskRepository.getTaskById(id);
+            if (!existedTask) {
+                throw new isExistTaskError(`no task with ${id}`);
+            }
             const updatedTask = this.taskRepository.updateTask(id, task);
-            console.log(updatedTask);
             return updatedTask
+
         } catch (e) {
             throw e
         }
     }
 
     deleteTask(id: number) {
-        const existedTask = this.taskRepository.getTaskById(id);
-        if (!existedTask) {
-            throw new Error('deleteTask function error')
+        try {
+            const existedTask = this.taskRepository.getTaskById(id);
+            if (!existedTask) {
+                throw new isExistTaskError(`no task with ${id}`);
+            }
+            this.taskRepository.deleteTask(id);
+            return true
+        } catch (e) {
+            throw e
         }
-        this.taskRepository.deleteTask(id);
-        return true
     }
 }
 

@@ -1,5 +1,5 @@
 import { FormInput } from '../../../../shared/ui';
-import { CategorySelect } from '../../../../entities/tasks';
+import { SelectField } from '../../../../entities/tasks';
 import { Categories } from '../../../../entities/tasks/model/types';
 import './AddTaskForm.css';
 import DatePicker from "react-datepicker";
@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from 'react-hook-form';
 import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
 import { useForm } from 'react-hook-form';
-import { type CreateTaskDto } from '../../../../entities/tasks/model/types';
+import { type CreateTaskDto } from '../../../../entities/tasks';
 
 interface AddTaskFormProps {
     handleModal: () => void;
@@ -44,7 +44,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
                     }
                 )} placeholder={'Prepare for the math test'} children={'Description'} />
                 <span className='error-hint'> {errors.description && ('*' + errors.description.message || '* Error')}</span>
-                <CategorySelect {...register('category')} categories={Categories} />
+                <SelectField {...register('category')} selectName={'category'} options={Categories}>Categories</SelectField>
                 <Controller name="deadlineDate" rules={{ required: true }} control={control} render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? '')} value={field.value} onBlur={field.onBlur} />
                 }} />

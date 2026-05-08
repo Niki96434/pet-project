@@ -1,7 +1,7 @@
 export { TaskList } from './ui/TaskList';
-export { CategorySelect } from './ui/CategorySelect';
+export { SelectField } from '../../shared/ui/SelectField';
 
 export { taskApi } from './api/taskApi';
 
-export { Categories } from './model/types';
-export type { TaskType, UpdateTaskDto } from './model/types';
+export { Categories, Status } from './model/types';
+export type { TaskType, UpdateTaskDto, CreateTaskDto, statusType } from './model/types';

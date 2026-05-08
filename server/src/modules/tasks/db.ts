@@ -14,12 +14,13 @@ try {
     title VARCHAR(30) NOT NULL,
     description TEXT,
     category TEXT NOT NULL,
-    deadlineDate TEXT NOT NULL
+    deadlineDate TEXT NOT NULL,
+    progress_status VARCHAR(20) NOT NULL DEFAULT 'not_completed',
   );
   `);
 } catch (err) {
   if (err instanceof Error) {
-    console.error(err.stack)
+    console.error(err.message)
   }
 }
 

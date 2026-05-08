@@ -2,7 +2,7 @@ import { type DateValue, type DatePickerValueChangeDetails, parseDate } from "@c
 import { useState } from "react";
 
 export function useTasksByDay() {
-    const [value, setValue] = useState<DateValue[]>([parseDate('2026-05-04')]);
+    const [value, setValue] = useState<DateValue[]>([parseDate('2026-05-08')]);
 
     const handleSelectDay = (details: DatePickerValueChangeDetails) => {
         setValue(details.value);

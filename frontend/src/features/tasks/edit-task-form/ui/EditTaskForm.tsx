@@ -1,5 +1,5 @@
 import { FormInput } from '../../../../shared/ui';
-import { CategorySelect, taskApi, Categories, type TaskType, type UpdateTaskDto } from './../../../../entities/tasks';
+import { SelectField, taskApi, Categories, type TaskType, type UpdateTaskDto, Status } from './../../../../entities/tasks';
 import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
@@ -28,6 +28,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
             description: task.description || '',
             category: task.category || 'Misc',
             deadlineDate: task.deadlineDate || '',
+            status: task.status || 'not_completed',
         } : undefined,
         delayError: 500,
         mode: 'onChange',
@@ -57,7 +58,8 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
                     required: 'Описание должно быть заполнено'
                 })} />
                 <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>
-                <CategorySelect categories={Categories} {...register("category", { required: true })} />
+                <SelectField options={Categories} selectName={'category'}  {...register("category", { required: true })}>Categories</SelectField>
+                <SelectField {...register('status')} selectName={'status'} options={Status}>Progress status</SelectField>
                 <Controller control={control} name='deadlineDate' render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? "")} value={field.value} onBlur={field.onBlur} />
                 }} />

@@ -27,7 +27,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
         delayError: 500,
         mode: 'onChange'
     });
-    // добавить утилиту для форматирования даты, сейчас она зависит от страны
+
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(createTask)} onClick={(e) => e.stopPropagation()}>
@@ -37,9 +37,13 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
                         message: 'Минимум 5 символов'
                     }, required: 'Поле обязательно к заполнению'
                 })} placeholder={'Do my homework'} children={'Title'} />
-                {errors.title && (errors.title.message || 'Error')}
-                <FormInput {...register('description',)} placeholder={'Prepare for the math test'} children={'Description'} />
-                {errors.description && (errors.description.message || 'Error')}
+                <span className='error-hint'>* {errors.title && (errors.title.message || 'Error')}</span>
+                <FormInput {...register('description',
+                    {
+                        required: 'Описание должно быть заполнено',
+                    }
+                )} placeholder={'Prepare for the math test'} children={'Description'} />
+                <span className='error-hint'>* {errors.description && (errors.description.message || 'Error')}</span>
                 <CategorySelect {...register('category')} categories={Categories} />
                 <Controller name="deadlineDate" rules={{ required: true }} control={control} render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? '')} value={field.value} onBlur={field.onBlur} />

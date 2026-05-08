@@ -56,3 +56,8 @@ input {
     border: 1px solid #FD71AF;
     border-radius: 3px;
 }
+
+.error-hint {
+    color: red;
+    font-weight: 700;
+}

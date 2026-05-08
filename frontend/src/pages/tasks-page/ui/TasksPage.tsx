@@ -16,6 +16,7 @@ export default function TasksPage() {
     const closeEditModal = useEditTaskStore((state) => state.handleCloseModal);
 
     const { handleSelectDay, value } = useTasksByDay();
+    console.log(value);
     const { tasks, status, error } = useAllTasksQuery();
     const filteredTasks = filterTasksByDay(tasks ?? [], value);
 

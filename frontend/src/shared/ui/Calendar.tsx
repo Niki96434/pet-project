@@ -9,8 +9,8 @@ interface CalendarProps {
 
 export function Calendar({ value, onValueChange }: CalendarProps) {
     return (
-        <DatePicker.Root value={value} onValueChange={onValueChange} inline size='xl' >
-            <DatePicker.Content>
+        <DatePicker.Root selectionMode="range" inline width="fit-content" value={value} onValueChange={onValueChange}>
+            <DatePicker.Content unstyled>
                 <DatePicker.View view="day">
                     <DatePicker.Header />
                     <DatePicker.DayTable />

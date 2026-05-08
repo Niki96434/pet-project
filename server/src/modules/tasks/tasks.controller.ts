@@ -2,48 +2,42 @@ import type { NextFunction, Request, Response } from 'express';
 import type ITaskService from './tasks.service.ts';
 import { TasksValidator } from './tasks.validator.ts';
 
-class TaskController {
+function TaskController(taskService: ITaskService) {
 
-    private taskService: ITaskService;
-
-    constructor(taskService: ITaskService) {
-        this.taskService = taskService;
-    }
-
-    getTasks(req: Request, res: Response, next: NextFunction) {
+    const getTasks = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const tasks = this.taskService.getTasks();
+            const tasks = taskService.getTasks();
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
         }
     }
 
-    getTaskById(req: Request, res: Response, next: NextFunction) {
+    const getTaskById = (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params;
             TasksValidator.checkTaskId(Number(id));
 
-            const task = this.taskService.getTaskById(Number(id));
+            const task = taskService.getTaskById(Number(id));
             res.status(200).json(task);
         } catch (e) {
             next(e);
         }
     }
 
-    createTask(req: Request, res: Response, next: NextFunction) {
+    const createTask = (req: Request, res: Response, next: NextFunction) => {
         try {
             const task = req.body;
             TasksValidator.isValidTaskFields(task);
 
-            const newTask = this.taskService.createTask(task);
+            const newTask = taskService.createTask(task);
             res.status(200).json(newTask);
         } catch (e) {
             next(e);
         }
     }
 
-    updateTask(req: Request, res: Response, next: NextFunction) {
+    const updateTask = (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params;
             const task = req.body;
@@ -51,24 +45,25 @@ class TaskController {
             TasksValidator.checkTaskId(Number(id));
             TasksValidator.isValidTaskFields(task);
 
-            const updatedTask = this.taskService.updateTask(Number(id), task);
+            const updatedTask = taskService.updateTask(Number(id), task);
             res.status(200).json(updatedTask);
         } catch (e) {
             next(e);
         }
     }
 
-    deleteTask(req: Request, res: Response, next: NextFunction) {
+    const deleteTask = (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params;
             TasksValidator.checkTaskId(Number(id));
 
-            this.taskService.deleteTask(Number(id));
+            taskService.deleteTask(Number(id));
             res.status(204).json({ message: 'Task deleted successfully' });
         } catch (e) {
             next(e);
         }
     }
+    return { getTasks, getTaskById, createTask, updateTask, deleteTask }
 }
 
 export default TaskController

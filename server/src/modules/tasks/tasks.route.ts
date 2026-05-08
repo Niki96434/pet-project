@@ -5,18 +5,17 @@ import TaskRepository from './tasks.repository.ts';
 
 const route = express.Router();
 
-const taskRepository = new TaskRepository();
-const taskService = new TaskService(taskRepository);
-const taskController = new TaskController(taskService);
+const taskService = new TaskService(new TaskRepository());
+const { getTasks, getTaskById, createTask, updateTask, deleteTask } = TaskController(taskService);
 
-route.get('/tasks', taskController.getTasks.bind(taskController));
+route.get('/tasks', getTasks);
 
-route.get('/tasks/:id', taskController.getTaskById.bind(taskController));
+route.get('/tasks/:id', getTaskById);
 
-route.post('/tasks', taskController.createTask.bind(taskController));
+route.post('/tasks', createTask);
 
-route.put('/tasks/:id', taskController.updateTask.bind(taskController));
+route.put('/tasks/:id', updateTask);
 
-route.delete('/tasks/:id', taskController.deleteTask.bind(taskController));
+route.delete('/tasks/:id', deleteTask);
 
 export default route;

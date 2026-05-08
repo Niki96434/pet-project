@@ -19,57 +19,36 @@ class TaskService implements ITaskService {
     }
 
     getTasks() {
-        try {
-            const tasks = this.taskRepository.getTasks();
-            return tasks
-        } catch (e) {
-            throw e
-        }
+        const tasks = this.taskRepository.getTasks();
+        return tasks
     }
 
     getTaskById(id: number) {
-        try {
-            const task = this.taskRepository.getTaskById(id);
-            return task
-        } catch (e) {
-            throw e
-        }
+        const task = this.taskRepository.getTaskById(id);
+        return task
     }
 
     createTask(task: TaskType) {
-        try {
-            const newTask = this.taskRepository.createTask(task);
-            return newTask
-        } catch (e) {
-            throw e
-        }
+        const newTask = this.taskRepository.createTask(task);
+        return newTask
     }
 
     updateTask(id: number, task: TaskType) {
-        try {
-            const existedTask = this.taskRepository.getTaskById(id);
-            if (!existedTask) {
-                throw new isExistTaskError(`no task with ${id}`);
-            }
-            const updatedTask = this.taskRepository.updateTask(id, task);
-            return updatedTask
-
-        } catch (e) {
-            throw e
+        const existedTask = this.taskRepository.getTaskById(id);
+        if (!existedTask) {
+            throw new isExistTaskError(`no task with ${id}`);
         }
+        const updatedTask = this.taskRepository.updateTask(id, task);
+        return updatedTask
     }
 
     deleteTask(id: number) {
-        try {
-            const existedTask = this.taskRepository.getTaskById(id);
-            if (!existedTask) {
-                throw new isExistTaskError(`no task with ${id}`);
-            }
-            this.taskRepository.deleteTask(id);
-            return true
-        } catch (e) {
-            throw e
+        const existedTask = this.taskRepository.getTaskById(id);
+        if (!existedTask) {
+            throw new isExistTaskError(`no task with ${id}`);
         }
+        this.taskRepository.deleteTask(id);
+        return true
     }
 }
 

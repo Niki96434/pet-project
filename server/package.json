@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "test": "",
-    "start": "ts-node src/app.ts",
+    "start": "ts-node src/modules/tasks/app.ts",
     "dev": "nodemon src/modules/tasks/app.ts"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
-    "@types/cors": "^2.8.19"
+    "@types/cors": "^2.8.19",
+    "ts-node": "^10.9.2"
   }
 }

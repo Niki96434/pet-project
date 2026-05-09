@@ -15,7 +15,7 @@ try {
     description TEXT,
     category TEXT NOT NULL,
     deadlineDate TEXT NOT NULL,
-    progress_status VARCHAR(20) NOT NULL DEFAULT 'not_completed',
+    progress_status VARCHAR(20) NOT NULL DEFAULT 'not_completed'
   );
   `);
 } catch (err) {

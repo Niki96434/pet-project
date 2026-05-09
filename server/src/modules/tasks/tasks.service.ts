@@ -2,54 +2,55 @@ import type TaskType from "./types.ts";
 import ITaskRepository from './tasks.repository.ts'
 import { isExistTaskError } from "./customErrors.ts";
 
-export interface ITaskService {
-    getTasks(): TaskType[];
-    getTaskById(id: number): TaskType | undefined;
-    createTask(task: TaskType): TaskType;
-    updateTask(id: number, task: TaskType): TaskType | undefined;
-    deleteTask(id: number): boolean;
+interface ITaskRepository {
+    repo: {
+        getTasks(): TaskType[];
+        getTaskById(id: number): TaskType | undefined;
+        createTask(task: TaskType): TaskType;
+        updateTask(id: number, task: TaskType): TaskType;
+        deleteTask(id: number): boolean | undefined;
+    }
 }
 
-class TaskService implements ITaskService {
+function TaskService({ repo }: ITaskRepository) {
 
-    private taskRepository: ITaskRepository;
-
-    constructor(taskRepository: ITaskRepository) {
-        this.taskRepository = taskRepository
-    }
-
-    getTasks() {
-        const tasks = this.taskRepository.getTasks();
+    const getTasks = () => {
+        const tasks = repo.getTasks();
         return tasks
     }
 
-    getTaskById(id: number) {
-        const task = this.taskRepository.getTaskById(id);
+    const getTaskById = (id: number) => {
+        const task = repo.getTaskById(id);
+        if (!task) {
+            throw new isExistTaskError(`no task with ${id}`);
+        }
         return task
     }
 
-    createTask(task: TaskType) {
-        const newTask = this.taskRepository.createTask(task);
+    const createTask = (task: TaskType) => {
+        const newTask = repo.createTask(task);
         return newTask
     }
 
-    updateTask(id: number, task: TaskType) {
-        const existedTask = this.taskRepository.getTaskById(id);
+    const updateTask = (id: number, task: TaskType) => {
+        const existedTask = repo.getTaskById(id);
         if (!existedTask) {
             throw new isExistTaskError(`no task with ${id}`);
         }
-        const updatedTask = this.taskRepository.updateTask(id, task);
+        const updatedTask = repo.updateTask(id, task);
         return updatedTask
     }
 
-    deleteTask(id: number) {
-        const existedTask = this.taskRepository.getTaskById(id);
+    const deleteTask = (id: number) => {
+        const existedTask = repo.getTaskById(id);
         if (!existedTask) {
             throw new isExistTaskError(`no task with ${id}`);
         }
-        this.taskRepository.deleteTask(id);
+        repo.deleteTask(id);
         return true
     }
+
+    return { getTasks, getTaskById, createTask, updateTask, deleteTask }
 }
 
 export default TaskService

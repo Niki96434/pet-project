@@ -1,8 +1,19 @@
 import type { NextFunction, Request, Response } from 'express';
 import type ITaskService from './tasks.service.ts';
 import { TasksValidator } from './tasks.validator.ts';
+import type TaskType from './types.ts';
 
-function TaskController(taskService: ITaskService) {
+interface ITaskService {
+    taskService: {
+        getTasks(): TaskType[];
+        getTaskById(id: number): TaskType | undefined;
+        createTask(task: TaskType): TaskType;
+        updateTask(id: number, task: TaskType): TaskType | undefined;
+        deleteTask(id: number): boolean;
+    }
+}
+
+function TaskController({ taskService }: ITaskService) {
 
     const getTasks = (req: Request, res: Response, next: NextFunction) => {
         try {

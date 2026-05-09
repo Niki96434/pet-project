@@ -20,7 +20,7 @@ try {
   `);
 } catch (err) {
   if (err instanceof Error) {
-    console.error(err.message)
+    console.error(err.stack)
   }
 }
 

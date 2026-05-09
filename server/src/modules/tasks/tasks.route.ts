@@ -5,8 +5,9 @@ import TaskRepository from './tasks.repository.ts';
 
 const route = express.Router();
 
-const taskService = new TaskService(new TaskRepository());
-const { getTasks, getTaskById, createTask, updateTask, deleteTask } = TaskController(taskService);
+const repo = TaskRepository();
+const taskService = TaskService({ repo });
+const { getTasks, getTaskById, createTask, updateTask, deleteTask } = TaskController({ taskService });
 
 route.get('/tasks', getTasks);
 

@@ -12,7 +12,7 @@ export function FormInput({ children, placeholder, ref, ...props }: FormInputPro
     return (
         <>
             <label>{children}
-                <input required {...props} ref={ref} type='text' form='task-form' placeholder={placeholder} className="form-input" />
+                <input autoComplete='off' required {...props} ref={ref} type='text' form='task-form' placeholder={placeholder} className="form-input" />
             </label>
         </>
     )

@@ -49,7 +49,6 @@ v1.0.0-beta
 1. Клонируйте репозиторий:
    ```bash
    https://github.com/Niki96434/pet-project.git
-   cd personal-task-manager
 2. Запуск в корневой папке:
    sudo docker-compose up
 

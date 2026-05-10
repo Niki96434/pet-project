@@ -6,7 +6,6 @@ const filterByDay = (task: TaskType, date: DateValue[]) => {
     const lastDate = new Date(date[1] ? `${date[1].year}-${date[1].month > 10 ? date[1].month : '0' + date[1].month}-${date[1].day > 10 ? date[1].day : '0' + date[1].day}` : firstDate);
     const taskDate = task.deadlineDate.split('.');
     const newISOFormatDate = new Date(taskDate[2] + '-' + taskDate[1] + '-' + taskDate[0]);
-    console.log(newISOFormatDate);
     if (newISOFormatDate >= firstDate && newISOFormatDate <= lastDate) {
         return true
     }

@@ -46,7 +46,8 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
                 <span className='error-hint'> {errors.description && ('*' + errors.description.message || '* Error')}</span>
                 <SelectField {...register('category')} selectName={'category'} options={Categories}>Categories</SelectField>
                 <Controller name="deadlineDate" rules={{ required: true }} control={control} render={({ field }) => {
-                    return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? '')} value={field.value} onBlur={field.onBlur} />
+                    return <DatePicker onChange={(date: Date | null) => field.onChange(date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,
+                        '0')}-${String(date.getDate()).padStart(2, '0')}` : "")} value={field.value} onBlur={field.onBlur} />
                 }} />
                 <div className='form-button-container'>
                     <button type='button' className='close-button' onClick={handleModal}>Cancel</button>

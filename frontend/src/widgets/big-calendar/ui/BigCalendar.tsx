@@ -13,7 +13,6 @@ import '@schedule-x/theme-default/dist/index.css';
 import { useState, useEffect } from 'react';
 import { type TaskType } from '../../../entities/tasks/model/types';
 import './BigCalendar.css';
-import { formatDateForCalendar } from '../lib/formatDateForCalendar';
 
 interface BigCalendarProps {
     tasks: TaskType[]
@@ -35,8 +34,8 @@ export function BigCalendar({ tasks }: BigCalendarProps) {
         const events = tasks.map((task) => ({
             id: task.id.toString(),
             title: task.title,
-            start: Temporal.PlainDate.from(formatDateForCalendar(task.deadlineDate)),
-            end: Temporal.PlainDate.from(formatDateForCalendar(task.deadlineDate)),
+            start: Temporal.PlainDate.from(task.deadlineDate),
+            end: Temporal.PlainDate.from(task.deadlineDate),
         }));
         eventsService.set(events);
     }, [tasks, eventsService])

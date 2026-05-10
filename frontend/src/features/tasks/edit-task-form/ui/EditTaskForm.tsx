@@ -61,7 +61,8 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
                 <SelectField options={Categories} selectName={'category'}  {...register("category", { required: true })}>Categories</SelectField>
                 <SelectField {...register('status')} selectName={'status'} options={Status}>Progress status</SelectField>
                 <Controller control={control} name='deadlineDate' render={({ field }) => {
-                    return <DatePicker onChange={(date: Date | null) => field.onChange(date?.toLocaleDateString() ?? "")} value={field.value} onBlur={field.onBlur} />
+                    return <DatePicker onChange={(date: Date | null) => field.onChange(date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,
+                        '0')}-${String(date.getDate()).padStart(2, '0')}` : "")} value={field.value} onBlur={field.onBlur} />
                 }} />
                 <div className='form-button-container'>
                     <button type='button' className='close-button' onClick={() => closeEditModal()}>Cancel</button>

@@ -1,5 +1,5 @@
-import { FormInput } from '../../../../shared/ui';
-import { SelectField, taskApi, Categories, type TaskType, type UpdateTaskDto, Status } from './../../../../entities/tasks';
+import { FormInput, SelectField } from '../../../../shared/ui';
+import { taskApi, Categories, type TaskType, type UpdateTaskDto, Status } from './../../../../entities/tasks';
 import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";

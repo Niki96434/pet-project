@@ -37,7 +37,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
                         message: 'Минимум 5 символов'
                     }, required: 'Поле обязательно к заполнению'
                 })} placeholder={'Do my homework'} children={'Title'} />
-                <span className='error-hint'>{errors.title && ('* ' + errors.title.message || '* Error')}</span>
+                <span title='error-hint' className='error-hint'>{errors.title && ('* ' + errors.title.message || '* Error')}</span>
                 <FormInput {...register('description',
                     {
                         required: 'Описание должно быть заполнено',

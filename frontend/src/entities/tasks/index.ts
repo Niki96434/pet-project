@@ -1,5 +1,4 @@
 export { TaskList } from './ui/TaskList';
-export { SelectField } from '../../shared/ui/SelectField';
 
 export { taskApi } from './api/taskApi';
 

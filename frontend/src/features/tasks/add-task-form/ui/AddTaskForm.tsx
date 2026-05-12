@@ -1,5 +1,5 @@
 import { FormInput } from '../../../../shared/ui';
-import { SelectField } from '../../../../entities/tasks';
+import { SelectField } from '../../../../shared/ui/SelectField';
 import { Categories } from '../../../../entities/tasks/model/types';
 import './AddTaskForm.css';
 import DatePicker from "react-datepicker";

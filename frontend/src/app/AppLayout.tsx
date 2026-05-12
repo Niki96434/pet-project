@@ -11,9 +11,9 @@ const queryClient = new QueryClient();
 function AppLayout() {
   const [isActive, setMenuActive] = useState<boolean>(false);
   return (
-    <div className='spa-layout'>
-      <NavBar isActive={isActive} setMenuActive={setMenuActive} />
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <div className='spa-layout'>
+        <NavBar isActive={isActive} setMenuActive={setMenuActive} />
         <div className='sidebar-and-content'>
           <SideBar isActive={isActive} />
           <div className={`${isActive ? 'outlet-flex-right' : 'outlet-flex-left'}`}>
@@ -22,8 +22,8 @@ function AppLayout() {
           </div>
         </div>
         <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </div>
+      </div>
+    </QueryClientProvider>
   )
 }
 

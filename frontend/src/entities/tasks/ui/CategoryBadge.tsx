@@ -15,7 +15,5 @@ const categoryList = {
 
 export default function CategoryBadge({ category }: CategoryBadgeProps) {
     const { color, backgroundColor } = categoryList[category] ?? categoryList.Misc;
-    return (
-        <div className="category-badge" style={{ backgroundColor, color }}>{category}</div>
-    )
+    return <div className="category-badge" style={{ backgroundColor, color }}>{category}</div>
 }

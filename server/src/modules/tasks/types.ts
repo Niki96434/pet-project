@@ -1,6 +1,6 @@
 type CategoryType = 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
 
-type status = 'not_completed' | 'in_process' | 'completed';
+type status = 'Not completed' | 'In process' | 'Completed';
 
 export default interface TaskType {
     id: number;
@@ -8,5 +8,5 @@ export default interface TaskType {
     description?: string;
     deadlineDate: string;
     category: CategoryType;
-    progress_status: status;
+    status: status;
 }

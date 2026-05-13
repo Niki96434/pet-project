@@ -18,7 +18,7 @@ export function TaskList({ handleModal, tasks }: TaskListProps) {
             <hr />
             <div className="task-list">
                 {tasks.map((task: TaskType) => {
-                    return <Task key={task.id} {...task} />
+                    return <Task key={task.id} task={task} />
                 })}
             </div>
         </div>

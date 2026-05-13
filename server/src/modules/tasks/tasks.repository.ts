@@ -35,11 +35,11 @@ function TaskRepository() {
 
     const updateTask = (id: number, taskProperty: TaskType) => {
         try {
-            const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate')
-                .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, Number(id)) as TaskType;
+            const updatedTask = db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ?, status = ? WHERE id = ? RETURNING id, title, description, category, deadlineDate, status')
+                .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, taskProperty.status, Number(id)) as TaskType;
             return updatedTask
         } catch {
-            throw new DBError('Ошибка обновления задачи')
+            throw new DBError('Ошибка обновления задачи');
         }
     }
 

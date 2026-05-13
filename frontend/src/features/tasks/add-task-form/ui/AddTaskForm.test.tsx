@@ -6,29 +6,27 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 function renderAddTaskForm() {
     const queryClient = new QueryClient();
-    return render(<QueryClientProvider client={queryClient}>
+    const user = userEvent.setup();
+    const utils = render(<QueryClientProvider client={queryClient}>
         <AddTaskForm handleModal={() => { }} />
     </QueryClientProvider>)
+    return { user, utils }
 }
 
 describe('check title field in AddTaskform', () => {
 
-    beforeEach(() => renderAddTaskForm());
-    it('should return title`s label', () => {
-        expect(screen.getByLabelText('Title')).toBeTruthy();
-    });
-
     it('should show error message when title is shorter than 5 characters', async () => {
-        const user = userEvent.setup();
-        const input = screen.getByLabelText('Title');
+        const { user } = renderAddTaskForm()
+        const input = screen.getByLabelText('title-label');
         await user.type(input, 'abc');
         const errorMessage = await screen.findByText(/Минимум 5/);
+        screen.debug();
         expect(errorMessage).toBeTruthy();
     });
 
     it('should return null when title is longer than 5 characters', async () => {
-        const user = userEvent.setup();
-        const input = screen.getByLabelText('Title');
+        const { user } = renderAddTaskForm()
+        const input = screen.getByLabelText('title-label');
         await user.type(input, 'abcde');
         expect(screen.queryByText(/Минимум 5/)).not.toBeTruthy();
     });
@@ -37,9 +35,21 @@ describe('check title field in AddTaskform', () => {
 
 describe('check description', () => {
 
-    beforeEach(() => renderAddTaskForm());
-    it('should return description`s label', () => {
-        expect(screen.getByLabelText('Description')).toBeTruthy();
+    it('should return null if description is not empty', async () => {
+        const { user } = renderAddTaskForm()
+        const input = screen.getByLabelText('description-label');
+        await user.type(input, 'a');
+        const errorMessage = screen.queryByText(/должно быть заполнено/);
+        expect(errorMessage).not.toBeTruthy();
+    });
+
+    it('should return true if description is empty', async () => {
+        const { user } = renderAddTaskForm()
+        const input = screen.getByLabelText('description-label');
+        await user.type(input, 'hello');
+        await user.clear(input);
+        const errorMessage = await screen.findByText(/должно быть заполнено/);
+        expect(errorMessage).toBeTruthy();
     });
 });
 

@@ -10,13 +10,13 @@ interface TaskProps {
 
 export default function Task({ task }: TaskProps) {
 
-    const { changeCheckbox } = useMarkStatusQuery(task);
+    const { changeCheckbox, valueCheckbox } = useMarkStatusQuery(task);
 
     return (
         <div className="task-card">
             <DropdownMenu id={task.id} />
             <div className='task-top'>
-                <input onChange={changeCheckbox} className='task-checkbox' type='checkbox' />
+                <input onClick={changeCheckbox} checked={valueCheckbox} className='task-checkbox' type='checkbox' />
                 <p className='task-title'>{task.title}</p>
             </div>
             <div className='category-and-date'>

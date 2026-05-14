@@ -6,7 +6,6 @@ import { useEditTaskStore } from "../../../entities/tasks/model/store";
 import { Calendar } from "../../../shared/ui";
 import './TasksPage.css';
 import { useTasksByDay } from "../../../entities/tasks/lib/useTasksByDay";
-import { BigCalendar } from "../../../widgets/big-calendar";
 import { useAllTasksQuery } from "../../../entities/tasks/model/useAllTasksQuery";
 import { filterTasksByDay } from "../../../entities/tasks/model/filterTasksByDay";
 
@@ -41,7 +40,6 @@ export default function TasksPage() {
                 <Calendar value={value} onValueChange={handleSelectDay} />
                 <TaskList tasks={filteredTasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
             </div>
-            <BigCalendar tasks={tasks ?? []} />
             {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}
             {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
         </div>

@@ -3,7 +3,6 @@
     flex-direction: row;
     justify-content: first baseline;
     gap: 100px;
-    padding: 30px;
 }
 
 .list-and-calendar {

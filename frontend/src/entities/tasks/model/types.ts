@@ -28,7 +28,7 @@ export interface UpdateTaskDto {
     description?: string;
     deadlineDate?: string;
     category?: CategoryType;
-    status: statusType;
+    status?: statusType;
 }
 
 export interface TaskListDto {

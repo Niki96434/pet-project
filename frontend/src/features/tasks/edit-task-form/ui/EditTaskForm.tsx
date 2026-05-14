@@ -1,5 +1,5 @@
 import { FormInput, SelectField } from '../../../../shared/ui';
-import { taskApi, Categories, type TaskType, type UpdateTaskDto, Status } from './../../../../entities/tasks';
+import { taskApi, Categories, type TaskType, type UpdateTaskDto } from './../../../../entities/tasks';
 import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
@@ -28,7 +28,6 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
             description: task.description || '',
             category: task.category || 'Misc',
             deadlineDate: task.deadlineDate || '',
-            status: task.status || 'Not completed',
         } : undefined,
         delayError: 500,
         mode: 'onChange',
@@ -47,19 +46,18 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(onSubmit)} onClick={(e) => e.stopPropagation()}>
-                <FormInput ariaLabel={'title'} placeholder={' Do my homework'} children={'Title'} {...register("title", {
+                <FormInput placeholder={' Do my homework'} children={'Title'} {...register("title", {
                     required: 'Поле обязательно к заполнению', minLength: {
                         value: 5,
                         message: 'Минимум 5 символов'
                     }
                 })} />
                 <div className='error-hint'>{errors.title && `* ${errors.title?.message}`}</div>
-                <FormInput ariaLabel={'description'} placeholder={' Prepare for the math test'} children={'Description'} {...register("description", {
+                <FormInput placeholder={' Prepare for the math test'} children={'Description'} {...register("description", {
                     required: 'Описание должно быть заполнено'
                 })} />
                 <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>
                 <SelectField options={Categories} selectName={'category'}  {...register("category", { required: true })}>Categories</SelectField>
-                <SelectField {...register('status')} selectName={'status'} options={Status}>Progress status</SelectField>
                 <Controller control={control} name='deadlineDate' render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,
                         '0')}-${String(date.getDate()).padStart(2, '0')}` : "")} value={field.value} onBlur={field.onBlur} />

@@ -1,1 +1,0 @@
-export { BigCalendar } from './ui/BigCalendar'

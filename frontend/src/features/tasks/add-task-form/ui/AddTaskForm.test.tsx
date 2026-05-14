@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect, beforeEach } from "vitest"
+import { describe, it, expect } from "vitest"
 import { AddTaskForm } from "./AddTaskForm";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
@@ -9,26 +9,25 @@ function renderAddTaskForm() {
     const user = userEvent.setup();
     const utils = render(<QueryClientProvider client={queryClient}>
         <AddTaskForm handleModal={() => { }} />
-    </QueryClientProvider>)
+    </QueryClientProvider>);
     return { user, utils }
 }
 
 describe('check title field in AddTaskform', () => {
 
-    it('should show error message when title is shorter than 5 characters', async () => {
+    it('should return null when title is shorter than 5 characters', async () => {
         const { user } = renderAddTaskForm()
-        const input = screen.getByLabelText('title-label');
+        const input = screen.getByRole('textbox', { name: 'Title' });
         await user.type(input, 'abc');
-        const errorMessage = await screen.findByText(/Минимум 5/);
         screen.debug();
-        expect(errorMessage).toBeTruthy();
+        expect(await screen.findByText(/минимум 5/i)).toBeInTheDocument();
     });
 
     it('should return null when title is longer than 5 characters', async () => {
         const { user } = renderAddTaskForm()
-        const input = screen.getByLabelText('title-label');
+        const input = screen.getByRole('textbox', { name: 'Title' });
         await user.type(input, 'abcde');
-        expect(screen.queryByText(/Минимум 5/)).not.toBeTruthy();
+        expect(screen.queryByText(/минимум 5/i)).toBeNull();
     });
 
 });
@@ -36,27 +35,27 @@ describe('check title field in AddTaskform', () => {
 describe('check description', () => {
 
     it('should return null if description is not empty', async () => {
-        const { user } = renderAddTaskForm()
-        const input = screen.getByLabelText('description-label');
+        const { user } = renderAddTaskForm();
+        const input = screen.getByRole('textbox', { name: 'Description' });
         await user.type(input, 'a');
         const errorMessage = screen.queryByText(/должно быть заполнено/);
-        expect(errorMessage).not.toBeTruthy();
+        expect(errorMessage).toBeNull();
     });
 
     it('should return true if description is empty', async () => {
-        const { user } = renderAddTaskForm()
-        const input = screen.getByLabelText('description-label');
+        const { user } = renderAddTaskForm();
+        const input = screen.getByRole('textbox', { name: 'Description' });
         await user.type(input, 'hello');
         await user.clear(input);
-        const errorMessage = await screen.findByText(/должно быть заполнено/);
-        expect(errorMessage).toBeTruthy();
+        expect(await screen.findByText(/должно быть заполнено/)).toBeInTheDocument();
     });
 });
 
 describe('check categories', () => {
 
-    beforeEach(() => renderAddTaskForm());
     it('should return categories label', () => {
-        expect(screen.getByLabelText('Categories')).toBeTruthy();
+        renderAddTaskForm();
+        expect(screen.getByRole('combobox', { name: /Categories/ })).toBeInTheDocument();
     });
-})
+});
+

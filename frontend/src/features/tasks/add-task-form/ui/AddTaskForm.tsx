@@ -31,14 +31,14 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(createTask)} onClick={(e) => e.stopPropagation()}>
-                <FormInput ariaLabel={'title-label'} {...register('title', {
+                <FormInput {...register('title', {
                     minLength: {
                         value: 5,
                         message: 'Минимум 5 символов'
                     }, required: 'Поле обязательно к заполнению'
                 })} placeholder={'Do my homework'} children={'Title'} />
                 <span title='error-hint' className='error-hint'>{errors.title && ('* ' + errors.title.message || '* Error')}</span>
-                <FormInput ariaLabel={'description-label'} {...register('description',
+                <FormInput {...register('description',
                     {
                         required: 'Описание должно быть заполнено',
                     }

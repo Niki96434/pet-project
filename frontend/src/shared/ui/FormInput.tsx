@@ -6,14 +6,13 @@ interface FormInputProps {
     children: React.ReactNode;
     placeholder: string;
     ref: RefCallBack;
-    ariaLabel: string;
 }
 
-export function FormInput({ children, placeholder, ariaLabel, ref, ...props }: FormInputProps) {
+export function FormInput({ children, placeholder, ref, ...props }: FormInputProps) {
     return (
         <>
             <label>{children}
-                <input aria-label={ariaLabel} autoComplete='off' required {...props} ref={ref} type='text' form='task-form' placeholder={placeholder} className="form-input" />
+                <input autoComplete='off' required {...props} ref={ref} type='text' form='task-form' placeholder={placeholder} className="form-input" />
             </label>
         </>
     )

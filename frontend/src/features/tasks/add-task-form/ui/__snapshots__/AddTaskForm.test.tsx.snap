@@ -1,0 +1,1436 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`check categories > should return categories label 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="form-wrapper"
+      >
+        <form
+          class="task-form-container"
+          id="task-form"
+        >
+          <label>
+            Title
+            <input
+              aria-label="title-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="title"
+              placeholder="Do my homework"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+            title="error-hint"
+          />
+          <label>
+            Description
+            <input
+              aria-label="description-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="description"
+              placeholder="Prepare for the math test"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+          >
+             
+          </span>
+          <label
+            for="select-category"
+          >
+            Categories
+            <select
+              class="select-style"
+              form="task-form"
+              id="select-category"
+              name="category"
+              required=""
+            >
+              <option
+                value="Health"
+              >
+                Health
+              </option>
+              <option
+                value="Life"
+              >
+                Life
+              </option>
+              <option
+                value="Work"
+              >
+                Work
+              </option>
+              <option
+                value="Study"
+              >
+                Study
+              </option>
+              <option
+                value="Misc"
+              >
+                Misc
+              </option>
+            </select>
+          </label>
+          <div
+            class="react-datepicker-wrapper"
+          >
+            <div
+              class="react-datepicker__input-container"
+            >
+              <input
+                class=""
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="form-button-container"
+          >
+            <button
+              class="close-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="submit-button"
+              disabled=""
+              type="submit"
+            >
+              Add task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="form-wrapper"
+    >
+      <form
+        class="task-form-container"
+        id="task-form"
+      >
+        <label>
+          Title
+          <input
+            aria-label="title-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="title"
+            placeholder="Do my homework"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+          title="error-hint"
+        />
+        <label>
+          Description
+          <input
+            aria-label="description-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="description"
+            placeholder="Prepare for the math test"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+        >
+           
+        </span>
+        <label
+          for="select-category"
+        >
+          Categories
+          <select
+            class="select-style"
+            form="task-form"
+            id="select-category"
+            name="category"
+            required=""
+          >
+            <option
+              value="Health"
+            >
+              Health
+            </option>
+            <option
+              value="Life"
+            >
+              Life
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Study"
+            >
+              Study
+            </option>
+            <option
+              value="Misc"
+            >
+              Misc
+            </option>
+          </select>
+        </label>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <input
+              class=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form-button-container"
+        >
+          <button
+            class="close-button"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="submit-button"
+            disabled=""
+            type="submit"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`check description > should return null if description is not empty 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="form-wrapper"
+      >
+        <form
+          class="task-form-container"
+          id="task-form"
+        >
+          <label>
+            Title
+            <input
+              aria-label="title-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="title"
+              placeholder="Do my homework"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+            title="error-hint"
+          />
+          <label>
+            Description
+            <input
+              aria-label="description-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="description"
+              placeholder="Prepare for the math test"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+          >
+             
+          </span>
+          <label
+            for="select-category"
+          >
+            Categories
+            <select
+              class="select-style"
+              form="task-form"
+              id="select-category"
+              name="category"
+              required=""
+            >
+              <option
+                value="Health"
+              >
+                Health
+              </option>
+              <option
+                value="Life"
+              >
+                Life
+              </option>
+              <option
+                value="Work"
+              >
+                Work
+              </option>
+              <option
+                value="Study"
+              >
+                Study
+              </option>
+              <option
+                value="Misc"
+              >
+                Misc
+              </option>
+            </select>
+          </label>
+          <div
+            class="react-datepicker-wrapper"
+          >
+            <div
+              class="react-datepicker__input-container"
+            >
+              <input
+                class=""
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="form-button-container"
+          >
+            <button
+              class="close-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="submit-button"
+              disabled=""
+              type="submit"
+            >
+              Add task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="form-wrapper"
+    >
+      <form
+        class="task-form-container"
+        id="task-form"
+      >
+        <label>
+          Title
+          <input
+            aria-label="title-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="title"
+            placeholder="Do my homework"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+          title="error-hint"
+        />
+        <label>
+          Description
+          <input
+            aria-label="description-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="description"
+            placeholder="Prepare for the math test"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+        >
+           
+        </span>
+        <label
+          for="select-category"
+        >
+          Categories
+          <select
+            class="select-style"
+            form="task-form"
+            id="select-category"
+            name="category"
+            required=""
+          >
+            <option
+              value="Health"
+            >
+              Health
+            </option>
+            <option
+              value="Life"
+            >
+              Life
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Study"
+            >
+              Study
+            </option>
+            <option
+              value="Misc"
+            >
+              Misc
+            </option>
+          </select>
+        </label>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <input
+              class=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form-button-container"
+        >
+          <button
+            class="close-button"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="submit-button"
+            disabled=""
+            type="submit"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`check description > should return true if description is empty 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="form-wrapper"
+      >
+        <form
+          class="task-form-container"
+          id="task-form"
+        >
+          <label>
+            Title
+            <input
+              aria-label="title-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="title"
+              placeholder="Do my homework"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+            title="error-hint"
+          />
+          <label>
+            Description
+            <input
+              aria-label="description-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="description"
+              placeholder="Prepare for the math test"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+          >
+             
+          </span>
+          <label
+            for="select-category"
+          >
+            Categories
+            <select
+              class="select-style"
+              form="task-form"
+              id="select-category"
+              name="category"
+              required=""
+            >
+              <option
+                value="Health"
+              >
+                Health
+              </option>
+              <option
+                value="Life"
+              >
+                Life
+              </option>
+              <option
+                value="Work"
+              >
+                Work
+              </option>
+              <option
+                value="Study"
+              >
+                Study
+              </option>
+              <option
+                value="Misc"
+              >
+                Misc
+              </option>
+            </select>
+          </label>
+          <div
+            class="react-datepicker-wrapper"
+          >
+            <div
+              class="react-datepicker__input-container"
+            >
+              <input
+                class=""
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="form-button-container"
+          >
+            <button
+              class="close-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="submit-button"
+              disabled=""
+              type="submit"
+            >
+              Add task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="form-wrapper"
+    >
+      <form
+        class="task-form-container"
+        id="task-form"
+      >
+        <label>
+          Title
+          <input
+            aria-label="title-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="title"
+            placeholder="Do my homework"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+          title="error-hint"
+        />
+        <label>
+          Description
+          <input
+            aria-label="description-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="description"
+            placeholder="Prepare for the math test"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+        >
+           
+        </span>
+        <label
+          for="select-category"
+        >
+          Categories
+          <select
+            class="select-style"
+            form="task-form"
+            id="select-category"
+            name="category"
+            required=""
+          >
+            <option
+              value="Health"
+            >
+              Health
+            </option>
+            <option
+              value="Life"
+            >
+              Life
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Study"
+            >
+              Study
+            </option>
+            <option
+              value="Misc"
+            >
+              Misc
+            </option>
+          </select>
+        </label>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <input
+              class=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form-button-container"
+        >
+          <button
+            class="close-button"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="submit-button"
+            disabled=""
+            type="submit"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`check title field in AddTaskform > should return null when title is longer than 5 characters 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="form-wrapper"
+      >
+        <form
+          class="task-form-container"
+          id="task-form"
+        >
+          <label>
+            Title
+            <input
+              aria-label="title-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="title"
+              placeholder="Do my homework"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+            title="error-hint"
+          />
+          <label>
+            Description
+            <input
+              aria-label="description-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="description"
+              placeholder="Prepare for the math test"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+          >
+             
+          </span>
+          <label
+            for="select-category"
+          >
+            Categories
+            <select
+              class="select-style"
+              form="task-form"
+              id="select-category"
+              name="category"
+              required=""
+            >
+              <option
+                value="Health"
+              >
+                Health
+              </option>
+              <option
+                value="Life"
+              >
+                Life
+              </option>
+              <option
+                value="Work"
+              >
+                Work
+              </option>
+              <option
+                value="Study"
+              >
+                Study
+              </option>
+              <option
+                value="Misc"
+              >
+                Misc
+              </option>
+            </select>
+          </label>
+          <div
+            class="react-datepicker-wrapper"
+          >
+            <div
+              class="react-datepicker__input-container"
+            >
+              <input
+                class=""
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="form-button-container"
+          >
+            <button
+              class="close-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="submit-button"
+              disabled=""
+              type="submit"
+            >
+              Add task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="form-wrapper"
+    >
+      <form
+        class="task-form-container"
+        id="task-form"
+      >
+        <label>
+          Title
+          <input
+            aria-label="title-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="title"
+            placeholder="Do my homework"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+          title="error-hint"
+        />
+        <label>
+          Description
+          <input
+            aria-label="description-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="description"
+            placeholder="Prepare for the math test"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+        >
+           
+        </span>
+        <label
+          for="select-category"
+        >
+          Categories
+          <select
+            class="select-style"
+            form="task-form"
+            id="select-category"
+            name="category"
+            required=""
+          >
+            <option
+              value="Health"
+            >
+              Health
+            </option>
+            <option
+              value="Life"
+            >
+              Life
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Study"
+            >
+              Study
+            </option>
+            <option
+              value="Misc"
+            >
+              Misc
+            </option>
+          </select>
+        </label>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <input
+              class=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form-button-container"
+        >
+          <button
+            class="close-button"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="submit-button"
+            disabled=""
+            type="submit"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`check title field in AddTaskform > should show error message when title is shorter than 5 characters 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="form-wrapper"
+      >
+        <form
+          class="task-form-container"
+          id="task-form"
+        >
+          <label>
+            Title
+            <input
+              aria-label="title-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="title"
+              placeholder="Do my homework"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+            title="error-hint"
+          />
+          <label>
+            Description
+            <input
+              aria-label="description-label"
+              autocomplete="off"
+              class="form-input"
+              form="task-form"
+              name="description"
+              placeholder="Prepare for the math test"
+              required=""
+              type="text"
+            />
+          </label>
+          <span
+            class="error-hint"
+          >
+             
+          </span>
+          <label
+            for="select-category"
+          >
+            Categories
+            <select
+              class="select-style"
+              form="task-form"
+              id="select-category"
+              name="category"
+              required=""
+            >
+              <option
+                value="Health"
+              >
+                Health
+              </option>
+              <option
+                value="Life"
+              >
+                Life
+              </option>
+              <option
+                value="Work"
+              >
+                Work
+              </option>
+              <option
+                value="Study"
+              >
+                Study
+              </option>
+              <option
+                value="Misc"
+              >
+                Misc
+              </option>
+            </select>
+          </label>
+          <div
+            class="react-datepicker-wrapper"
+          >
+            <div
+              class="react-datepicker__input-container"
+            >
+              <input
+                class=""
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="form-button-container"
+          >
+            <button
+              class="close-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="submit-button"
+              disabled=""
+              type="submit"
+            >
+              Add task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="form-wrapper"
+    >
+      <form
+        class="task-form-container"
+        id="task-form"
+      >
+        <label>
+          Title
+          <input
+            aria-label="title-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="title"
+            placeholder="Do my homework"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+          title="error-hint"
+        />
+        <label>
+          Description
+          <input
+            aria-label="description-label"
+            autocomplete="off"
+            class="form-input"
+            form="task-form"
+            name="description"
+            placeholder="Prepare for the math test"
+            required=""
+            type="text"
+          />
+        </label>
+        <span
+          class="error-hint"
+        >
+           
+        </span>
+        <label
+          for="select-category"
+        >
+          Categories
+          <select
+            class="select-style"
+            form="task-form"
+            id="select-category"
+            name="category"
+            required=""
+          >
+            <option
+              value="Health"
+            >
+              Health
+            </option>
+            <option
+              value="Life"
+            >
+              Life
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Study"
+            >
+              Study
+            </option>
+            <option
+              value="Misc"
+            >
+              Misc
+            </option>
+          </select>
+        </label>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <input
+              class=""
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="form-button-container"
+        >
+          <button
+            class="close-button"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="submit-button"
+            disabled=""
+            type="submit"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

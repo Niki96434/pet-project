@@ -10,9 +10,9 @@ function renderCategoryBadge(category: CategoryType) {
 describe('CategoryBadge', () => {
     it('renders CategoryBadge component', () => {
         try {
-            renderCategoryBadge('Misc');
-            screen.debug();
-            expect(screen.getByText('Misc')).toBeTruthy();
+            const categoryComponent = renderCategoryBadge('Misc');
+            expect(screen.getByText('Misc')).toBeInTheDocument();
+            expect(categoryComponent).toMatchSnapshot();
         } catch (e) {
             console.error(`Rendering error: ${e}`)
         }

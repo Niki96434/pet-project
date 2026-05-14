@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { taskApi } from "../api/taskApi";
 import type { TaskType } from "./types";
-import { toaster } from "../../../shared/lib/ui/toaster";
 
 export function useMarkStatusQuery(task: TaskType) {
 
@@ -11,10 +10,6 @@ export function useMarkStatusQuery(task: TaskType) {
         mutationFn: (task: TaskType) => taskApi.updateTask(task.id.toString(), task),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['todo', task.id] });
-            toaster.create({
-                title: 'Поздравляю с выполнением!',
-                type: 'success'
-            });
         }
     });
 

@@ -5,8 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "test": "",
-    "start": "ts-node src/modules/tasks/app.ts",
-    "dev": "nodemon src/modules/tasks/app.ts"
+    "start": "ts-node src/modules/app/app.ts",
+    "dev": "nodemon src/modules/app/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,14 +14,19 @@
   "type": "module",
   "dependencies": {
     "@types/express": "^5.0.6",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.9.0",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
     "nodemon": "^3.1.14"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
     "ts-node": "^10.9.2"
   }
 }

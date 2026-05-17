@@ -2,13 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: first baseline;
-    gap: 100px;
+    gap: 10px;
 }
 
 .list-and-calendar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-
 }

@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 
-export interface UserEntity {
+export interface UserType {
     id: number;
     username: string;
     password_hash: string;

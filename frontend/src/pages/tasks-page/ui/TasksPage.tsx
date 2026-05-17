@@ -8,15 +8,22 @@ import './TasksPage.css';
 import { useTasksByDay } from "../../../entities/tasks/lib/useTasksByDay";
 import { useAllTasksQuery } from "../../../entities/tasks/model/useAllTasksQuery";
 import { filterTasksByDay } from "../../../entities/tasks/model/filterTasksByDay";
+import { useGetMessages } from "../../../entities/messages/model/useGetMessages";
+import MessagesTable from "../../../entities/messages/ui/MessagesTable";
+import { EmailButton } from "../../../shared/ui/EmailButton";
 
 export default function TasksPage() {
     const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false);
+
     const isOpenEditModal = useEditTaskStore((state) => state.isEditModalOpen);
     const closeEditModal = useEditTaskStore((state) => state.handleCloseModal);
 
     const { handleSelectDay, value } = useTasksByDay();
     const { tasks, status, error } = useAllTasksQuery();
+
     const filteredTasks = filterTasksByDay(tasks ?? [], value);
+
+    const { isOpenLogin, login, msgs } = useGetMessages();
 
     if (status === 'pending') {
         return <span>Загрузка...</span>
@@ -26,13 +33,7 @@ export default function TasksPage() {
         return <span>Ошибка: {error?.message}</span>
     }
 
-    const closeAllModal = () => {
-        if (isOpenAddTaskModal) {
-            setOpenAddTaskModal(false);
-        } else if (isOpenEditModal) {
-            closeEditModal();
-        }
-    }
+    const closeAllModal = () => isOpenAddTaskModal === true ? setOpenAddTaskModal(false) : isOpenEditModal === true ? closeEditModal() : null;
 
     return (
         <div className='todos-page' onClick={closeAllModal}>
@@ -40,6 +41,9 @@ export default function TasksPage() {
                 <Calendar value={value} onValueChange={handleSelectDay} />
                 <TaskList tasks={filteredTasks ?? []} handleModal={() => setOpenAddTaskModal(true)} />
             </div>
+            {isOpenLogin &&
+                <EmailButton handleClick={() => login()} />}
+            {msgs ? <MessagesTable messages={msgs} /> : null}
             {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}
             {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
         </div>

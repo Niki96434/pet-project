@@ -26,3 +26,5 @@ dist-ssr
 #Database 
 *.db-shm
 *.db-wal
+
+.env

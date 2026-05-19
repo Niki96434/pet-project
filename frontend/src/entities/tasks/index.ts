@@ -1,4 +1,4 @@
-export { TaskList } from './ui/TaskList';
+export { TaskBoard } from './ui/TaskBoard';
 
 export { taskApi } from './api/taskApi';
 

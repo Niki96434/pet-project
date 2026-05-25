@@ -13,6 +13,7 @@
   "dependencies": {
     "@chakra-ui/react": "^3.35.0",
     "@dnd-kit/react": "^0.4.0",
+    "@hello-pangea/dnd": "^18.0.1",
     "@schedule-x/calendar": "^4.5.0",
     "@schedule-x/events-service": "^4.5.0",
     "@schedule-x/react": "^4.1.0",

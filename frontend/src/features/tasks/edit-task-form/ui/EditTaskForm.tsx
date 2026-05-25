@@ -28,6 +28,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
             description: task.description || '',
             category: task.category || 'Misc',
             deadlineDate: task.deadlineDate || '',
+            status: task.status || 'Not completed'
         } : undefined,
         delayError: 500,
         mode: 'onChange',

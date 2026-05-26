@@ -33,6 +33,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src"
+    "src",
+    "src/features/tasks/drag-and-drop/ui/.tsxAndDrop.tsx"
   ]
 }

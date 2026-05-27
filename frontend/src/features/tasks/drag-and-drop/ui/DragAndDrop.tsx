@@ -15,7 +15,7 @@ export interface BoardType {
     items: TaskType[];
 }
 
-export default function TasksPage() {
+export default function DragAndDrop() {
     const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false);
     const isOpenEditModal = useEditTaskStore(handleEditModal);
     const closeEditModal = useEditTaskStore(closeModal);

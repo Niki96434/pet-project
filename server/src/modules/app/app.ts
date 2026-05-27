@@ -11,8 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api', tasksRouter);
 app.use('/auth', authRouter);
+app.use('/home', tasksRouter);
 app.use(errorHandler);
 
 const start = () => {

@@ -1,10 +1,23 @@
 import type { CreateTaskDto, UpdateTaskDto, TaskType } from '../model/types';
 import { apiClient } from '../../../shared/api/apiClient';
+import { redirect } from 'react-router';
 
 export const taskApi = {
     getTasks: async () => {
-        const { data } = await apiClient.get<Promise<TaskType[]>>('/home/tasks');
-        return data
+        const token = localStorage.getItem('secret');
+        const response = await apiClient.get<TaskType[]>('/home/tasks', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.status === 401) {
+            localStorage.removeItem('secret');
+            redirect('/login');
+            return;
+        } else {
+            return response.data
+        }
     },
     createTask: (task: CreateTaskDto) => apiClient.post<Promise<TaskType>>('/home/tasks', task),
     getTaskById: async (id: string) => {

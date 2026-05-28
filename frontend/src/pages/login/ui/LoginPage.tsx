@@ -23,8 +23,13 @@ export function LoginPage() {
 
     const onSubmit = async (data: RegisterUserDto) => {
         try {
-            await loginData.mutateAsync(data);
-            return navigate('/home');
+            const secret = await loginData.mutateAsync(data);
+            if (secret.token) {
+                localStorage.setItem('secret', secret.token);
+                return navigate('/home');
+            } else {
+                return navigate('/register');
+            }
         } catch {
             return navigate('/register');
         }

@@ -3,9 +3,10 @@ import { taskApi } from "../api/taskApi";
 import { type TaskType } from "./types";
 
 export function useAllTasksQuery() {
-    const { data: tasks, status, error } = useQuery<TaskType[]>({
+
+    const { data: tasks, status, error } = useQuery<TaskType[] | []>({
         queryKey: ['todos'],
-        queryFn: taskApi.getTasks,
+        queryFn: () => taskApi.getTasks(),
         retry: 1
     });
 

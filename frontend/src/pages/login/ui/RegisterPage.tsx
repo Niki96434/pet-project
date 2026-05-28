@@ -1,10 +1,13 @@
 import { useRegisterData } from "../api/useRegisterData"
-import { redirect } from "react-router";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { type RegisterUserDto } from "../../../entities/users/api/authApi";
 import './RegisterPage.css';
+import { NavLink } from "react-router";
 
 export function RegisterPage() {
+
+    const navigate = useNavigate();
 
     const registerData = useRegisterData();
 
@@ -21,44 +24,48 @@ export function RegisterPage() {
     const onSubmit = async (data: RegisterUserDto) => {
         try {
             await registerData.mutateAsync(data);
-            return redirect('/home');
+            return navigate('/login');
         } catch {
-            return redirect('/register');
+            return navigate('/register');
         }
     }
 
     return (
-        <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="username">Username</label>
-            <input id="username" required {...register("username", {
-                required: 'Поле обязательно должно быть заполнено'
-            })} />
-            {errors.username && <span>* {errors.username.message}</span>}
-            <label htmlFor="password">Password (min. 6 characters)</label>
-            <input id="password" type="password" required {...register("password", {
-                required: 'Обязательно должно быть заполнено',
-                minLength: {
-                    value: 6,
-                    message: 'Минимум 6 символов'
-                }
-            })} />
-            {errors.password && <span>* {errors.password.message}</span>}
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <input id="confirmPassword" type="password" required {...register("confirmPassword", {
-                required: 'Обязательно должно быть заполнено',
-                minLength: {
-                    value: 6,
-                    message: 'Минимум 6 символов'
-                },
-                validate: () => {
-                    const password = getValues('password');
-                    const confirmPassword = getValues('confirmPassword');
-                    return password === confirmPassword || 'Пароли не совпадают'
-                }
-            })} />
-            {errors.confirmPassword && <span>* {errors.confirmPassword.message}</span>}
-            <button disabled={!isValid} type="submit">Save</button>
-        </form>
+        <div className="container-for-register">
+            <div className="register">
+                <form className='register-form' onSubmit={handleSubmit(onSubmit)}>
+                    <h1>Добро пожаловать в Task-Manager!</h1>
+                    <input id="username" placeholder="Username" required {...register("username", {
+                        required: 'Поле обязательно должно быть заполнено'
+                    })} />
+                    {errors.username && <span>* {errors.username.message}</span>}
+                    <input id="password" type="password" placeholder="Password" required {...register("password", {
+                        required: 'Обязательно должно быть заполнено',
+                        minLength: {
+                            value: 6,
+                            message: 'Минимум 6 символов'
+                        }
+                    })} />
+                    {errors.password && <span>* {errors.password.message}</span>}
+                    <input id="confirmPassword" type="password" placeholder="Confirm password" required {...register("confirmPassword", {
+                        required: 'Обязательно должно быть заполнено',
+                        minLength: {
+                            value: 6,
+                            message: 'Минимум 6 символов'
+                        },
+                        validate: (value) => value === getValues('password') || 'Пароли не совпадают'
+                    })} />
+                    {errors.confirmPassword && <span>* {errors.confirmPassword.message}</span>}
+                    <button className='reg-btn' disabled={!isValid} type="submit">Sign up</button>
+                    <div className="flex-or">
+                        <div className="around-line"></div>
+                        <p className="centre-or">OR</p>
+                        <div className="around-line"></div>
+                    </div>
+                    <NavLink to={'/login'}><button className='reg-btn' type="submit">Log in</button></NavLink>
+                </form>
+            </div>
+        </div>
     )
 }
 

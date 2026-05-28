@@ -52,9 +52,11 @@
     justify-content: flex-end;
 }
 
-input {
-    border: 1px solid #FD71AF;
-    border-radius: 3px;
+.task-form-container input {
+    width: 320px;
+    height: 52px;
+    border: 1px solid rgb(184, 184, 184);
+    border-radius: 15px;
 }
 
 .error-hint {

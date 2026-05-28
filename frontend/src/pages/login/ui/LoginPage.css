@@ -27,6 +27,7 @@ span {
     height: 52px;
     border: 1px solid rgb(184, 184, 184);
     border-radius: 15px;
+    padding: 5px;
 }
 
 .log-btn {

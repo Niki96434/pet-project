@@ -1,12 +1,15 @@
 .container-for-register {
-    margin-left: 700px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .register {
     display: flex;
     flex-direction: column;
-    width: 448px;
-    height: 771px;
+    width: 100%;
+    max-width: 448px;
+    height: 671px;
     border-radius: 20px;
     border: 1px solid white;
     box-shadow: 1px 0px 10px 5px rgb(210, 210, 210);
@@ -30,6 +33,7 @@ span {
     height: 52px;
     border: 1px solid rgb(184, 184, 184);
     border-radius: 15px;
+    padding: 3px;
 }
 
 .register-form h1 {

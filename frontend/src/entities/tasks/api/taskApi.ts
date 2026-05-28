@@ -3,18 +3,18 @@ import { apiClient } from '../../../shared/api/apiClient';
 
 export const taskApi = {
     getTasks: async () => {
-        const { data } = await apiClient.get<Promise<TaskType[]>>('/tasks');
+        const { data } = await apiClient.get<Promise<TaskType[]>>('/home/tasks');
         return data
     },
-    createTask: (task: CreateTaskDto) => apiClient.post<Promise<TaskType>>('/tasks', task),
+    createTask: (task: CreateTaskDto) => apiClient.post<Promise<TaskType>>('/home/tasks', task),
     getTaskById: async (id: string) => {
-        const { data } = await apiClient.get<Promise<TaskType>>(`/tasks/${id}`);
+        const { data } = await apiClient.get<Promise<TaskType>>(`/home/tasks/${id}`);
         return data
     },
-    updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Promise<TaskType>>(`/tasks/${id}`, task),
-    deleteTask: (id: string) => apiClient.delete(`/tasks/${id}`),
+    updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Promise<TaskType>>(`/home/tasks/${id}`, task),
+    deleteTask: (id: string) => apiClient.delete(`/home/tasks/${id}`),
     filterByDay: async (deadlineDate: string) => {
-        const { data } = await apiClient.get<Promise<TaskType[]>>('/tasks', {
+        const { data } = await apiClient.get<Promise<TaskType[]>>('/home/tasks', {
             params: { deadlineDate }
         });
         return data

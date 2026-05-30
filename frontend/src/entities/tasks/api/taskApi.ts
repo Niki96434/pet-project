@@ -3,20 +3,25 @@ import { apiClient } from '../../../shared/api/apiClient';
 import { redirect } from 'react-router';
 
 export const taskApi = {
-    getTasks: async () => {
-        const token = localStorage.getItem('secret');
-        const response = await apiClient.get<TaskType[]>('/home/tasks', {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+    getTasks: async (): Promise<TaskType[] | undefined> => {
+        try {
+            const token = localStorage.getItem('secret');
+            const response = await apiClient.get<TaskType[]>('/home/tasks', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 401) {
+                localStorage.removeItem('secret');
+                redirect('/login');
+                return;
+            } else {
+                return response.data
             }
-        });
-        if (response.status === 401) {
-            localStorage.removeItem('secret');
-            redirect('/login');
-            return;
-        } else {
-            return response.data
+        } catch (e) {
+            console.log(e);
+            throw e
         }
     },
     createTask: (task: CreateTaskDto) => apiClient.post<Promise<TaskType>>('/home/tasks', task),

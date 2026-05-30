@@ -119,17 +119,13 @@ export default function DragAndDrop() {
         }
     }
 
-    if (status === 'pending') {
-        return <span>Загрузка...</span>
-    }
-
     if (status === 'error') {
         return <span>Ошибка: {error?.message}</span>
     }
 
     return (
         <div className='todos-page' onClick={closeAllModal}>
-            <div className="list-and-calendar">
+            <div className="list">
                 <DragDropContext onDragEnd={handleDragEnd}>
                     <div className="boards">
                         {boards.map((board) => {

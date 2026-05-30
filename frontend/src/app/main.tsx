@@ -5,16 +5,18 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { RegisterPage } from '../pages/login';
 import { TasksPage } from '../pages/tasks-page';
 import { LoginPage } from '../pages/login';
-import { ProtectedRoute } from './providers/ProtectedRoute';
+import { ProtectedRoutes } from './providers/ProtectedRoutes';
 
 createRoot(document.getElementById('root')!).render(
   <Provider>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<AppLayout />}>
+        <Route element={<AppLayout />} path='/' >
           <Route index element={<RegisterPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path="/home" element={<ProtectedRoute><TasksPage /></ProtectedRoute>} />
+          <Route element={<LoginPage />} path='/login' />
+          <Route element={<ProtectedRoutes />}>
+            <Route element={<TasksPage />} path='/home' />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

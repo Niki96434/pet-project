@@ -29,7 +29,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
     });
 
     return (
-        <div className='form-wrapper'>
+        <div className='add-form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(createTask)} onClick={(e) => e.stopPropagation()}>
                 <FormInput {...register('title', {
                     minLength: {

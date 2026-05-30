@@ -4,7 +4,7 @@ import { type TaskType } from "./types";
 
 export function useAllTasksQuery() {
 
-    const { data: tasks, status, error } = useQuery<TaskType[] | []>({
+    const { data: tasks, status, error } = useQuery<TaskType[] | undefined>({
         queryKey: ['todos'],
         queryFn: () => taskApi.getTasks(),
         retry: 1

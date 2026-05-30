@@ -8,7 +8,7 @@ interface SideBarProps {
 export function SideBar({ isActive }: SideBarProps) {
     return (
         <div className={isActive ? 'active menu' : 'menu'}>
-            <NavLink to='/'>
+            <NavLink to='/home'>
                 <img className="dashboard-icon" src={dashboardIcon} alt='dashboard-icon' loading="lazy" />
             </NavLink>
         </div>

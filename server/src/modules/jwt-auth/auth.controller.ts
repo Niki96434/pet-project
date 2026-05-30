@@ -1,8 +1,8 @@
 import { type Request, type Response } from "express";
-import { users } from "./users.ts";
+import { db } from "./../app/db.ts";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
-import { type UserEntity } from './users.ts';
+import { type UserEntity } from './types.ts';
 import jwt from 'jsonwebtoken';
 import { secret } from './config.ts';
 
@@ -27,12 +27,12 @@ export function authController() {
                 return res.status(400).json({ error: 'Invalid registration' });
             }
             const { username, password } = req.body;
-            const isExistUser = users.prepare('SELECT * FROM users WHERE username = ?').get(username);
+            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
             if (isExistUser) {
                 return res.status(400).json({ error: `User with username: ${username} already exist` })
             }
             const hashPassword = bcrypt.hashSync(password, 10);
-            users.prepare('INSERT INTO users(username, password_hash) VALUES(?,?) RETURNING username').get(username, hashPassword);
+            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?) RETURNING username').get(username, hashPassword);
             res.status(200).json({ message: 'Registration was successful' });
         } catch (e) {
             console.log(e);
@@ -43,7 +43,7 @@ export function authController() {
     const login = async (req: Request, res: Response) => {
         try {
             const { username, password } = req.body;
-            const isExistUser = users.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
+            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
             if (!isExistUser) {
                 return res.status(400).json({ error: `User with username: ${username} does not exist` });
             }
@@ -61,7 +61,7 @@ export function authController() {
 
     const getUsers = async (req: Request, res: Response) => {
         try {
-            const allUsers: unknown[] = users.prepare('SELECT * FROM users').all();
+            const allUsers: unknown[] = db.prepare('SELECT * FROM users').all();
             if (!isUserEntityArray(allUsers)) {
                 return res.status(500).json({ error: 'Invalid data' });
             }

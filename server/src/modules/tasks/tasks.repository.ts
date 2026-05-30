@@ -1,4 +1,4 @@
-import { db } from './db.ts';
+import { db } from '../app/db.ts';
 import type TaskType from './types.ts';
 import { DBError } from './customErrors.ts';
 

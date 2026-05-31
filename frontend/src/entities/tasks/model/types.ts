@@ -12,6 +12,7 @@ export interface TaskType {
     deadlineDate: string;
     category: CategoryType;
     status: statusType;
+    user_id: number;
 }
 
 export type menuActionType = 'edit' | 'del' | '';

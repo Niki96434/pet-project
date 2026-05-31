@@ -1,7 +1,8 @@
 import Database from 'better-sqlite3';
 
 export const db = new Database('task-manager.db', {
-  timeout: 5000
+  timeout: 5000,
+  verbose: console.log
 });
 
 db.pragma('journal_mode = WAL');

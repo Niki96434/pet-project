@@ -3,12 +3,15 @@ import TaskController from './tasks.controller.ts';
 import TaskService from './tasks.service.ts';
 import TaskRepository from './tasks.repository.ts';
 import type { NextFunction, Request, Response } from 'express';
+import { protectMiddleware } from '../jwt-auth/auth.middleware.ts';
 
 const route = express.Router();
 
 const repo = TaskRepository();
 const taskService = TaskService({ repo });
 const { getTasksByIDUser, getTaskById, createTask, updateTask, deleteTask } = TaskController({ taskService });
+
+route.use(protectMiddleware);
 
 route.get('/tasks', (req: Request, res: Response, next: NextFunction) => getTasksByIDUser(req, res, next));
 

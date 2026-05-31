@@ -1,4 +1,4 @@
-import { type Request, type Response } from "express";
+import { NextFunction, type Request, type Response } from "express";
 import { db } from "./../app/db.ts";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
@@ -26,7 +26,7 @@ export const authController = () => {
                 return res.status(400).json({ error: `User with username: ${username} already exist` })
             }
             const hashPassword = bcrypt.hashSync(password, 10);
-            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?) RETURNING username').get(username, hashPassword);
+            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?) RETURNING id, username').get(username, hashPassword);
             res.status(200).json({ message: 'Registration was successful' });
         } catch (e) {
             console.log(e);
@@ -34,10 +34,10 @@ export const authController = () => {
         }
     }
 
-    const login = async (req: Request, res: Response) => {
+    const login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { username, password } = req.body;
-            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
+            const isExistUser = db.prepare('SELECT id FROM users WHERE username = ?').get(username) as UserEntity;
             if (!isExistUser) {
                 return res.status(400).json({ error: `User with username: ${username} does not exist` });
             }
@@ -49,8 +49,8 @@ export const authController = () => {
             req.user = { id: isExistUser.id, username: isExistUser.username };
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: true,
-                sameSite: 'strict',
+                secure: false,
+                sameSite: 'lax',
                 maxAge: 1000 * 60 * 60 * 24
             });
             res.status(200).json({ success: true, user: { id: isExistUser.id, username: isExistUser.username } });

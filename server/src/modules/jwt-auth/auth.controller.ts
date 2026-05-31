@@ -3,13 +3,7 @@ import { db } from "./../app/db.ts";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
 import { type UserEntity } from './types.ts';
-import jwt from 'jsonwebtoken';
-import { secret } from './config.ts';
-
-const generateAccessToken = (id: number, username: string) => {
-    const payload = { id, username }
-    return jwt.sign(payload, secret, { expiresIn: '24h' })
-}
+import { generateAccessToken } from "./auth.utils.ts";
 
 function isUserEntity(arg: unknown): arg is UserEntity {
     return (typeof arg === 'object' && arg !== null && 'id' in arg && 'username' in arg && 'password_hash' in arg)
@@ -52,7 +46,13 @@ export function authController() {
                 return res.status(400).json({ error: 'Invalid password or login' })
             }
             const token = generateAccessToken(isExistUser.id, isExistUser.username);
-            res.json({ token });
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60 * 24
+            });
+            res.status(200).json({ success: true, user: { id: isExistUser.id, username: isExistUser.username } });
         } catch (e) {
             console.log(e);
             res.status(401).json({ error: 'Login error' });
@@ -71,6 +71,8 @@ export function authController() {
             res.status(401).json({ error: 'Error with get users' });
         }
     }
+
+    const logout = async () => { }
 
     return { register, login, getUsers }
 }

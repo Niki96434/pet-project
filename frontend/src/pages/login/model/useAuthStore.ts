@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 
-
 interface AuthState {
     isAuth: boolean;
     login: (token: string) => void;
@@ -8,14 +7,14 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-    isAuth: !!localStorage.getItem('secret'),
+    isAuth: !!document.cookie,
 
     login: (token: string) => {
-        localStorage.setItem('secret', token);
-        set({ isAuth: true });
+        console.log(document.cookie);
+        console.log(token);
+        // set({ isAuth: true });
     },
     logout: () => {
-        localStorage.removeItem('secret');
         set({ isAuth: false });
     },
 }));
@@ -23,3 +22,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 export const isAuth = (state: AuthState) => state.isAuth;
 export const login = (state: AuthState) => state.login;
 export const logout = (state: AuthState) => state.logout;
+
+// function getCookie() {
+//     consdocument.cookie
+// }

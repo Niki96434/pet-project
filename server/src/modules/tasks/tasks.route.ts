@@ -2,6 +2,7 @@ import express from 'express';
 import TaskController from './tasks.controller.ts';
 import TaskService from './tasks.service.ts';
 import TaskRepository from './tasks.repository.ts';
+import type { NextFunction, Request, Response } from 'express';
 
 const route = express.Router();
 
@@ -9,14 +10,14 @@ const repo = TaskRepository();
 const taskService = TaskService({ repo });
 const { getTasks, getTaskById, createTask, updateTask, deleteTask } = TaskController({ taskService });
 
-route.get('/tasks', getTasks);
+route.get('/tasks', (req: Request, res: Response, next: NextFunction) => getTasks(req, res, next));
 
-route.get('/tasks/:id', getTaskById);
+route.get('/tasks/:id', (req: Request, res: Response, next: NextFunction) => getTaskById(req, res, next));
 
-route.post('/tasks', createTask);
+route.post('/tasks', (req: Request, res: Response, next: NextFunction) => createTask(req, res, next));
 
-route.put('/tasks/:id', updateTask);
+route.put('/tasks/:id', (req: Request, res: Response, next: NextFunction) => updateTask(req, res, next));
 
-route.delete('/tasks/:id', deleteTask);
+route.delete('/tasks/:id', (req: Request, res: Response, next: NextFunction) => deleteTask(req, res, next));
 
 export default route;

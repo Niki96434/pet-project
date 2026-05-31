@@ -1,5 +1,5 @@
 import { isValidIdError, isValidTaskFields } from './customErrors.ts';
-import type TaskType from './types.ts';
+import type TaskType from './types/types.ts';
 
 export class TasksValidator {
 

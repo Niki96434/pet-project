@@ -26,7 +26,7 @@ export function RegisterPage() {
             await registerData.mutateAsync(data);
             return navigate('/login');
         } catch {
-            return navigate('/register');
+            return navigate('/');
         }
     }
 

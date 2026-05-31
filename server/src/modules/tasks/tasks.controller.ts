@@ -15,11 +15,11 @@ interface ITaskService {
 
 function TaskController({ taskService }: ITaskService) {
 
-    const getTasks = (req: Request, res: Response, next: NextFunction) => {
+    const getTasksByIDUser = (req: Request, res: Response, next: NextFunction) => {
         try {
             const user_id = req.user.id;
             const tasks = taskService.getTasks(user_id);
-            res.status(200).json(tasks);
+            res.status(200).json(tasks ?? []);
         } catch (e) {
             next(e);
         }
@@ -82,7 +82,7 @@ function TaskController({ taskService }: ITaskService) {
             next(e);
         }
     }
-    return { getTasks, getTaskById, createTask, updateTask, deleteTask }
+    return { getTasksByIDUser, getTaskById, createTask, updateTask, deleteTask }
 }
 
 export default TaskController

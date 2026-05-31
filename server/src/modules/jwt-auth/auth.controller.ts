@@ -13,7 +13,7 @@ function isUserEntityArray(arg: unknown[]): arg is UserEntity[] {
     return arg.every(isUserEntity) && Array.isArray(arg)
 }
 
-export function authController() {
+export const authController = () => {
     const register = (req: Request, res: Response) => {
         try {
             const errors = validationResult(req);
@@ -46,6 +46,7 @@ export function authController() {
                 return res.status(400).json({ error: 'Invalid password or login' })
             }
             const token = generateAccessToken(isExistUser.id, isExistUser.username);
+            req.user = { id: isExistUser.id, username: isExistUser.username };
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: true,
@@ -72,7 +73,9 @@ export function authController() {
         }
     }
 
-    const logout = async () => { }
+    const logout = async (req: Request, res: Response) => {
+        res.cookie('token', null);
+    }
 
     return { register, login, getUsers }
 }

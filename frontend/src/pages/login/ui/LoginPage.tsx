@@ -4,12 +4,17 @@ import { useForm } from "react-hook-form";
 import { type RegisterUserDto } from "../../../entities/users/api/authApi";
 import './LoginPage.css';
 import { NavLink } from 'react-router';
+import { setCredentials, useUserStore } from "../model/useUserStore";
+import { useAuthStore, login } from "../model/useAuthStore";
 
 export function LoginPage() {
 
     const navigate = useNavigate();
 
     const loginData = useLoginData();
+
+    const setCreds = useUserStore(setCredentials);
+    const isAuth = useAuthStore(login);
 
     const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm<RegisterUserDto>({
         values: {
@@ -23,9 +28,10 @@ export function LoginPage() {
 
     const onSubmit = async (data: RegisterUserDto) => {
         try {
-            const secret = await loginData.mutateAsync(data);
-            console.log(secret);
-            if (secret.token) {
+            const { user: { id, username } } = await loginData.mutateAsync(data);
+            if (id && username.trim() !== '') {
+                setCreds(id, username);
+                isAuth(id);
                 return navigate('/home');
             } else {
                 return navigate('/login');

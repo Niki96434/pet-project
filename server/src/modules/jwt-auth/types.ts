@@ -3,3 +3,8 @@ export interface UserEntity {
     username: string;
     password_hash: string;
 }
+
+export interface IUserPayload {
+    id: number;
+    username: string;
+}

@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import { secret } from './config.ts';
-import { UserEntity } from './types.ts';
 
 interface UserTokenPayload {
     id: number;
@@ -9,7 +8,7 @@ interface UserTokenPayload {
 
 export const generateAccessToken = (id: number, username: string) => {
     const payload: UserTokenPayload = { id, username };
-    return jwt.sign(payload, secret, { expiresIn: '24h' })
+    return jwt.sign(payload, secret, { expiresIn: '24h' });
 }
 
 export const decodedAccessToken = (token: string): UserTokenPayload | null => {

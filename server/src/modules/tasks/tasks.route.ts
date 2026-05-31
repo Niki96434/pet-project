@@ -8,9 +8,9 @@ const route = express.Router();
 
 const repo = TaskRepository();
 const taskService = TaskService({ repo });
-const { getTasks, getTaskById, createTask, updateTask, deleteTask } = TaskController({ taskService });
+const { getTasksByIDUser, getTaskById, createTask, updateTask, deleteTask } = TaskController({ taskService });
 
-route.get('/tasks', (req: Request, res: Response, next: NextFunction) => getTasks(req, res, next));
+route.get('/tasks', (req: Request, res: Response, next: NextFunction) => getTasksByIDUser(req, res, next));
 
 route.get('/tasks/:id', (req: Request, res: Response, next: NextFunction) => getTaskById(req, res, next));
 

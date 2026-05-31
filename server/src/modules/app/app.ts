@@ -5,7 +5,7 @@ import { errorHandler } from '../tasks/tasks.middleware.ts';
 import { authRouter } from '../jwt-auth/auth.route.ts';
 import cookieParser from 'cookie-parser';
 
-const PORT = '5000';
+const PORT = '3000';
 
 const app = express();
 

@@ -7,10 +7,11 @@ type status = 'Not completed' | 'In process' | 'Completed';
 export default interface TaskType {
     id: number;
     title: string;
-    description?: string;
+    description: string;
     deadlineDate: string;
     category: CategoryType;
     status: status;
+    user_id: UserEntity['id'];
 }
 
 interface IUser {

@@ -4,10 +4,9 @@ import { apiClient } from '../../../shared/api/apiClient';
 export const taskApi = {
     getTasks: async (): Promise<TaskType[] | undefined> => {
         try {
-            console.log('перед запросом');
             const response = await apiClient.get<TaskType[]>('/home/tasks');
+            console.log(response.data);
             if (response.status === 401) {
-                console.log('после запроса');
                 return;
             } else {
                 return response.data
@@ -17,7 +16,10 @@ export const taskApi = {
             throw e
         }
     },
-    createTask: (task: CreateTaskDto) => apiClient.post<Promise<TaskType>>('/home/tasks', task),
+    createTask: async (task: CreateTaskDto, user_id: number): Promise<TaskType | undefined> => {
+        const response = await apiClient.post<TaskType>('/home/tasks', { ...task, user_id: user_id });
+        return response.data
+    },
     getTaskById: async (id: string) => {
         const { data } = await apiClient.get<Promise<TaskType>>(`/home/tasks/${id}`);
         return data

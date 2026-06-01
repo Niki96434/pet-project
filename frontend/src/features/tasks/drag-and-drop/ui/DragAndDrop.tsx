@@ -25,6 +25,7 @@ export default function DragAndDrop() {
     const { updateTaskMutation } = useUpdateStatusTask();
 
     const initialBoards = useMemo(() => {
+        console.log(tasks);
         return tasks ? [
             {
                 id: 0, title: 'Todo', items: tasks.filter((task) => task.status === 'Not completed')

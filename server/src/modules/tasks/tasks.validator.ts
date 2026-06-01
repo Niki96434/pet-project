@@ -15,7 +15,7 @@ export class TasksValidator {
             throw new isValidTaskFields('Title empty or more 30')
         }
 
-        if (task.description?.trim() === '') {
+        if (task.description.trim() === '') {
             throw new isValidTaskFields('Description empty')
         }
     }

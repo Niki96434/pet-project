@@ -18,8 +18,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     }
     return res.status(404).json({
         error: 'Nothing found',
-        realErrorName: err.name,       // <-- ПОКАЖЕТ ИМЯ ОШИБКИ
-        realErrorMessage: err.message, // <-- ПОКАЖЕТ ТЕКСТ ОШИБКИ
-        stack: err.stack               // <-- ПОКАЖЕТ, НА КАКОЙ СТРОКЕ КОДА ВСЁ СЛОМАЛОСЬ
+        realErrorName: err.name,
+        stack: err.stack
     });
 }

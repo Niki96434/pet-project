@@ -37,7 +37,7 @@ export const authController = () => {
     const login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { username, password } = req.body;
-            const isExistUser = db.prepare('SELECT id FROM users WHERE username = ?').get(username) as UserEntity;
+            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
             if (!isExistUser) {
                 return res.status(400).json({ error: `User with username: ${username} does not exist` });
             }

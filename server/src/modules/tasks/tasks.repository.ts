@@ -25,7 +25,7 @@ function TaskRepository() {
 
     const createTask = (task: TaskType, user_id: number) => {
         try {
-            const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate, user_id) VALUES (?,?,?,?) RETURNING id, title, description, category, deadlineDate')
+            const postState = db.prepare('INSERT INTO tasks (title, description, category, deadlineDate, user_id) VALUES (?,?,?,?,?) RETURNING id, title, description, category, deadlineDate, user_id')
                 .get(task.title, task.description, task.category, task.deadlineDate, user_id) as TaskType;
             return postState
         } catch {

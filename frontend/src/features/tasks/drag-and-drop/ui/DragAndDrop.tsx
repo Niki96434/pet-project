@@ -21,11 +21,9 @@ export default function DragAndDrop() {
     const closeEditModal = useEditTaskStore(closeModal);
 
     const { status, error, tasks } = useAllTasksQuery();
-
     const { updateTaskMutation } = useUpdateStatusTask();
 
     const initialBoards = useMemo(() => {
-        console.log(tasks);
         return tasks ? [
             {
                 id: 0, title: 'Todo', items: tasks.filter((task) => task.status === 'Not completed')

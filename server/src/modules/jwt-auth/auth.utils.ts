@@ -7,7 +7,6 @@ interface UserTokenPayload {
 }
 
 export const generateAccessToken = (id: number, username: string) => {
-    console.log(id);
     const payload: UserTokenPayload = { id, username };
     return jwt.sign(payload, secret, { expiresIn: '24h' });
 }

@@ -6,7 +6,7 @@ function TaskRepository() {
 
     const getTasks = (user_id: number) => {
         try {
-            const tasks = db.prepare('SELECT * FROM tasks WHERE user_id = ?').get(user_id) as TaskType[] | [];
+            const tasks = db.prepare('SELECT * FROM tasks WHERE user_id = ?').all(String(user_id)) as TaskType[] | [];
             return tasks
         } catch {
             throw new DBError('Ошибка получения всех задач')

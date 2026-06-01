@@ -5,7 +5,6 @@ export const taskApi = {
     getTasks: async (): Promise<TaskType[] | undefined> => {
         try {
             const response = await apiClient.get<TaskType[]>('/home/tasks');
-            console.log(response.data);
             if (response.status === 401) {
                 return;
             } else {

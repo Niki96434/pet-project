@@ -31,18 +31,19 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
     return (
         <div className='add-form-wrapper'>
             <form id='task-form' className='task-form-container' onSubmit={handleSubmit(createTask)} onClick={(e) => e.stopPropagation()}>
+                <h1 className='add-form-title'>Add task</h1>
                 <FormInput {...register('title', {
                     minLength: {
                         value: 5,
                         message: 'Минимум 5 символов'
                     }, required: 'Поле обязательно к заполнению'
-                })} placeholder={'Do my homework'} children={'Title'} />
+                })} placeholder={'Do my homework'} children={''} />
                 <span title='error-hint' className='error-hint'>{errors.title && ('* ' + errors.title.message || '* Error')}</span>
                 <FormInput {...register('description',
                     {
                         required: 'Описание должно быть заполнено',
                     }
-                )} placeholder={'Prepare for the math test'} children={'Description'} />
+                )} placeholder={'Prepare for the math test'} children={''} />
                 <span className='error-hint'> {errors.description && ('*' + errors.description.message || '* Error')}</span>
                 <SelectField {...register('category')} selectName={'category'} options={Categories}>Categories</SelectField>
                 <Controller name="deadlineDate" rules={{ required: true }} control={control} render={({ field }) => {

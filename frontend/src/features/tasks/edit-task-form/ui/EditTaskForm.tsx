@@ -47,14 +47,15 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
     return (
         <div className='form-wrapper'>
             <form id='task-form' className='edit-task-form-container' onSubmit={handleSubmit(onSubmit)} onClick={(e) => e.stopPropagation()}>
-                <FormInput placeholder={' Do my homework'} children={'Title'} {...register("title", {
+                <h1 className='form-title'>Edit task</h1>
+                <FormInput placeholder={' Do my homework'} children={''} {...register("title", {
                     required: 'Поле обязательно к заполнению', minLength: {
                         value: 5,
                         message: 'Минимум 5 символов'
                     }
                 })} />
                 <div className='error-hint'>{errors.title && `* ${errors.title?.message}`}</div>
-                <FormInput placeholder={' Prepare for the math test'} children={'Description'} {...register("description", {
+                <FormInput placeholder={' Prepare for the math test'} children={''} {...register("description", {
                     required: 'Описание должно быть заполнено'
                 })} />
                 <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>

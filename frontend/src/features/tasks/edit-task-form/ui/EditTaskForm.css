@@ -4,6 +4,10 @@
     position: fixed;
     background-color: #666666;
     z-index: 9999;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .edit-task-form-container {
@@ -12,6 +16,7 @@
     border: 3px solid #FD71AF;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 15px;
     padding: 20px;
     background-color: white;
@@ -59,4 +64,9 @@
     height: 52px;
     border: 1px solid rgb(184, 184, 184);
     border-radius: 15px;
+}
+
+.form-title {
+    font-weight: 700;
+    font-size: 24px;
 }

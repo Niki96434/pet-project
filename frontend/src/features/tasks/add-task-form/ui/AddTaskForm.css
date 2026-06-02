@@ -16,7 +16,8 @@
     border: 3px dashed #FD71AF;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    justify-content: center;
+    gap: 20px;
     padding: 20px;
     background-color: white;
 }
@@ -62,4 +63,9 @@
 .error-hint {
     color: red;
     font-weight: 700;
+}
+
+.add-form-title {
+    font-weight: 700;
+    font-size: 24px;
 }

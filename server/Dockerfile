@@ -1,5 +1,7 @@
 FROM node:24.13.0-alpine
 
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /server
 
 COPY package*.json ./

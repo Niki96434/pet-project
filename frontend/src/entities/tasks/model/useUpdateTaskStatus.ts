@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { taskApi } from "../api/taskApi";
 import type { UpdateTaskDto } from "./types";
 
-export function useUpdateStatusTask() {
+export function useUpdateTaskStatus() {
 
     const queryClient = useQueryClient();
 

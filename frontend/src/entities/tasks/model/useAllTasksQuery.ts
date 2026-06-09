@@ -7,7 +7,10 @@ export function useAllTasksQuery() {
     const { data: tasks, status, error } = useQuery<TaskType[] | undefined>({
         queryKey: ['todos'],
         queryFn: () => taskApi.getTasks(),
-        retry: 1
+        retry: 1,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        staleTime: 5 * 60 * 1000,
     });
 
     return {

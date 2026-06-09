@@ -6,8 +6,8 @@ import { useEditTaskStore, closeModal, handleEditModal } from "../../../../entit
 import './DragAndDrop.css';
 import { useAllTasksQuery } from "../../../../entities/tasks/model/useAllTasksQuery";
 import { type TaskType } from "../../../../entities/tasks";
-import { DragDropContext, Droppable, type DropResult } from '@hello-pangea/dnd';
-import { useUpdateStatusTask } from '../../../../entities/tasks/model/useUpdateStatusTask';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { useDragTasks } from "../model/useDragTasks";
 
 export interface BoardType {
     id: number;
@@ -21,7 +21,6 @@ export default function DragAndDrop() {
     const closeEditModal = useEditTaskStore(closeModal);
 
     const { status, error, tasks } = useAllTasksQuery();
-    const { updateTaskMutation } = useUpdateStatusTask();
 
     const initialBoards = useMemo(() => {
         return tasks ? [
@@ -46,69 +45,7 @@ export default function DragAndDrop() {
         loadBoards();
     }, [initialBoards]);
 
-    const handleDragEnd = async (result: DropResult) => {
-        const { destination, source, draggableId, type } = result;
-
-        if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
-            return;
-        }
-
-        if (type === 'drop-tasks') {
-            const previousBoard = boards.find((b) => b.id === Number(source.droppableId));
-
-            if (!previousBoard) {
-                console.log('прошлой доски нет');
-                return;
-            }
-
-            const copyOfSourceItems = [...previousBoard.items];
-            const [task] = copyOfSourceItems.splice(source.index, 1);
-
-            const newBoards = boards.map((board) => {
-                if (board.id === Number(source.droppableId)) {
-                    return { ...board, items: copyOfSourceItems }
-                }
-                return board
-            });
-
-            let taskStatus: TaskType['status'];
-
-            const currentBoard = boards.find((b) => b.id === Number(destination.droppableId));
-
-            if (!currentBoard) {
-                console.log('текущей доски нет');
-                return;
-            }
-            const newItems = [...currentBoard.items];
-            switch (destination.droppableId) {
-                case '0': taskStatus = 'Not completed'; break;
-                case '1': taskStatus = 'In process'; break;
-                case '2': taskStatus = 'Completed'; break;
-                default: taskStatus = task.status;
-            }
-            const newTask = { ...task, status: taskStatus, id: Number(draggableId) };
-
-            const updatedBoards = newBoards.map((board) => {
-                if (destination.droppableId === source.droppableId && board.id === Number(destination.droppableId)) {
-                    board.items.splice(source.index, 1);
-                    board.items.splice(destination.index, 0, newTask);
-                    return board
-                }
-                if (board.id === Number(source.droppableId)) {
-                    return { ...board, items: copyOfSourceItems }
-                }
-                if (board.id === Number(destination.droppableId)) {
-                    newItems.splice(destination.index, 0, newTask);
-                    return { ...board, items: newItems }
-                }
-                return board
-            });
-
-            setBoards(updatedBoards);
-
-            updateTaskMutation.mutate({ id: draggableId, data: newTask });
-        }
-    }
+    const handleDragEnd = useDragTasks({ boards, setBoards });
 
     const closeAllModal = () => {
         if (isOpenAddTaskModal) {
@@ -133,7 +70,7 @@ export default function DragAndDrop() {
                                     {(provided) => {
                                         return (
                                             <div ref={provided.innerRef} {...provided.droppableProps}>
-                                                <TaskBoard key={board.id} tasks={board.items} handleModal={() => setOpenAddTaskModal(true)}>{board.title}</TaskBoard>
+                                                <TaskBoard key={board.id + 1} tasks={board.items} handleModal={() => setOpenAddTaskModal(true)}>{board.title}</TaskBoard>
                                                 {provided.placeholder}
                                             </div>)
                                     }}

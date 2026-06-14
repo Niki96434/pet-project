@@ -1,9 +1,9 @@
 export const Categories = ['Health', 'Life', 'Work', 'Study', 'Misc'] as const;
 export type CategoryType = typeof Categories[number];
 
-export const Status = ['Not completed', 'In process', 'Completed'] as const;
+export const statuses = ['Not completed', 'In process', 'Completed'] as const;
 
-export type statusType = typeof Status[number];
+export type statusType = typeof statuses[number];
 
 export interface Task {
     id: number;

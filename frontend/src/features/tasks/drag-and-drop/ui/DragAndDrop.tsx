@@ -8,6 +8,7 @@ import { useAllTasksQuery } from "../../../../entities/tasks/model/useAllTasksQu
 import { type Task } from "../../../../entities/tasks";
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useDragTasks } from "../model/useDragTasks";
+import { getBoardsFromTasks } from "../model/getBoardsFromTasks";
 
 export interface Board {
     id: number;
@@ -22,19 +23,7 @@ export function DragAndDrop() {
 
     const { status, error, tasks } = useAllTasksQuery();
 
-    const initialBoards = useMemo(() => {
-        return tasks ? [
-            {
-                id: 0, title: 'Todo', items: tasks.filter((task) => task.status === 'Not completed')
-            },
-            {
-                id: 1, title: 'In progress', items: tasks.filter((task) => task.status === 'In process')
-            },
-            {
-                id: 2, title: 'Done', items: tasks.filter((task) => task.status === 'Completed')
-            },
-        ] : []
-    }, [tasks]);
+    const initialBoards = useMemo(() => getBoardsFromTasks(tasks), [tasks]);
 
     const [boards, setBoards] = useState<Board[]>(initialBoards);
 

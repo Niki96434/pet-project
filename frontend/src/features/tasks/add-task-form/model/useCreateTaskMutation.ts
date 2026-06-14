@@ -16,7 +16,7 @@ export function useCreateTaskMutation({ handleModal }: CreateTaskProps) {
     const mutationCreateTask = useMutation({
         mutationFn: (newTask: CreateTaskDto) => taskApi.createTask(newTask, user_id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
             handleModal();
             toaster.create({
                 title: 'Задача успешно добавилась!',

@@ -5,7 +5,7 @@ export const Status = ['Not completed', 'In process', 'Completed'] as const;
 
 export type statusType = typeof Status[number];
 
-export interface TaskType {
+export interface Task {
     id: number;
     title: string;
     description?: string;
@@ -25,15 +25,15 @@ export interface CreateTaskDto {
 }
 
 export interface UpdateTaskDto {
-    title?: string;
+    title: string;
     description?: string;
-    deadlineDate?: string;
-    category?: CategoryType;
-    status?: statusType;
+    deadlineDate: string;
+    category: CategoryType;
+    status: statusType;
 }
 
 export interface TaskListDto {
     data: {
-        data: TaskType[];
+        data: Task[];
     }
 }

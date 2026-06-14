@@ -23,7 +23,7 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
         mutationFn: async () => {
             await taskApi.deleteTask(id.toString());
             queryClient.invalidateQueries({
-                queryKey: ['todos'],
+                queryKey: ['tasks'],
             });
         }
     });

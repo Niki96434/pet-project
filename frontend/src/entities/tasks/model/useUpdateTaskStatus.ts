@@ -9,7 +9,7 @@ export function useUpdateTaskStatus() {
     const updateTaskMutation = useMutation({
         mutationFn: ({ id, data }: { id: string, data: UpdateTaskDto }) => taskApi.updateTask(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
         }
     });
 

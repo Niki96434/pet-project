@@ -1,12 +1,12 @@
-import './HeaderTaskList.css';
+import './TaskListHeader.css';
 
-interface HeaderTaskListProp {
+interface TaskListHeaderProps {
     children: React.ReactNode;
     headerIcon: string;
     handleModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function HeaderTaskList({ children, headerIcon, handleModal }: HeaderTaskListProp) {
+export default function TaskListHeader({ children, headerIcon, handleModal }: TaskListHeaderProps) {
     return (
         <div className="header-task-list">
             <div className="title-header">

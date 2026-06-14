@@ -1,19 +1,19 @@
 import { create } from 'zustand';
 
 interface UserState {
-    user_id: number | null;
-    username: string | null;
+    id: number | null;
+    name: string | null;
 
     setCredentials: (id: number, name: string) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-    user_id: null,
-    username: null,
+    id: null,
+    name: null,
 
-    setCredentials: (id: number, name: string) => set({ user_id: id, username: name }),
+    setCredentials: (id: number, name: string) => set({ id: id, name: name }),
 }));
 
 export const setCredentials = (state: UserState) => state.setCredentials;
-export const userId = (state: UserState) => state.user_id;
-export const username = (state: UserState) => state.username; 
+export const userId = (state: UserState) => state.id;
+export const userName = (state: UserState) => state.name; 

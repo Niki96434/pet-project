@@ -1,5 +1,5 @@
 import { FormInput, SelectField } from '../../../../shared/ui';
-import { taskApi, Categories, type TaskType, type UpdateTaskDto } from './../../../../entities/tasks';
+import { taskApi, Categories, type Task, type UpdateTaskDto } from './../../../../entities/tasks';
 import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
@@ -16,20 +16,28 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
     const id = useEditTaskStore(getTaskId);
 
-    const { data: task, isLoading } = useQuery<TaskType>({
-        queryKey: ['todo', id],
+    const defaultTask: UpdateTaskDto = {
+        title: '',
+        description: '',
+        category: 'Misc',
+        deadlineDate: '',
+        status: 'Not completed'
+    }
+
+    const { data: task = defaultTask, isLoading } = useQuery<Task>({
+        queryKey: ['task', id],
         queryFn: () => taskApi.getTaskById(id.toString()),
         retry: 1,
     });
 
     const { register, handleSubmit, formState: { errors, isValid }, control } = useForm<UpdateTaskDto>({
-        values: task ? {
-            title: task.title || '',
+        values: {
+            title: task.title,
             description: task.description || '',
-            category: task.category || 'Misc',
-            deadlineDate: task.deadlineDate || '',
-            status: task.status || 'Not completed'
-        } : undefined,
+            category: task.category,
+            deadlineDate: task.deadlineDate,
+            status: task.status
+        },
         delayError: 500,
         mode: 'onChange',
     }

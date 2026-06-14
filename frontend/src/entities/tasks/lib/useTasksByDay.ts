@@ -1,7 +1,7 @@
 import { type DateValue, type DatePickerValueChangeDetails, parseDate } from "@chakra-ui/react";
 import { useState } from "react";
 
-export function useTasksByDay() {
+export function useFilterTasksByDay() {
     const [value, setValue] = useState<DateValue[]>([parseDate('2026-05-08')]);
 
     const handleSelectDay = (details: DatePickerValueChangeDetails) => {

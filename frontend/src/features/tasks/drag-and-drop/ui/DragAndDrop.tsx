@@ -5,18 +5,18 @@ import { EditTaskForm } from "../../edit-task-form/ui/EditTaskForm";
 import { useEditTaskStore, closeModal, handleEditModal } from "../../../../entities/tasks/model/store";
 import './DragAndDrop.css';
 import { useAllTasksQuery } from "../../../../entities/tasks/model/useAllTasksQuery";
-import { type TaskType } from "../../../../entities/tasks";
+import { type Task } from "../../../../entities/tasks";
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useDragTasks } from "../model/useDragTasks";
 
-export interface BoardType {
+export interface Board {
     id: number;
     title: string;
-    items: TaskType[];
+    items: Task[];
 }
 
-export default function DragAndDrop() {
-    const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false);
+export function DragAndDrop() {
+    const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false); // вынести в zustand вместе с useEditTaskStore
     const isOpenEditModal = useEditTaskStore(handleEditModal);
     const closeEditModal = useEditTaskStore(closeModal);
 
@@ -36,7 +36,7 @@ export default function DragAndDrop() {
         ] : []
     }, [tasks]);
 
-    const [boards, setBoards] = useState<BoardType[]>(initialBoards);
+    const [boards, setBoards] = useState<Board[]>(initialBoards);
 
     useEffect(() => {
         const loadBoards = () => {
@@ -70,7 +70,7 @@ export default function DragAndDrop() {
                                     {(provided) => {
                                         return (
                                             <div ref={provided.innerRef} {...provided.droppableProps}>
-                                                <TaskBoard key={board.id + 1} tasks={board.items} handleModal={() => setOpenAddTaskModal(true)}>{board.title}</TaskBoard>
+                                                <TaskBoard key={board.id} tasks={board.items} handleModal={() => setOpenAddTaskModal(true)}>{board.title}</TaskBoard>
                                                 {provided.placeholder}
                                             </div>)
                                     }}

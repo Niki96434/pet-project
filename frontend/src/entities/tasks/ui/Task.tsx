@@ -1,10 +1,10 @@
 import './Task.css';
-import type { TaskType } from '../model/types';
+import type { Task } from '../model/types';
 import CategoryBadge from './CategoryBadge';
 import DropdownMenu from './DropdownMenu';
 
 interface TaskProps {
-    task: TaskType;
+    task: Task;
 }
 
 export default function Task({ task }: TaskProps) {

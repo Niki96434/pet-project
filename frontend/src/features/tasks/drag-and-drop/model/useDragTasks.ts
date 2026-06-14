@@ -1,11 +1,11 @@
 import { type DropResult } from '@hello-pangea/dnd';
-import { type TaskType } from '../../../../entities/tasks';
+import { type Task } from '../../../../entities/tasks';
 import { useUpdateTaskStatus } from '../../../../entities/tasks/model/useUpdateTaskStatus';
-import type { BoardType } from '../ui/DragAndDrop';
+import type { Board } from '../ui/DragAndDrop';
 
 interface useDragTasksType {
-    boards: BoardType[];
-    setBoards: (boards: BoardType[]) => void;
+    boards: Board[];
+    setBoards: (boards: Board[]) => void;
 }
 
 export function useDragTasks({ boards, setBoards }: useDragTasksType) {
@@ -37,7 +37,7 @@ export function useDragTasks({ boards, setBoards }: useDragTasksType) {
                 return board
             });
 
-            let taskStatus: TaskType['status'];
+            let taskStatus: Task['status'];
 
             const currentBoard = boards.find((b) => b.id === Number(destination.droppableId));
 

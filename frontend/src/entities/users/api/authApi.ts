@@ -20,6 +20,7 @@ export const authApi = {
         return token
     },
     getUsers: async () => await apiClient.get('/auth/users'),
-    getUserByName: async (id: string) => await apiClient.get(`/auth/users/${id}`)
+    getUserByName: async (id: string) => await apiClient.get(`/auth/users/${id}`),
+    logout: () => { },
 }
 

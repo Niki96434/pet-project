@@ -4,7 +4,7 @@ import { AddTaskForm } from '../../add-task-form/ui/AddTaskForm';
 import { EditTaskForm } from "../../edit-task-form/ui/EditTaskForm";
 import { useEditTaskStore, closeModal, handleEditModal } from "../../../../entities/tasks/model/store";
 import './DragAndDrop.css';
-import { useAllTasksQuery } from "../../../../entities/tasks/model/useAllTasksQuery";
+import { useGetTasks } from "../../../../entities/tasks/model/useGetTasks";
 import { type Task } from "../../../../entities/tasks";
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useDragTasks } from "../model/useDragTasks";
@@ -21,7 +21,7 @@ export function DragAndDrop() {
     const isOpenEditModal = useEditTaskStore(handleEditModal);
     const closeEditModal = useEditTaskStore(closeModal);
 
-    const { status, error, tasks } = useAllTasksQuery();
+    const { status, error, tasks } = useGetTasks();
 
     const initialBoards = useMemo(() => getBoardsFromTasks(tasks), [tasks]);
 

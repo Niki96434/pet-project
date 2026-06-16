@@ -3,6 +3,7 @@ import { taskApi } from "../api/taskApi";
 import { type Task } from "./types";
 
 const TASK_STALE_TIME = 5 * 60 * 1000;
+const TASK_GC_TIME = 10 * 60 * 1000;
 
 export function useGetTasks() {
 
@@ -12,6 +13,7 @@ export function useGetTasks() {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         staleTime: TASK_STALE_TIME,
+        gcTime: TASK_GC_TIME,
     });
 
     return {

@@ -1,6 +1,6 @@
 import { type Task } from '../../../../entities/tasks';
 
-export const mockData: Task[] = [{
+export const mockTasks: Task[] = [{
     id: 1,
     title: 'покормить собачку',
     description: '',

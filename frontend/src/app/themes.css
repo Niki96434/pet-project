@@ -1,0 +1,26 @@
+.page_theme_light {
+    --bg-primary: #AAD0F0;
+    --bg-navbar: #DDABED;
+
+    --text-color: black;
+    --secondary-text: #515151;
+
+    --accent-color: #FF4885;
+
+}
+
+.page_theme_dark {
+    --bg-primary: #201f1f;
+    --bg-navbar: #000000;
+
+    --text-color: rgb(255, 255, 255);
+    --secondary-text: #ffffff;
+
+    --accent-color: #FF4885;
+
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+}

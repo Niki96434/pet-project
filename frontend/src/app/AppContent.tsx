@@ -4,7 +4,7 @@ import { Outlet } from 'react-router';
 import { NavBar, SideBar } from '../widgets/header';
 import { useState } from 'react';
 import { useTheme } from './../shared/lib/hooks/useTheme';
-import './AppContent.css';
+import './AppContent.module.css';
 import './themes.css';
 
 
@@ -13,7 +13,7 @@ function AppContent() {
     const { theme } = useTheme();
 
     return (
-        <div className={`spa-layout page_theme_${theme}`}>
+        <div className={`page_theme_${theme}`}>
             <NavBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <div className='sidebar-and-content'>
                 <SideBar isActive={isMenuOpen} />

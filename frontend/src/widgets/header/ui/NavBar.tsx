@@ -1,7 +1,7 @@
 "use client"
 import './NavBar.css';
 import menuIcon from './../../../assets/menu.svg';
-import ThemeToggler from '../../../features/add-theme/ui/ThemeToggler';
+import { ThemeToggler } from '../../../features/add-theme';
 
 interface NavBarProps {
     isMenuOpen: boolean;

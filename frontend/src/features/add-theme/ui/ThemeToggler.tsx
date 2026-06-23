@@ -1,9 +1,7 @@
-import { useTheme } from '../lib/useTheme';
+import { useTheme } from '../../../shared/lib/hooks/useTheme';
 import './ThemeToggler.css';
 
-export type Theme = 'dark' | 'light';
-
-export default function ThemeToggler() {
+function ThemeToggler() {
 
     const { theme, setTheme } = useTheme();
 
@@ -21,3 +19,5 @@ export default function ThemeToggler() {
         </div>
     )
 }
+
+export { ThemeToggler }

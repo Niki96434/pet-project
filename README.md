@@ -8,6 +8,7 @@ v1.0.0-beta
 - Создание, чтение, обновление и удаление задач.
 - Авторизация пользователей.
 - Drag-and-drop канбан.
+- Темная тема
 
 ### Планы на будущие версии:
 - Поиск по задачам.
@@ -30,7 +31,6 @@ v1.0.0-beta
 | **Docker** | Контейнеризация приложения для простоты развёртывания. |
 | **React Hook Form** | Управление формами и валидация на клиенте. |
 | **Chakra UI** | Библиотека компонентов для стилизации интерфейса. |
-| **schedule-x** | Отображение задач в виде большого календаря (планировщик). |
 
 ---
 
@@ -40,15 +40,53 @@ v1.0.0-beta
 
 ## 🚀 Гайд по запуску
 
-### Требования
-- Установленный **Docker** и **Docker Compose**.
-
 ### Шаги для запуска
 1. Клонируйте репозиторий:
-   ```bash
-   https://github.com/Niki96434/pet-project.git
-2. Запуск в корневой папке:
-   sudo docker-compose up
+```
+   https://github.com/Niki96434/https://github.com/Niki96434/for-timiryazev-center.git
+```
+2. Запуск фронтенда:
+```
+   cd frontend
+   npm install
+   npm run dev
+```
+3. Переход в директорию server и установка зависимостей:
+```
+cd server
+npm install
+```
+4. Создание файла config.ts
+```
+cd server/src/jwt-auth
+touch config.ts
+```
+5. В файле config.ts создаем секрет для jwt-токена:
+```
+export const secret = 'your_secret';
+```
+6. Запуск бэкенда: 
+```
+npm run dev
+```
 
-3. Остановить контейнеры:
-    sudo docker-compose down
+<details>
+  <summary>Посмотреть скриншоты интерфейса</summary>
+  
+  ### Регистрация
+  <img src="./images/login-form.png" width="600"/>
+
+  ### Главная страница с задачами с разными темами
+  <img src="./images/light_theme_screen.png" width="600"/>
+  <img src="./images/dark_theme_screen.png" width="600"/>
+
+  ### Формы редактирования и добавления задач
+  <img src="./images/edit-task-form.png" width="600"/>
+  <img src="./images/add-task-form.png" width="600"/>
+  
+  ### Обработка ошибок
+  <img src="./images/error-login.png" width="600"/>
+  <img src="./images/error-login-2.png" width="600"/>
+  <img src="./images/error-form.png" width="600"/>
+
+</details>

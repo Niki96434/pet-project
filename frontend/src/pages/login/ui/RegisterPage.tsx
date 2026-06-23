@@ -2,7 +2,7 @@ import { useRegisterData } from "../api/useRegisterData"
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { type RegisterUserDto } from "../../../entities/users/api/authApi";
-import './RegisterPage.css';
+import './RegisterPage.module.css';
 import { NavLink } from "react-router";
 
 export function RegisterPage() {

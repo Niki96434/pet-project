@@ -1,16 +1,19 @@
 "use client"
 import './NavBar.css';
 import menuIcon from './../../../assets/menu.svg';
+import { ThemeToggler } from '../../../features/add-theme';
 
 interface NavBarProps {
-    isActive: boolean;
-    setMenuActive: (arg: boolean) => void;
+    isMenuOpen: boolean;
+    setIsMenuOpen: (arg: boolean) => void;
 }
 
-export function NavBar({ isActive, setMenuActive }: NavBarProps) {
+export function NavBar({ isMenuOpen, setIsMenuOpen }: NavBarProps) {
+
     return (
         <nav className='nav-bar'>
-            <img className='burger-button' src={menuIcon} onClick={() => setMenuActive(!isActive)} />
+            <img className='burger-button' src={menuIcon} onClick={() => setIsMenuOpen(!isMenuOpen)} />
+            <ThemeToggler />
         </nav>
     )
 }

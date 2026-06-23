@@ -4,6 +4,11 @@
     width: 100%;
     z-index: 50;
     background-color: rgb(235, 225, 243);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
 }
 
 .burger-button {

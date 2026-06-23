@@ -2,7 +2,7 @@ import { useLoginData } from "../api/useLoginData";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { type RegisterUserDto } from "../../../entities/users/api/authApi";
-import './LoginPage.css';
+import './LoginPage.module.css';
 import { NavLink } from 'react-router';
 import { setCredentials, useUserStore } from "../model/useUserStore";
 import { useAuthStore, login } from "../model/useAuthStore";

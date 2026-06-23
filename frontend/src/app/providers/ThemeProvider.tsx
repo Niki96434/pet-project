@@ -18,7 +18,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
         setTheme
     }), [theme]);
 
-    return <ThemeContext.Provider value={contextValue} >{children}</ThemeContext.Provider>
+    return <ThemeContext value={contextValue} >{children}</ThemeContext>
 }
 
 export { ThemeProvider }

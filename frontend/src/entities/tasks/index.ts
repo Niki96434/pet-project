@@ -1,4 +1,4 @@
-export { mockData } from './api/mocks/tasks.mock';
+export { mockTasks } from './api/mocks/tasks.mock';
 
 export { TaskBoard } from './ui/TaskBoard';
 

@@ -1,5 +1,6 @@
 .sidebar-and-content {
     display: flex;
+    flex-direction: row;
 }
 
 .outlet-flex-left {

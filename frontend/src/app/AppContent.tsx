@@ -1,12 +1,11 @@
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from "../shared/lib/ui/toaster";
 import { Outlet } from 'react-router';
 import { NavBar, SideBar } from '../widgets/header';
 import { useState } from 'react';
 import { useTheme } from './../shared/lib/hooks/useTheme';
-import './AppContent.module.css';
+import './AppContent.css';
 import './themes.css';
-
 
 function AppContent() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -22,7 +21,7 @@ function AppContent() {
                     <Toaster />
                 </div>
             </div>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </div>
     )
 }

@@ -1,0 +1,58 @@
+.toggler {
+    position: relative;
+    width: 50px;
+    height: 30px;
+}
+
+.checkbox,
+.slider {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100% !important;
+}
+
+.checkbox {
+    position: absolute;
+    appearance: none;
+    cursor: pointer;
+    inset: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.checkbox_light {
+    background-image: url('./../../../assets/light_theme.svg');
+    background-size: 100% 100% !important;
+}
+
+.checkbox_dark {
+    background-position: -2px center;
+    background-image: url('./../../../assets/dark_theme.svg');
+    background-size: 120% 120% !important;
+}
+
+.slider {
+    position: absolute;
+    top: 2px;
+    width: 25px;
+    height: 25px;
+    z-index: 2;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider_light {
+    left: -3px;
+    background-image: url('./../../../assets/sun.svg');
+    background-size: 100% 100% !important;
+}
+
+.slider_dark {
+    background-image: url('./../../../assets/moon.svg');
+    background-size: 115% 115% !important;
+    top: 1px;
+}
+
+.checkbox:checked+.slider {
+    transform: translateX(30px);
+}

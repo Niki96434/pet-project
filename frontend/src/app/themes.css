@@ -1,6 +1,6 @@
 .page_theme_light {
     --bg-primary: #AAD0F0;
-    --bg-navbar: #DDABED;
+    --bg-navbar: #ff92c9;
 
     --text-color: black;
     --secondary-text: #515151;
@@ -10,8 +10,8 @@
 }
 
 .page_theme_dark {
-    --bg-primary: #201f1f;
-    --bg-navbar: #000000;
+    --bg-primary: #3a3939;
+    --bg-navbar: #292929;
 
     --text-color: rgb(255, 255, 255);
     --secondary-text: #ffffff;

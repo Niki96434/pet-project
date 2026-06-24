@@ -12,7 +12,7 @@ export function NavBar({ isMenuOpen, setIsMenuOpen }: NavBarProps) {
 
     return (
         <nav className='nav-bar'>
-            <img className='burger-button' src={menuIcon} onClick={() => setIsMenuOpen(!isMenuOpen)} />
+            <img className='burger-button' src={menuIcon} onClick={() => setIsMenuOpen(!isMenuOpen)} alt='menu' />
             <ThemeToggler />
         </nav>
     )

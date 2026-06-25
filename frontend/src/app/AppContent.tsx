@@ -5,7 +5,7 @@ import { NavBar, SideBar } from '../widgets/header';
 import { useState } from 'react';
 import { useTheme } from './../shared/lib/hooks/useTheme';
 import './AppContent.css';
-import './themes.css';
+import './styles/index.css';
 
 function AppContent() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -16,7 +16,7 @@ function AppContent() {
             <NavBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <div className='sidebar-and-content'>
                 <SideBar isActive={isMenuOpen} />
-                <div className={`${isMenuOpen ? 'outlet-flex-right' : 'outlet-flex-left'}`}>
+                <div className={`content ${isMenuOpen ? 'outlet-flex-right' : 'outlet-flex-left'}`}>
                     <Outlet />
                     <Toaster />
                 </div>

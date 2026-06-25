@@ -1,0 +1,10 @@
+@import './themes.css';
+@import './variables.css';
+@import './fonts.css';
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-color);
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-base);
+}

@@ -1,3 +1,9 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .sidebar-and-content {
     display: flex;
     flex-direction: row;

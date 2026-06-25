@@ -4,6 +4,7 @@
 
     --text-color: black;
     --secondary-text: #515151;
+    --error-text: #ff0000;
 
     --accent-color: #FF4885;
 
@@ -15,12 +16,8 @@
 
     --text-color: rgb(255, 255, 255);
     --secondary-text: #ffffff;
+    --error-text: #7e0000;
 
     --accent-color: #FF4885;
 
-}
-
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-color);
 }

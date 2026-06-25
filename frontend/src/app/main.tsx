@@ -2,9 +2,9 @@ import { createRoot } from 'react-dom/client'
 import { AppLayout } from './AppLayout';
 import { Provider } from '../shared/lib/ui/provider';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { RegisterPage } from '../pages/login';
+import { RegisterForm } from '../pages/login';
 import { TasksPage } from '../pages/tasks-page';
-import { LoginPage } from '../pages/login';
+import { LoginForm } from '../pages/login';
 import { ProtectedRoutes } from './providers/ProtectedRoutes';
 
 createRoot(document.getElementById('root')!).render(
@@ -12,8 +12,8 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />} path='/' >
-          <Route index element={<RegisterPage />} />
-          <Route element={<LoginPage />} path='/login' />
+          <Route index element={<RegisterForm />} />
+          <Route element={<LoginForm />} path='/login' />
           <Route element={<ProtectedRoutes />}>
             <Route element={<TasksPage />} path='/home' />
           </Route>

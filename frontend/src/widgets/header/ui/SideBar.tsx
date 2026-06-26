@@ -1,13 +1,10 @@
 import { NavLink } from "react-router";
 import dashboardIcon from './../../../assets/dashboard.svg?url';
-import './SideBar.css';
+import styles from './SideBar.module.css';
 
-interface SideBarProps {
-    isActive: boolean;
-}
-export function SideBar({ isActive }: SideBarProps) {
+export function SideBar() {
     return (
-        <div className={isActive ? 'active menu' : 'menu'}>
+        <div className={styles.menu}>
             <NavLink to='/home'>
                 <img className="dashboard-icon" src={dashboardIcon} alt='dashboard-icon' loading="lazy" />
             </NavLink>

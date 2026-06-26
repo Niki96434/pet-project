@@ -2,21 +2,19 @@
 import { Toaster } from "../shared/lib/ui/toaster";
 import { Outlet } from 'react-router';
 import { NavBar, SideBar } from '../widgets/header';
-import { useState } from 'react';
 import { useTheme } from './../shared/lib/hooks/useTheme';
 import './AppContent.css';
 import './styles/index.css';
 
 function AppContent() {
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const { theme } = useTheme();
 
     return (
         <div className={`page_theme_${theme}`}>
-            <NavBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            <NavBar />
             <div className='sidebar-and-content'>
-                <SideBar isActive={isMenuOpen} />
-                <div className={`content ${isMenuOpen ? 'outlet-flex-right' : 'outlet-flex-left'}`}>
+                <SideBar />
+                <div className='content'>
                     <Outlet />
                     <Toaster />
                 </div>

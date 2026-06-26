@@ -5,16 +5,16 @@ import { type RegisterUserDto } from "../../../entities/users/api/authApi";
 import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
 import { setCredentials, useUserStore } from "../model/useUserStore";
-import { useAuthStore, login } from "../model/useAuthStore";
+import { useAuth } from "../../../app/model/useAuth";
 
 export function LoginForm() {
 
     const navigate = useNavigate();
 
-    const loginData = useLoginData();
+    const loginUser = useLoginData();
 
     const setCreds = useUserStore(setCredentials);
-    const isAuth = useAuthStore(login);
+    const { setIsAuth } = useAuth();
 
     const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm<RegisterUserDto>({
         values: {
@@ -28,10 +28,10 @@ export function LoginForm() {
 
     const onSubmit = async (data: RegisterUserDto) => {
         try {
-            const { user: { id, username } } = await loginData.mutateAsync(data);
+            const { user: { id, username } } = await loginUser.mutateAsync(data);
             if (id && username.trim() !== '') {
                 setCreds(id, username);
-                isAuth(id);
+                setIsAuth(true);
                 return navigate('/home');
             } else {
                 return navigate('/login');

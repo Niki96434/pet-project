@@ -5,7 +5,7 @@ import { toaster } from "../../../shared/lib/ui/toaster";
 
 export function useLoginData() {
 
-    const registerData = useMutation({
+    const loginData = useMutation({
         mutationFn: (credentials: RegisterUserDto) => authApi.login(credentials),
         onSuccess: () => {
             toaster.create({
@@ -21,6 +21,6 @@ export function useLoginData() {
         }
     });
 
-    return registerData
+    return loginData
 }
 

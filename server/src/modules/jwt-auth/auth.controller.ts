@@ -29,7 +29,6 @@ export const authController = () => {
             db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?) RETURNING id, username').get(username, hashPassword);
             res.status(200).json({ message: 'Registration was successful' });
         } catch (e) {
-            console.log(e);
             res.status(400).json({ error: 'Registration error' });
         }
     }
@@ -37,25 +36,24 @@ export const authController = () => {
     const login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { username, password } = req.body;
-            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
-            if (!isExistUser) {
+            const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
+            if (!user) {
                 return res.status(400).json({ error: `User with username: ${username} does not exist` });
             }
-            const isValidPassword = await bcrypt.compare(password, isExistUser.password_hash);
+            const isValidPassword = await bcrypt.compare(password, user.password_hash);
             if (!isValidPassword) {
                 return res.status(400).json({ error: 'Invalid password or login' })
             }
-            const token = generateAccessToken(isExistUser.id, isExistUser.username);
-            req.user = { id: isExistUser.id, username: isExistUser.username };
+            const token = generateAccessToken(user.id, user.username);
+            req.body = { id: user.id, username: user.username };
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: false,
                 sameSite: 'lax',
                 maxAge: 1000 * 60 * 60 * 24
             });
-            res.status(200).json({ success: true, user: { id: isExistUser.id, username: isExistUser.username } });
+            res.status(200).json({ success: true, user: { id: user.id, username: user.username } });
         } catch (e) {
-            console.log(e);
             res.status(401).json({ error: 'Login error' });
         }
     }
@@ -68,7 +66,6 @@ export const authController = () => {
             }
             return res.status(200).json({ message: 'All users were successfully found', data: allUsers });
         } catch (e) {
-            console.log(e);
             res.status(401).json({ error: 'Error with get users' });
         }
     }

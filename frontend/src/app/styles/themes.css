@@ -8,6 +8,8 @@
 
     --accent-color: #FF4885;
 
+    --border-color: rgb(71, 71, 71);
+
 }
 
 .page_theme_dark {
@@ -19,5 +21,7 @@
     --error-text: #7e0000;
 
     --accent-color: #FF4885;
+
+    --border-color: rgb(71, 71, 71);
 
 }

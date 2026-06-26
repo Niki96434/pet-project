@@ -56,14 +56,15 @@ v1.0.0-beta
 cd server
 npm install
 ```
-4. Создание файла config.ts
+4. Создание файла .env
 ```
-cd server/src/jwt-auth
-touch config.ts
+cd server/
+touch .env
 ```
-5. В файле config.ts создаем секрет для jwt-токена:
+5. В файле config.ts создаем секрет для jwt-токена и порт для сервера:
 ```
-export const secret = 'your_secret';
+PORT=3000
+SECRET=your_secret
 ```
 6. Запуск бэкенда: 
 ```

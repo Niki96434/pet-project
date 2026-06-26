@@ -4,8 +4,8 @@ import cors from 'cors';
 import { errorHandler } from '../tasks/tasks.middleware.ts';
 import { authRouter } from '../jwt-auth/auth.route.ts';
 import cookieParser from 'cookie-parser';
-
-const PORT = '3000';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
@@ -24,8 +24,8 @@ app.use(errorHandler);
 
 const start = () => {
     try {
-        app.listen(PORT, () => {
-            console.log(`The server is running on port=${PORT}`)
+        app.listen(process.env.PORT, () => {
+            console.log(`The server is running on port=${process.env.PORT}`)
         });
     } catch (e) {
         console.log(e)

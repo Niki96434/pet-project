@@ -1,11 +1,11 @@
 "use client"
-import './NavBar.css';
+import styles from './NavBar.module.css';
 import { ThemeToggler } from '../../../features/add-theme';
 
 export function NavBar() {
 
     return (
-        <nav className='nav-bar'>
+        <nav className={styles.navbar}>
             <ThemeToggler />
         </nav>
     )

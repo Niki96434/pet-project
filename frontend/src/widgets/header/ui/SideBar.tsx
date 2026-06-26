@@ -6,7 +6,7 @@ export function SideBar() {
     return (
         <div className={styles.menu}>
             <NavLink to='/home'>
-                <img className="dashboard-icon" src={dashboardIcon} alt='dashboard-icon' loading="lazy" />
+                <img className={styles.homeIcon} src={dashboardIcon} alt='dashboard-icon' loading="lazy" />
             </NavLink>
         </div>
     )

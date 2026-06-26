@@ -1,9 +1,14 @@
 import jwt from 'jsonwebtoken';
-import { secret } from './config.ts';
 
 interface UserTokenPayload {
     id: number;
     username: string;
+}
+
+const secret = process.env.SECRET;
+
+if (!secret) {
+    throw new Error('secret is missing in .env file!');
 }
 
 export const generateAccessToken = (id: number, username: string) => {

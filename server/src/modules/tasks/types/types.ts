@@ -1,4 +1,4 @@
-import { UserEntity } from "../../jwt-auth/types";
+import { UserEntity } from "../../auth/types";
 
 type CategoryType = 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
 

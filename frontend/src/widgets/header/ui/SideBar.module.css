@@ -1,7 +1,6 @@
 .menu {
     width: 72px;
     height: 100vh;
-    left: 0;
     border-right: 1px solid var(--border-color);
     background-color: var(--bg-navbar);
     display: flex;
@@ -11,7 +10,6 @@
     padding-top: 10px;
 }
 
-.todos-icon,
 .homeIcon {
     width: 20px;
     height: 20px;

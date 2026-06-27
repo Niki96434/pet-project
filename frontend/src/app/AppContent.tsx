@@ -10,10 +10,10 @@ function AppContent() {
     const { theme } = useTheme();
 
     return (
-        <div className={`page_theme_${theme}`}>
-            <NavBar />
-            <div className='sidebar-and-content'>
-                <SideBar />
+        <div className={`app-page page_theme_${theme}`}>
+            <SideBar />
+            <div className='navbar-and-content'>
+                <NavBar />
                 <div className='content'>
                     <Outlet />
                     <Toaster />

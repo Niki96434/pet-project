@@ -1,4 +1,4 @@
-import { IUserPayload } from "./jwt-auth/types";
+import { IUserPayload } from "./auth/types";
 
 declare global {
     namespace Express {

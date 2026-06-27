@@ -13,6 +13,7 @@ v1.0.0-beta
 ### Планы на будущие версии:
 - Поиск по задачам.
 - Юнит-тесты для всего приложения.
+- Профиль пользователя.
 
 ---
 
@@ -61,10 +62,12 @@ npm install
 cd server/
 touch .env
 ```
-5. В файле config.ts создаем секрет для jwt-токена и порт для сервера:
+5. В файле .env создаем секреты для access и refresh токенов, домен источника(клиента) и порт,на котором запущен сервер:
 ```
 PORT=3000
-SECRET=your_secret
+CORS_ORIGIN=http://localhost:5173
+REFRESH_TOKEN_SECRET=your_refresh_token
+ACCESS_TOKEN_SECRET=your_access_token
 ```
 6. Запуск бэкенда: 
 ```

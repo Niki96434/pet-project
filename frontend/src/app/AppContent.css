@@ -1,11 +1,16 @@
+.app-page {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-and-content {
+    display: flex;
+    flex-direction: column;
+}
+
 .content {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100vw;
-}
-
-.sidebar-and-content {
-    display: flex;
-    flex-direction: row;
 }

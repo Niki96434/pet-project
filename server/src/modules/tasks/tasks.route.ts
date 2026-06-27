@@ -3,7 +3,7 @@ import TaskController from './tasks.controller.ts';
 import TaskService from './tasks.service.ts';
 import TaskRepository from './tasks.repository.ts';
 import type { NextFunction, Request, Response } from 'express';
-import { protectMiddleware } from '../jwt-auth/auth.middleware.ts';
+import { protectMiddleware } from '../auth/auth.middleware.ts';
 
 const route = express.Router();
 

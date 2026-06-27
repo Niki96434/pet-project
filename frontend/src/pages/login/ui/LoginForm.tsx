@@ -1,10 +1,10 @@
 import { useLoginData } from "../api/useLoginData";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { type RegisterUserDto } from "../../../entities/users/api/authApi";
+import { type LoginUserDto } from "../../../entities/users/api/authApi";
 import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
-import { setCredentials, useUserStore } from "../model/useUserStore";
+import { type UserState, useUserStore } from "../model/useUserStore";
 import { useAuth } from "../../../app/model/useAuth";
 
 export function LoginForm() {
@@ -13,31 +13,30 @@ export function LoginForm() {
 
     const loginUser = useLoginData();
 
-    const setCreds = useUserStore(setCredentials);
+    const setCreds = useUserStore((state: UserState) => state.setCredentials);
     const { setIsAuth } = useAuth();
 
-    const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm<RegisterUserDto>({
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<LoginUserDto>({
         values: {
             username: '',
             password: '',
-            confirmPassword: '',
         },
         delayError: 500,
         mode: 'onChange'
     });
 
-    const onSubmit = async (data: RegisterUserDto) => {
+    const onSubmit = async (data: LoginUserDto) => {
         try {
-            const { user: { id, username } } = await loginUser.mutateAsync(data);
-            if (id && username.trim() !== '') {
-                setCreds(id, username);
+            const { id, name, accessToken } = await loginUser.mutateAsync(data);
+            if (accessToken.trim() !== '') {
+                setCreds(id, name);
                 setIsAuth(true);
                 return navigate('/home');
             } else {
                 return navigate('/login');
             }
         } catch {
-            return navigate('/');
+            return navigate('/register');
         }
     }
 
@@ -57,22 +56,13 @@ export function LoginForm() {
                     }
                 })} />
                 {errors.password && <span>{errors.password.message} *</span>}
-                <input id="confirmPassword" type="password" placeholder="Confirm password" required {...register("confirmPassword", {
-                    required: 'Обязательно должно быть заполнено',
-                    minLength: {
-                        value: 6,
-                        message: 'Минимум 6 символов'
-                    },
-                    validate: (value) => value === getValues('password') || 'Пароли не совпадают'
-                })} />
-                {errors.confirmPassword && <span>{errors.confirmPassword.message} *</span>}
                 <button className={styles.btn} disabled={!isValid} type="submit">Вход</button>
                 <div className={styles.or}>
                     <div className={styles.line}></div>
                     <p className={styles.center}>или</p>
                     <div className={styles.line}></div>
                 </div>
-                <div>Еще не зарегистрировались? <NavLink to={'/'}><strong>Зарегистрироваться</strong></NavLink></div>
+                <div>Еще не зарегистрировались? <NavLink to={'/register'}><strong>Зарегистрироваться</strong></NavLink></div>
             </form>
         </div>
     )

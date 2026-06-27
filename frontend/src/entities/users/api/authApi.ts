@@ -8,9 +8,13 @@ export interface UserEntity {
 export interface RegisterUserDto {
     username: UserEntity['username'];
     password: UserEntity['password'];
-    confirmPassword?: string;
+    confirmPassword: string;
 }
 
+export interface LoginUserDto {
+    username: UserEntity['username'];
+    password: UserEntity['password'];
+}
 
 export const authApi = {
     register: async ({ username, password }: UserEntity) => await apiClient.post('/auth/register', { username, password }),

@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />} path='/' >
-          <Route index element={<RegisterForm />} />
+          <Route element={<RegisterForm />} path='/register' />
           <Route element={<LoginForm />} path='/login' />
           <Route element={<ProtectedRoutes />}>
             <Route element={<TasksPage />} path='/home' />

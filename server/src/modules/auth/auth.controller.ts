@@ -31,7 +31,7 @@ export const authController = () => {
 
             const hashPassword = bcrypt.hashSync(password, 10);
 
-            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?)').get(username, hashPassword);
+            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?)').run(username, hashPassword);
 
             res.status(200).json({ message: 'Registration was successful' });
         } catch (e) {
@@ -67,7 +67,7 @@ export const authController = () => {
 
             db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, user.id);
 
-            res.status(200).json({ accessToken });
+            res.status(200).json({ id: user.id, name: user.username, accessToken });
         } catch (e) {
             res.status(401).json({ error: 'Login error' });
         }
@@ -87,14 +87,14 @@ export const authController = () => {
 
     const refreshToken = async (req: Request, res: Response) => {
         const tokenFromCookie = getCookie().refreshToken;
-        if (!tokenFromCookie) res.status(401).json('Empty cookie with key=refreshToken');
+        if (!tokenFromCookie) return res.status(401).json('Empty cookie with key=refreshToken');
 
         const { id, username } = req.body;
 
         const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id);
-        if (!tokenFromDB) res.status(401).json('Empty refresh_token in DB');
+        if (!tokenFromDB) return res.status(401).json('Empty refresh_token in DB');
 
-        if (tokenFromDB !== tokenFromCookie) res.status(401).json('The tokens do not match');
+        if (tokenFromDB !== tokenFromCookie) return res.status(401).json('The tokens do not match');
 
         const accessToken = generateAccessToken(id, username);
         const refreshToken = generateRefreshToken(id);

@@ -1,10 +1,17 @@
 "use client"
 import styles from './NavBar.module.css';
 import { ThemeToggler } from '../../../features/add-theme';
+import UserCard from '../../../entities/users/ui/UserCard';
+import DropdownButton from '../../../shared/ui/DropdownButton';
+import { useAuth } from '../../../shared/model/useAuth';
 
 export function NavBar() {
+    const { isAuth, setIsAuth } = useAuth();
+
     return (
         <nav className={styles.container}>
+            <UserCard />
+            <DropdownButton setIsAuth={setIsAuth} />
             <ThemeToggler />
         </nav>
     )

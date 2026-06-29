@@ -118,16 +118,20 @@ export const authController = () => {
     const logout = async (req: Request, res: Response) => {
         try {
             const { refreshToken } = req.cookies;
-            // исправить sql-запрос
-            db.prepare('UPDATE users SET refreshToken = ? WHERE refreshToken = ?').run('', refreshToken);
+
+            if (refreshToken) {
+                db.prepare('UPDATE users SET refresh_token = NULL WHERE refresh_token = ?').run(refreshToken);
+            }
+
+            // пофиксить очистку кукисов
             res.clearCookie('refreshToken', {
                 httpOnly: true,
                 secure: false,
-                sameSite: 'lax',
+                sameSite: 'lax'
             });
             res.status(200).json({ message: 'Successful exit' });
         } catch (e) {
-            res.status(400).json({ message: 'Log out error' })
+            res.status(500).json({ message: 'Log out error' })
         }
     }
 

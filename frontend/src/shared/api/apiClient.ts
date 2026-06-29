@@ -3,7 +3,7 @@ import axiosRetry from 'axios-retry'
 
 export const apiClient = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
-    timeout: 1000,
+    timeout: 3000,
     withCredentials: true,
 });
 

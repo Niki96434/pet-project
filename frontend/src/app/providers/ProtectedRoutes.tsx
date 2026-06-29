@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { useAuth } from "../model/useAuth";
+import { useAuth } from "../../shared/model/useAuth";
 
 export const ProtectedRoutes = () => {
 

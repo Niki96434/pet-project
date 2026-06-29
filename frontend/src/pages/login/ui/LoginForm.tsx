@@ -5,7 +5,7 @@ import { type LoginUserDto } from "../../../entities/users/api/authApi";
 import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
 import { type UserState, useUserStore } from "../model/useUserStore";
-import { useAuth } from "../../../app/model/useAuth";
+import { useAuth } from "../../../shared/model/useAuth";
 
 export function LoginForm() {
 

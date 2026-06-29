@@ -13,12 +13,12 @@
 }
 
 .page_theme_dark {
-    --bg-primary: #3a3939;
+    --bg-primary: #585858;
     --bg-navbar: #292929;
 
     --text-color: rgb(255, 255, 255);
     --secondary-text: #ffffff;
-    --error-text: #7e0000;
+    --error-text: #ff0000;
 
     --accent-color: #FF4885;
 

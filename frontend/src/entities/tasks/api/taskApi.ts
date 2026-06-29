@@ -3,16 +3,11 @@ import { apiClient } from '../../../shared/api/apiClient';
 
 export const taskApi = {
     getTasks: async (): Promise<Task[]> => {
-        try {
-            const response = await apiClient.get<Task[]>('/home/tasks');
-            if (response.status === 401) {
-                return [];
-            } else {
-                return response.data
-            }
-        } catch (e) {
-            console.log(e);
-            throw e
+        const response = await apiClient.get<Task[]>('/home/tasks');
+        if (response.status === 401) {
+            return [];
+        } else {
+            return response.data
         }
     },
     createTask: async (task: CreateTaskDto, user_id: number): Promise<Task> => {

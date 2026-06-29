@@ -10,7 +10,3 @@ export interface IUserPayload {
     username: string;
 }
 
-export interface CookieType {
-    [key: string]: string;
-}
-

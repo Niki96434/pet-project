@@ -13,6 +13,8 @@ const { getTasksByIDUser, getTaskById, createTask, updateTask, deleteTask } = Ta
 
 route.use(protectMiddleware);
 
+// типизировать req как AuthRequest, чтобы обращаться к id и username из req.users
+// либо по бест практисам: удалить передачу этих аргументов, так как это уже делается автоматически
 route.get('/tasks', (req: Request, res: Response, next: NextFunction) => getTasksByIDUser(req, res, next));
 
 route.get('/tasks/:id', (req: Request, res: Response, next: NextFunction) => getTaskById(req, res, next));

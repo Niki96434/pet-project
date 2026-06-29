@@ -27,14 +27,18 @@ export function LoginForm() {
 
     const onSubmit = async (data: LoginUserDto) => {
         try {
+            // проверить нужна ли здесь валидация
             const { id, name, accessToken } = await loginUser.mutateAsync(data);
-            if (accessToken.trim() !== '') {
-                setCreds(id, name);
-                setIsAuth(true);
-                return navigate('/home');
-            } else {
+
+            if (!accessToken || accessToken.trim() === '') {
                 return navigate('/login');
             }
+
+            localStorage.setItem('accessToken', accessToken);
+
+            setCreds(id, name);
+            setIsAuth(true);
+            return navigate('/home');
         } catch {
             return navigate('/register');
         }

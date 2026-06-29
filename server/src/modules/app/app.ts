@@ -18,7 +18,9 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
+// поменять на /api/auth
 app.use('/auth', authRouter);
+// поменять на /api/tasks
 app.use('/home', tasksRouter);
 app.use(errorHandler);
 

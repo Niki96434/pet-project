@@ -3,7 +3,7 @@ import { db } from "./../app/db.ts";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
 import { type UserEntity } from './types.ts';
-import { generateAccessToken, generateRefreshToken, getCookie } from "./auth.utils.ts";
+import { decodedRefreshToken, generateAccessToken, generateRefreshToken } from "./auth.utils.ts";
 
 function isUserEntity(arg: unknown): arg is UserEntity {
     return (typeof arg === 'object' && arg !== null && 'id' in arg && 'username' in arg && 'password_hash' in arg)
@@ -46,13 +46,13 @@ export const authController = () => {
             const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
 
             if (!user) {
-                return res.status(401).json({ error: `User with username: ${username} does not exist` });
+                return res.status(401).json({ message: `User with username: ${username} does not exist` });
             }
 
             const isValidPassword = await bcrypt.compare(password, user.password_hash);
 
             if (!isValidPassword) {
-                return res.status(401).json({ error: 'Invalid password or login' })
+                return res.status(401).json({ message: 'Invalid password or login' })
             }
 
             const accessToken = generateAccessToken(user.id, user.username);
@@ -69,7 +69,7 @@ export const authController = () => {
 
             res.status(200).json({ id: user.id, name: user.username, accessToken });
         } catch (e) {
-            res.status(401).json({ error: 'Login error' });
+            res.status(401).json({ message: 'Login error' });
         }
     }
 
@@ -81,38 +81,55 @@ export const authController = () => {
             }
             return res.status(200).json({ message: 'All users were successfully found', data: allUsers });
         } catch (e) {
-            res.status(401).json({ error: 'Error with get users' });
+            res.status(401).json({ message: 'Error with get users' });
         }
     }
 
-    const refreshToken = async (req: Request, res: Response) => {
-        const tokenFromCookie = getCookie().refreshToken;
-        if (!tokenFromCookie) return res.status(401).json('Empty cookie with key=refreshToken');
+    const refreshTokens = async (req: Request, res: Response) => {
+        try {
 
-        const { id, username } = req.body;
+            const tokenFromCookie = req.cookies.refreshToken;
 
-        const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id);
-        if (!tokenFromDB) return res.status(401).json('Empty refresh_token in DB');
+            if (!tokenFromCookie || tokenFromCookie.trim() === '') return res.status(401).json('Empty cookie with refreshToken');
 
-        if (tokenFromDB !== tokenFromCookie) return res.status(401).json('The tokens do not match');
+            const { id, username } = tokenFromCookie;
+            const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id);
+            if (!tokenFromDB) return res.status(401).json({ message: 'Empty refresh_token in DB' });
 
-        const accessToken = generateAccessToken(id, username);
-        const refreshToken = generateRefreshToken(id);
+            if (tokenFromDB !== tokenFromCookie) return res.status(401).json({ message: 'The tokens do not match' });
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
-            maxAge: 1000 * 60 * 60 * 24,
-        });
+            const accessToken = generateAccessToken(id, username);
+            const refreshToken = generateRefreshToken(id);
 
-        db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, id);
-        res.status(200).json({ accessToken });
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'lax',
+                maxAge: 1000 * 60 * 60 * 24,
+            });
+
+            db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, id);
+            res.status(200).json({ accessToken });
+        } catch {
+            res.status(401).json({ message: 'Refresh tokens error' });
+        }
     }
 
     const logout = async (req: Request, res: Response) => {
-        res.status(200).json('Successful exit');
+        try {
+            const { refreshToken } = req.cookies;
+            // исправить sql-запрос
+            db.prepare('UPDATE users SET refreshToken = ? WHERE refreshToken = ?').run('', refreshToken);
+            res.clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'lax',
+            });
+            res.status(200).json({ message: 'Successful exit' });
+        } catch (e) {
+            res.status(400).json({ message: 'Log out error' })
+        }
     }
 
-    return { register, login, getUsers, refreshToken }
+    return { register, login, getUsers, refreshTokens, logout }
 }

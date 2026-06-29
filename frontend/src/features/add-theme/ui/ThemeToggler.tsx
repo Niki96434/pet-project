@@ -6,8 +6,9 @@ function ThemeToggler() {
     const { theme, setTheme } = useTheme();
 
     const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTheme(e.target.checked ? 'light' : 'dark'); // неправильная логика
-        localStorage.setItem('theme', theme);
+        const newTheme = e.target.checked ? 'light' : 'dark';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
     }
 
     return (

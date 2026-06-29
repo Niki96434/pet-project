@@ -3,6 +3,8 @@
     padding: 30px;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     margin-left: 75px;
+    background-color: aqua;
 }

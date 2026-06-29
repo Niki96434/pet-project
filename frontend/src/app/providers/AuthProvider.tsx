@@ -8,8 +8,8 @@ interface AuthProviderProps {
 function AuthProvider({ children }: AuthProviderProps) {
 
     const [isAuth, setIsAuth] = useState<isAuthValue>(() => {
-        const isAuth = localStorage.getItem('isAuth');
-        return isAuth === 'true';
+        // здесь логика неоч
+        return true;
     });
 
     const contextValue = useMemo(() => ({

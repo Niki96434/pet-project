@@ -2,9 +2,15 @@
 @import './variables.css';
 @import './fonts.css';
 
-body {
+html,
+body,
+#root {
     background-color: var(--bg-primary);
     color: var(--text-color);
     font-family: var(--font-family-base);
     font-weight: var(--font-weight-base);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }

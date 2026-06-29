@@ -1,21 +1,24 @@
 import { Response, Request, NextFunction } from "express";
-import { decodedAccessToken } from './auth.utils';
+import { decodedAccessToken, type UserAccessTokenPayload } from './auth.utils';
 
-export const protectMiddleware = (req: Request, res: Response, next: NextFunction) => {
+interface AuthRequest extends Request {
+    users?: UserAccessTokenPayload;
+}
+
+export const protectMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const token: string | null = req.cookies.accessToken;
+        const token = req.headers.authorization;
 
-        if (!token) {
-            return res.status(401).json({ error: 'User is not authorized' });
+        if (!token || !token.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Invalid token or token expired' });
         }
 
-        const decodedToken = decodedAccessToken(token);
+        const actualToken = token.split(' ')[1];
+        const decodedToken = decodedAccessToken(actualToken);
 
-        if (!decodedToken) {
-            return res.status(401).json({ error: 'User is not authorized' });
-        }
+        if (!decodedToken) return res.status(401).json({ error: 'Invalid token' })
 
-        req.body = { id: decodedToken.id, username: decodedToken.username };
+        req.users = { id: decodedToken.id, username: decodedToken.username };
         next();
     } catch {
         return res.status(401).json({ error: 'Invalid token' })

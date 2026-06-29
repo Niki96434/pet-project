@@ -1,4 +1,3 @@
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from "../shared/lib/ui/toaster";
 import { Outlet } from 'react-router';
 import { NavBar, SideBar } from '../widgets/header';
@@ -19,7 +18,6 @@ function AppContent() {
                     <Toaster />
                 </div>
             </div>
-            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </div>
     )
 }

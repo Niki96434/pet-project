@@ -1,4 +1,5 @@
 import { apiClient } from "../../../shared/api/apiClient";
+import axios from 'axios';
 
 export interface UserEntity {
     username: string;
@@ -25,6 +26,11 @@ export const authApi = {
     },
     getUsers: async () => await apiClient.get('/auth/users'),
     getUserByName: async (id: string) => await apiClient.get(`/auth/users/${id}`),
-    logout: () => { },
+    logout: async () => await apiClient.post('/auth/logout'),
+    refreshTokens: async () => {
+        return axios.get('/auth/refresh', {
+            withCredentials: true
+        });
+    }
 }
 

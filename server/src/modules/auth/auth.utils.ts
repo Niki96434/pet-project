@@ -1,11 +1,18 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { CookieType } from './types';
 dotenv.config();
 
-interface UserTokenPayload {
+export interface UserAccessTokenPayload {
     id: number;
     username: string;
+}
+
+export interface UserRefreshTokenPayload {
+    id: number;
+}
+
+export interface CookieType {
+    [key: string]: string;
 }
 
 const accessSecret = process.env.ACCESS_TOKEN_SECRET;
@@ -16,18 +23,17 @@ if (!accessSecret || !refreshSecret) {
 }
 
 export const generateAccessToken = (id: number, username: string) => {
-    const payload: UserTokenPayload = { id, username };
+    const payload: UserAccessTokenPayload = { id, username };
     return jwt.sign(payload, accessSecret, { expiresIn: '15m' });
 }
 
 
-export const decodedAccessToken = (token: string): UserTokenPayload | null => {
-    try {
-        const userData = jwt.verify(token, accessSecret) as UserTokenPayload;
-        return userData
-    } catch {
-        return null
-    }
+export const decodedAccessToken = (token: string): UserAccessTokenPayload => {
+    return jwt.verify(token, accessSecret) as UserAccessTokenPayload;
+}
+
+export const decodedRefreshToken = (token: string): UserRefreshTokenPayload => {
+    return jwt.verify(token, refreshSecret) as UserRefreshTokenPayload;
 }
 
 export const generateRefreshToken = (userId: number) => {
@@ -44,5 +50,4 @@ export const getCookie = () => {
 
     return arrCookies;
 }
-
 

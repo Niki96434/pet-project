@@ -10,8 +10,8 @@ export function NavBar() {
 
     return (
         <nav className={styles.container}>
-            <UserCard />
-            <DropdownButton setIsAuth={setIsAuth} />
+            {isAuth && <UserCard />}
+            {isAuth && <DropdownButton setIsAuth={setIsAuth} />}
             <ThemeToggler />
         </nav>
     )

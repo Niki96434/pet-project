@@ -1,8 +1,8 @@
 import { Response, Request, NextFunction } from "express";
-import { decodedAccessToken, type UserAccessTokenPayload } from './auth.utils';
+import { decodedAccessToken, type UserTokenPayload } from './auth.utils';
 
 interface AuthRequest extends Request {
-    users?: UserAccessTokenPayload;
+    users?: UserTokenPayload;
 }
 
 export const protectMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -24,4 +24,3 @@ export const protectMiddleware = (req: AuthRequest, res: Response, next: NextFun
         return res.status(401).json({ error: 'Invalid token' })
     }
 }
-

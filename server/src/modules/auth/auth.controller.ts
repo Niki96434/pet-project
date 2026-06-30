@@ -56,7 +56,7 @@ export const authController = () => {
             }
 
             const accessToken = generateAccessToken(user.id, user.username);
-            const refreshToken = generateRefreshToken(user.id);
+            const refreshToken = generateRefreshToken(user.id, user.username);
 
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
@@ -67,21 +67,9 @@ export const authController = () => {
 
             db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, user.id);
 
-            res.status(200).json({ id: user.id, name: user.username, accessToken });
+            res.status(200).json({ id: user.id, name: user.username, accessToken: accessToken });
         } catch (e) {
             res.status(401).json({ message: 'Login error' });
-        }
-    }
-
-    const getUsers = async (req: Request, res: Response) => {
-        try {
-            const allUsers: unknown[] = db.prepare('SELECT * FROM users').all();
-            if (!isUserEntityArray(allUsers)) {
-                return res.status(500).json({ error: 'Invalid data' });
-            }
-            return res.status(200).json({ message: 'All users were successfully found', data: allUsers });
-        } catch (e) {
-            res.status(401).json({ message: 'Error with get users' });
         }
     }
 
@@ -92,14 +80,18 @@ export const authController = () => {
 
             if (!tokenFromCookie || tokenFromCookie.trim() === '') return res.status(401).json('Empty cookie with refreshToken');
 
-            const { id, username } = tokenFromCookie;
-            const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id);
-            if (!tokenFromDB) return res.status(401).json({ message: 'Empty refresh_token in DB' });
+            const actualToken = decodedRefreshToken(tokenFromCookie);
 
-            if (tokenFromDB !== tokenFromCookie) return res.status(401).json({ message: 'The tokens do not match' });
+            const { id, username } = actualToken;
+
+            const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id) as { refresh_token: string } | undefined;
+
+            if (!tokenFromDB || !tokenFromDB.refresh_token) return res.status(401).json({ message: 'Empty refresh_token in DB' });
+
+            if (tokenFromDB.refresh_token !== tokenFromCookie) return res.status(401).json({ message: 'The tokens do not match' });
 
             const accessToken = generateAccessToken(id, username);
-            const refreshToken = generateRefreshToken(id);
+            const refreshToken = generateRefreshToken(id, username);
 
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
@@ -123,7 +115,6 @@ export const authController = () => {
                 db.prepare('UPDATE users SET refresh_token = NULL WHERE refresh_token = ?').run(refreshToken);
             }
 
-            // пофиксить очистку кукисов
             res.clearCookie('refreshToken', {
                 httpOnly: true,
                 secure: false,
@@ -135,5 +126,5 @@ export const authController = () => {
         }
     }
 
-    return { register, login, getUsers, refreshTokens, logout }
+    return { register, login, refreshTokens, logout }
 }

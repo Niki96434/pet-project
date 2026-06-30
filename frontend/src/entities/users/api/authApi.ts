@@ -27,8 +27,8 @@ export const authApi = {
     getUsers: async () => await apiClient.get('/auth/users'),
     getUserByName: async (id: string) => await apiClient.get(`/auth/users/${id}`),
     logout: async () => {
-        return axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {
-            withCredentialds: true
+        return axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {}, {
+            withCredentials: true
         })
     },
     refreshTokens: async () => {

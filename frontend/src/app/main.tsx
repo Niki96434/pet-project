@@ -6,6 +6,7 @@ import { RegisterForm } from '../pages/login';
 import { TasksPage } from '../pages/tasks-page';
 import { LoginForm } from '../pages/login';
 import { ProtectedRoutes } from './providers/ProtectedRoutes';
+import './../shared/api/authInterceptor';
 
 createRoot(document.getElementById('root')!).render(
   <Provider>

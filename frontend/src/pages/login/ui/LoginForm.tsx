@@ -29,11 +29,9 @@ export function LoginForm() {
         try {
             // проверить нужна ли здесь валидация
             const { id, name, accessToken } = await loginUser.mutateAsync(data);
-
             if (!accessToken || accessToken.trim() === '') {
                 return navigate('/login');
             }
-
             localStorage.setItem('accessToken', accessToken);
 
             setCreds(id, name);

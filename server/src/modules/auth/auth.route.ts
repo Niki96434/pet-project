@@ -3,9 +3,7 @@ import { authController } from './auth.controller.ts';
 import { body } from 'express-validator';
 
 export const authRouter = express.Router();
-const { register, login, getUsers, refreshTokens, logout } = authController();
-
-authRouter.get('/users', getUsers);
+const { register, login, refreshTokens, logout } = authController();
 
 authRouter.post('/login', login);
 

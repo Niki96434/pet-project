@@ -4,8 +4,9 @@ import { authApi } from './../../entities/users/api/authApi';
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken');
+
     if (accessToken) {
-        config.headers.set('Authorization', `Bearer ${accessToken}`)
+        config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config
 });
@@ -27,13 +28,14 @@ apiClient.interceptors.response.use(
 
                 const newAccessToken = res.data.accessToken;
 
+                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
                 localStorage.setItem('accessToken', newAccessToken);
-                originalRequest.headers.set('Authorization', `Bearer ${newAccessToken}`);
 
                 return apiClient(originalRequest);
 
             } catch (refreshError) {
                 localStorage.removeItem('accessToken');
+                // возможно нужно еще удалить кукис с refresh-токеном и из бд удалить
                 return Promise.reject(refreshError);
             }
         }

@@ -1,4 +1,4 @@
-import type TaskType from "./types/types.ts";
+import type TaskType from "./types.ts";
 import ITaskRepository from './tasks.repository.ts'
 import { isExistTaskError } from "./customErrors.ts";
 
@@ -19,7 +19,7 @@ function TaskService({ repo }: ITaskRepository) {
         return tasks
     }
 
-    const getTaskById = (id: number, user_id: number) => {
+    const getTask = (id: number, user_id: number) => {
         const task = repo.getTaskById(id, user_id);
         if (!task) {
             throw new isExistTaskError(`no task with ${id}`);
@@ -50,7 +50,7 @@ function TaskService({ repo }: ITaskRepository) {
         return true
     }
 
-    return { getTasks, getTaskById, createTask, updateTask, deleteTask }
+    return { getTasks, getTask, createTask, updateTask, deleteTask }
 }
 
 export default TaskService

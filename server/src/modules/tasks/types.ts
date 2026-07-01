@@ -1,4 +1,4 @@
-import { UserEntity } from "../../auth/types";
+import { UserEntity } from "../auth/types";
 
 type CategoryType = 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
 
@@ -14,8 +14,6 @@ export default interface TaskType {
     user_id: UserEntity['id'];
 }
 
-interface IUser {
+export interface IUser {
     user: UserEntity;
 }
-
-interface NewRequest extends Request, IUser { }

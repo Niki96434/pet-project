@@ -80,47 +80,6 @@ export const queryClient = new QueryClient({
 });
 ```
 
-### Бэкенд
-
-#### 1. Использование переменных окружения
-
-В файле `server/src/modules/app/app.ts` порт и CORS origin жёстко заданы в коде.
-
-```typescript
-const PORT = '3000';
-// ...
-app.use(cors({
-    origin: 'http://localhost:5173',
-    // ...
-}));
-```
-
-**Рекомендация:** Используйте переменные окружения. Создайте в папке `server` файл `.env` и вынесите туда эти значения.
-
-```
-# server/.env
-PORT=3000
-CORS_ORIGIN=http://localhost:5173
-JWT_SECRET=your-super-secret-key
-```
-
-Для их чтения установите пакет `dotenv`: `npm install dotenv`.
-
-```typescript
-// server/src/modules/app/app.ts
-import dotenv from 'dotenv';
-dotenv.config(); // Загружает переменные из .env
-
-const PORT = process.env.PORT || 3000;
-// ...
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    // ...
-}));
-```
-
-Это делает приложение более гибким и безопасным.
-
 #### 2. Упрощение обработки ошибок в контроллерах
 
 Во всех методах контроллера повторяется блок `try...catch`:

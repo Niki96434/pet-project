@@ -1,12 +1,12 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Response, Request } from 'express';
 import type ITaskService from './tasks.service.ts';
 import { TasksValidator } from './tasks.validator.ts';
-import type TaskType from './types/types.ts';
+import type TaskType from './types.ts';
 
 interface ITaskService {
     taskService: {
         getTasks(user_id: number): TaskType[];
-        getTaskById(id: number, user_id: number): TaskType | undefined;
+        getTask(id: number, user_id: number): TaskType | undefined;
         createTask(task: TaskType, user_id: number): TaskType;
         updateTask(id: number, task: TaskType, user_id: number): TaskType | undefined;
         deleteTask(id: number, user_id: number): boolean;
@@ -15,9 +15,10 @@ interface ITaskService {
 
 function TaskController({ taskService }: ITaskService) {
 
-    const getTasksByIDUser = (req: Request, res: Response, next: NextFunction) => {
+    const getTasks = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const user_id = req.user.id;
+            const user_id = req.user?.id as number;
+
             const tasks = taskService.getTasks(user_id);
             res.status(200).json(tasks ?? []);
         } catch (e) {
@@ -25,14 +26,14 @@ function TaskController({ taskService }: ITaskService) {
         }
     }
 
-    const getTaskById = (req: Request, res: Response, next: NextFunction) => {
+    const getTask = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { id } = req.params;
-            const user_id = req.user.id;
+            const user_id = req.user?.id as number;
+            const { task_id } = req.params;
 
-            TasksValidator.checkTaskId(Number(id));
+            TasksValidator.checkTaskId(Number(task_id));
 
-            const task = taskService.getTaskById(Number(id), Number(user_id));
+            const task = taskService.getTask(Number(task_id), Number(user_id));
             res.status(200).json(task);
         } catch (e) {
             next(e);
@@ -42,7 +43,7 @@ function TaskController({ taskService }: ITaskService) {
     const createTask = (req: Request, res: Response, next: NextFunction) => {
         try {
             const task = req.body;
-            const user_id = req.user.id;
+            const user_id = req.user?.id as number;
 
             TasksValidator.isValidTaskFields(task);
 
@@ -55,14 +56,15 @@ function TaskController({ taskService }: ITaskService) {
 
     const updateTask = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { id } = req.params;
+            const { task_id } = req.params;
             const task = req.body;
-            const user_id = req.user.id;
 
-            TasksValidator.checkTaskId(Number(id));
+            const user_id = req.user?.id as number;
+
+            TasksValidator.checkTaskId(Number(task_id));
             TasksValidator.isValidTaskFields(task);
 
-            const updatedTask = taskService.updateTask(Number(id), task, Number(user_id));
+            const updatedTask = taskService.updateTask(Number(task_id), task, Number(user_id));
             res.status(200).json(updatedTask);
         } catch (e) {
             next(e);
@@ -71,18 +73,19 @@ function TaskController({ taskService }: ITaskService) {
 
     const deleteTask = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { id } = req.params;
-            const user_id = req.user.id;
+            const { task_id } = req.params;
 
-            TasksValidator.checkTaskId(Number(id));
+            const user_id = req.user?.id as number;
 
-            taskService.deleteTask(Number(id), user_id);
+            TasksValidator.checkTaskId(Number(task_id));
+
+            taskService.deleteTask(Number(task_id), user_id);
             res.status(204).json({ message: 'Task deleted successfully' });
         } catch (e) {
             next(e);
         }
     }
-    return { getTasksByIDUser, getTaskById, createTask, updateTask, deleteTask }
+    return { getTasks, getTask, createTask, updateTask, deleteTask }
 }
 
 export default TaskController

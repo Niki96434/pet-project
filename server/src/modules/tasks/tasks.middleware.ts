@@ -1,4 +1,4 @@
-import { type ErrorRequestHandler } from 'express';
+import { NextFunction, Request, Response, type ErrorRequestHandler } from 'express';
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     if (err.name === 'DBError') {
@@ -21,4 +21,9 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         realErrorName: err.name,
         stack: err.stack
     });
+}
+
+export const authRequired = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user?.id) return res.status(401).json({ message: 'Unauthorized' });
+    next();
 }

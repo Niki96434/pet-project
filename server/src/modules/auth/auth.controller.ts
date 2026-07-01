@@ -1,4 +1,4 @@
-import { NextFunction, type Request, type Response } from "express";
+import { type NextFunction, type Response, type Request } from "express";
 import { db } from "./../app/db.ts";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";

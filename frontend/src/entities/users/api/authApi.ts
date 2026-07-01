@@ -18,20 +18,19 @@ export interface LoginUserDto {
 }
 
 export const authApi = {
-    register: async ({ username, password }: UserEntity) => await apiClient.post('/auth/register', { username, password }),
+    register: async ({ username, password }: UserEntity) => await apiClient.post('/api/auth/register', { username, password }),
     login: async (credentials: UserEntity) => {
-        const response = await apiClient.post('/auth/login', credentials);
+        const response = await apiClient.post('/api/auth/login', credentials);
         const token = await response.data;
         return token
     },
-    // getUserByName: async (id: string) => await apiClient.get(`/auth/users/${id}`),
     logout: async () => {
-        return axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {}, {
+        return axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/logout`, {}, {
             withCredentials: true
         })
     },
     refreshTokens: async () => {
-        return axios.get(`${import.meta.env.VITE_BASE_URL}/auth/refresh`, {
+        return axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/refresh`, {
             withCredentials: true
         });
     }

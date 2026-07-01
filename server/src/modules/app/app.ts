@@ -1,8 +1,8 @@
 import express from 'express';
-import tasksRouter from '../tasks/tasks.route.ts';
+import tasksRouter from '../tasks/tasks.route.js';
 import cors from 'cors';
-import { errorHandler } from '../tasks/tasks.middleware.ts';
-import { authRouter } from '../auth/auth.route.ts';
+import { errorHandler } from '../tasks/tasks.middleware.js';
+import { authRouter } from '../auth/auth.route.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -16,12 +16,12 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
+
 app.use(cookieParser());
 
-// поменять на /api/auth
-app.use('/auth', authRouter);
-// поменять на /api/tasks
-app.use('/home', tasksRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/tasks', tasksRouter);
+
 app.use(errorHandler);
 
 const start = () => {

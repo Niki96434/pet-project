@@ -13,14 +13,14 @@ const { getTasks, getTask, createTask, updateTask, deleteTask } = TaskController
 route.use(checkAuth);
 route.use(checkUserData);
 
-route.get('/tasks', getTasks);
+route.get('/', getTasks);
 
-route.get('/tasks/:id', getTask);
+route.get('/:id', getTask);
 
-route.post('/tasks', createTask);
+route.post('/', createTask);
 
-route.put('/tasks/:id', updateTask);
+route.put('/:id', updateTask);
 
-route.delete('/tasks/:id', deleteTask);
+route.delete('/:id', deleteTask);
 
 export default route;

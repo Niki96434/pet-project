@@ -1,6 +1,6 @@
-import { db } from '../app/db.ts';
-import type TaskType from './types.ts';
-import { DBError } from './customErrors.ts';
+import { db } from '../app/db.js';
+import type TaskType from './types.js';
+import { DBError } from './customErrors.js';
 
 function TaskRepository() {
 

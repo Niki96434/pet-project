@@ -1,8 +1,8 @@
 import express from 'express';
-import TaskController from './tasks.controller.ts';
-import TaskService from './tasks.service.ts';
-import TaskRepository from './tasks.repository.ts';
-import { checkAuth, checkUserData } from '../auth/auth.middleware.ts';
+import TaskController from './tasks.controller.js';
+import TaskService from './tasks.service.js';
+import TaskRepository from './tasks.repository.js';
+import { checkAuth, checkUserData } from '../auth/auth.middleware.js';
 
 const route = express.Router();
 

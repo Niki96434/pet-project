@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import { decodedAccessToken } from './auth.utils';
+import { decodedAccessToken } from './auth.utils.js';
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     try {

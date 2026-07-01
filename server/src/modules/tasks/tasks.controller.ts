@@ -1,6 +1,6 @@
 import type { NextFunction, Response, Request } from 'express';
 import type ITaskService from './tasks.service.ts';
-import { TasksValidator } from './tasks.validator.ts';
+import { TasksValidator } from './tasks.validator.js';
 import type TaskType from './types.ts';
 
 interface ITaskService {

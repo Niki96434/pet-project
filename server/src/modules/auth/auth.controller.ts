@@ -1,17 +1,9 @@
 import { type NextFunction, type Response, type Request } from "express";
-import { db } from "./../app/db.ts";
+import { db } from "./../app/db.js";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
-import { type UserEntity } from './types.ts';
-import { decodedRefreshToken, generateAccessToken, generateRefreshToken } from "./auth.utils.ts";
-
-function isUserEntity(arg: unknown): arg is UserEntity {
-    return (typeof arg === 'object' && arg !== null && 'id' in arg && 'username' in arg && 'password_hash' in arg)
-}
-
-// function isUserEntityArray(arg: unknown[]): arg is UserEntity[] {
-//     return arg.every(isUserEntity) && Array.isArray(arg)
-// }
+import { type UserEntity } from './types.js';
+import { decodedRefreshToken, generateAccessToken, generateRefreshToken } from "./auth.utils.js";
 
 export const authController = () => {
     const register = (req: Request, res: Response) => {

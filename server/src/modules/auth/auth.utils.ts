@@ -31,8 +31,8 @@ export const decodedRefreshToken = (token: string): UserTokenPayload => {
     return jwt.verify(token, refreshSecret) as UserTokenPayload;
 }
 
-export const generateRefreshToken = (userId: number, username: string) => {
-    const payload = { userId, username };
+export const generateRefreshToken = (id: number, username: string) => {
+    const payload = { id, username };
     return jwt.sign(payload, refreshSecret, { expiresIn: '24h' });
 }
 

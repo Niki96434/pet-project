@@ -22,8 +22,3 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         stack: err.stack
     });
 }
-
-export const authRequired = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user?.id) return res.status(401).json({ message: 'Unauthorized' });
-    next();
-}

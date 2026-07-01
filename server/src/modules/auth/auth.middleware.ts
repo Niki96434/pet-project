@@ -1,11 +1,7 @@
 import { Response, Request, NextFunction } from "express";
-import { decodedAccessToken, type UserTokenPayload } from './auth.utils';
+import { decodedAccessToken } from './auth.utils';
 
-interface AuthRequest extends Request {
-    users?: UserTokenPayload;
-}
-
-export const protectMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.headers.authorization;
 
@@ -18,9 +14,14 @@ export const protectMiddleware = (req: AuthRequest, res: Response, next: NextFun
 
         if (!decodedToken) return res.status(401).json({ error: 'Invalid token' })
 
-        req.users = { id: decodedToken.id, username: decodedToken.username };
+        req.user = { id: decodedToken.id, username: decodedToken.username };
         next();
     } catch {
         return res.status(401).json({ error: 'Invalid token' })
     }
+}
+
+export const checkUserData = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user?.id) return res.status(401).json({ message: 'Unauthorized' });
+    next();
 }

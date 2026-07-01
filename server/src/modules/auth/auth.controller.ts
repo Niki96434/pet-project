@@ -9,9 +9,9 @@ function isUserEntity(arg: unknown): arg is UserEntity {
     return (typeof arg === 'object' && arg !== null && 'id' in arg && 'username' in arg && 'password_hash' in arg)
 }
 
-function isUserEntityArray(arg: unknown[]): arg is UserEntity[] {
-    return arg.every(isUserEntity) && Array.isArray(arg)
-}
+// function isUserEntityArray(arg: unknown[]): arg is UserEntity[] {
+//     return arg.every(isUserEntity) && Array.isArray(arg)
+// }
 
 export const authController = () => {
     const register = (req: Request, res: Response) => {
@@ -80,9 +80,7 @@ export const authController = () => {
 
             if (!tokenFromCookie || tokenFromCookie.trim() === '') return res.status(401).json('Empty cookie with refreshToken');
 
-            const actualToken = decodedRefreshToken(tokenFromCookie);
-
-            const { id, username } = actualToken;
+            const { id, username } = decodedRefreshToken(tokenFromCookie);
 
             const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id) as { refresh_token: string } | undefined;
 
@@ -90,8 +88,8 @@ export const authController = () => {
 
             if (tokenFromDB.refresh_token !== tokenFromCookie) return res.status(401).json({ message: 'The tokens do not match' });
 
-            const accessToken = generateAccessToken(id, username);
             const refreshToken = generateRefreshToken(id, username);
+            const accessToken = generateAccessToken(id, username);
 
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,

@@ -1,4 +1,4 @@
-import { UserEntity } from "../auth/types";
+import UserEntity from "./types.js";
 
 type CategoryType = 'Health' | 'Life' | 'Work' | 'Study' | 'Misc';
 

@@ -1,4 +1,5 @@
 import express from 'express';
+import { app } from './server.js';
 import tasksRouter from '../tasks/tasks.route.js';
 import cors from 'cors';
 import { errorHandler } from '../tasks/tasks.middleware.js';
@@ -6,8 +7,6 @@ import { authRouter } from '../auth/auth.route.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config();
-
-const app = express();
 
 app.use(express.json());
 

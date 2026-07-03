@@ -6,6 +6,7 @@ import { type UserEntity } from './types.js';
 import { decodedRefreshToken, generateAccessToken, generateRefreshToken } from "./auth.utils.js";
 
 export const authController = () => {
+
     const register = (req: Request, res: Response) => {
         try {
             const errors = validationResult(req);

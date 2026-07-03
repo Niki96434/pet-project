@@ -1,11 +1,6 @@
-class ServerError extends Error { }
-
-class ClientError extends Error { }
-
-export class DBError extends ServerError {
-
+class CustomError extends Error {
     public statusCode: number;
-    constructor(message: string, statusCode = 500) {
+    constructor(message: string, statusCode: number) {
         super(message);
         this.message = message;
         this.statusCode = statusCode;
@@ -13,38 +8,16 @@ export class DBError extends ServerError {
     }
 }
 
+class ServerError extends CustomError { }
 
-export class isValidIdError extends ClientError {
-    public statusCode: number;
+class ClientError extends CustomError { }
 
-    constructor(message: string, statusCode = 400) {
-        super(message);
-        this.message = message;
-        this.statusCode = statusCode;
-        this.name = this.constructor.name;
-    }
-}
+export class DBError extends ServerError { }
 
-export class isValidTaskFields extends ClientError {
-    public statusCode: number;
+export class isValidIdError extends ClientError { }
 
-    constructor(message: string, statusCode = 400) {
-        super(message);
-        this.message = message;
-        this.statusCode = statusCode;
-        this.name = this.constructor.name;
-    }
-}
+export class isValidTaskFields extends ClientError { }
 
+export class isExistTaskError extends ClientError { }
 
-export class isExistTaskError extends ClientError {
-    public statusCode: number;
-
-    constructor(message: string, statusCode = 404) {
-        super(message);
-        this.message = message;
-        this.statusCode = statusCode;
-        this.name = this.constructor.name;
-    }
-}
-
+export class ForbiddenError extends ClientError { }

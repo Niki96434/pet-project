@@ -10,18 +10,18 @@ export const taskApi = {
             return response.data
         }
     },
-    createTask: async (task: CreateTaskDto, user_id: number): Promise<Task> => {
+    createTask: async (task: CreateTaskDto, user_id: number) => {
         const response = await apiClient.post<Task>('/api/tasks', { ...task, user_id: user_id });
         return response.data
     },
     getTaskById: async (id: string) => {
-        const { data } = await apiClient.get<Promise<Task>>(`/api/tasks/${id}`);
+        const { data } = await apiClient.get<Task>(`/api/tasks/${id}`);
         return data
     },
-    updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Promise<Task>>(`/api/tasks/${id}`, task),
+    updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Task>(`/api/tasks/${id}`, task),
     deleteTask: (id: string) => apiClient.delete(`/api/tasks/${id}`),
     filterTaskByDay: async (deadlineDate: string) => {
-        const { data } = await apiClient.get<Promise<Task[]>>('/api/tasks', {
+        const { data } = await apiClient.get<Task[]>('/api/tasks', {
             params: { deadlineDate }
         });
         return data

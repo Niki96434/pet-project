@@ -41,9 +41,10 @@ function TaskRepository() {
         }
     }
 
-    const deleteTask = (id: number, user_id: number) => {
+    const deleteTask = (task_id: number, user_id: number) => {
         try {
-            return db.prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?').run(id, user_id);
+            const result = db.prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?').run(task_id, user_id);
+            return result.changes > 0
         } catch {
             throw new DBError('Error deleting task', 500);
         }

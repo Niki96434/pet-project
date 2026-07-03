@@ -1,7 +1,6 @@
 import type TaskType from "./types.ts";
 import ITaskRepository from './tasks.repository.js'
-import { isExistTaskError, ForbiddenError } from "./customErrors.js";
-import Database from "better-sqlite3";
+import { TaskNotFoundError, AccessDeniedError } from "./customErrors.js";
 
 interface ITaskRepository {
     repo: {
@@ -9,68 +8,49 @@ interface ITaskRepository {
         getTask(id: number, user_id: number): TaskType | undefined;
         createTask(task: TaskType, user_id: number): TaskType;
         updateTask(id: number, task: TaskType, user_id: number): TaskType;
-        deleteTask(id: number, user_id: number): Database.RunResult;
+        deleteTask(id: number, user_id: number): boolean;
     }
 }
 
 function TaskService({ repo }: ITaskRepository) {
 
-    const getTasks = (user_id: number) => {
-        const tasks = repo.getTasks(user_id);
-        return tasks
-    }
-
-    const getTask = (task_id: number, user_id: number) => {
+    const _getTaskAndCheckAccess = (task_id: number, user_id: number) => {
 
         const task = repo.getTask(task_id, user_id);
 
         if (!task) {
-            throw new isExistTaskError(`no task with ${task_id}`, 404);
+            throw new TaskNotFoundError(`Task not found`, 404);
         }
 
         if (task.user_id !== user_id) {
-            throw new ForbiddenError('access denied', 403);
+            throw new AccessDeniedError('You do not have permission to access this task', 403);
         }
 
-        return task
+        return task;
+    };
+
+    const getTasks = (user_id: number) => {
+        return repo.getTasks(user_id);
+    }
+
+    const getTask = (task_id: number, user_id: number) => {
+        return _getTaskAndCheckAccess(task_id, user_id)
     }
 
     const createTask = (task: TaskType, user_id: number) => {
-        const newTask = repo.createTask(task, user_id);
-        return newTask
+        return repo.createTask(task, user_id);
     }
 
-    const updateTask = (id: number, task: TaskType, user_id: number) => {
-        const existedTask = repo.getTask(id, user_id);
+    const updateTask = (task_id: number, task: TaskType, user_id: number) => {
+        _getTaskAndCheckAccess(task_id, user_id);
 
-        if (!existedTask) {
-            throw new isExistTaskError(`no task with ${id}`, 404);
-        }
-
-        if (existedTask.user_id !== user_id) {
-            throw new ForbiddenError('access denied', 403)
-        }
-
-        const updatedTask = repo.updateTask(id, task, user_id);
-        return updatedTask
+        return repo.updateTask(task_id, task, user_id);
     }
 
-    const deleteTask = (id: number, user_id: number) => {
-        const existedTask = repo.getTask(id, user_id);
+    const deleteTask = (task_id: number, user_id: number) => {
+        _getTaskAndCheckAccess(task_id, user_id);
 
-        if (!existedTask) {
-            throw new isExistTaskError(`no task with ${id}`, 404);
-        }
-
-        if (existedTask.user_id !== user_id) {
-            throw new ForbiddenError('access denied', 403)
-        }
-
-        const result = repo.deleteTask(id, user_id);
-        if (result) {
-            throw new isExistTaskError(`no task with ${id}`, 404);
-        }
-        return;
+        return repo.deleteTask(task_id, user_id);
     }
 
     return { getTasks, getTask, createTask, updateTask, deleteTask }

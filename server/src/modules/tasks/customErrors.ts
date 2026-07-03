@@ -18,6 +18,6 @@ export class isValidIdError extends ClientError { }
 
 export class isValidTaskFields extends ClientError { }
 
-export class isExistTaskError extends ClientError { }
+export class TaskNotFoundError extends ClientError { }
 
-export class ForbiddenError extends ClientError { }
+export class AccessDeniedError extends ClientError { }

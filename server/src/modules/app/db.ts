@@ -1,37 +1,19 @@
-import Database from 'better-sqlite3';
+import pg from 'pg';
 
-export const db = new Database('task-manager.db', {
-  timeout: 5000,
-  verbose: console.log
+const { Pool } = pg;
+
+const pool = new Pool({
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  host: process.env.PGHOST,
+  port: parseInt(process.env.PGPORT || '5432', 10),
+  database: process.env.PGDATABASE,
 });
 
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+pool.on('error', (err: Error) => {
+  console.error('Unexpected error on idle client', err);
+});
 
-try {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    refresh_token TEXT
-  );
+export const client = await pool.connect();
 
-    CREATE TABLE IF NOT EXISTS tasks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title VARCHAR(30) NOT NULL,
-    description TEXT,
-    category TEXT NOT NULL,
-    deadlineDate TEXT NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'Not completed',
-    user_id INTEGER NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-  );
-  
-  `);
-} catch (err) {
-  if (err instanceof Error) {
-    console.error(err.stack)
-  }
-}
-
+// client.release();

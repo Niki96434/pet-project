@@ -29,7 +29,7 @@ function TaskController({ taskService }: ITaskService) {
     const getTask = (req: Request, res: Response, next: NextFunction) => {
         try {
             const user_id = req.user?.id as number;
-            const { task_id } = req.params;
+            const task_id = req.params['id'];
             // убрать валидаторы
             TasksValidator.checkTaskId(Number(task_id));
             const task = taskService.getTask(Number(task_id), Number(user_id));
@@ -56,7 +56,7 @@ function TaskController({ taskService }: ITaskService) {
 
     const updateTask = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { task_id } = req.params;
+            const task_id = req.params['id'];
             const task = req.body;
 
             const user_id = req.user?.id as number;
@@ -73,7 +73,7 @@ function TaskController({ taskService }: ITaskService) {
 
     const deleteTask = (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { task_id } = req.params;
+            const task_id = req.params['id'];
 
             const user_id = req.user?.id as number;
 

@@ -1,7 +1,5 @@
 node_modules/
 
-*.db-shm
-*.db-wal
 *.db
 
 config.ts

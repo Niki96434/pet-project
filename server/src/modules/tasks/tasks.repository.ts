@@ -1,50 +1,54 @@
-import { db } from '../app/db.js';
+import { pool } from '../app/db.js';
 import type TaskType from './types.js';
 import { DBError } from './customErrors.js';
 
 function TaskRepository() {
 
-    const getTasks = (user_id: number) => {
+    const getTasks = async (user_id: number) => {
         try {
-            const tasks = db.prepare('SELECT * FROM tasks WHERE user_id = ?').all(user_id) as TaskType[] | [];
+            const result = await pool.query('SELECT * FROM tasks WHERE user_id = $1', [user_id]);
+            const tasks = result.rows[0] as TaskType[] | [];
             return tasks
         } catch {
             throw new DBError('error receiving tasks', 500);
         }
     }
 
-    const getTask = (id: number, user_id: number) => {
+    const getTask = async (id: number, user_id: number) => {
         try {
-            return db.prepare('SELECT * FROM tasks WHERE id = ? AND user_id = ?')
-                .get(id, user_id) as TaskType;
+            const result = await pool.query('SELECT * FROM tasks WHERE id = $1 AND user_id = $2', [id, user_id]);
+            return result.rows[0] as TaskType
         }
         catch {
             throw new DBError('error receiving task', 500);
         }
     }
 
-    const createTask = (task: TaskType, user_id: number) => {
+    const createTask = async (task: TaskType, user_id: number) => {
         try {
-            return db.prepare('INSERT INTO tasks (title, description, category, deadlineDate, user_id) VALUES (?,?,?,?,?) RETURNING id, title, description, category, deadlineDate, user_id')
-                .get(task.title, task.description, task.category, task.deadlineDate, user_id) as TaskType;
+            const query = 'INSERT INTO tasks (title, description, category, deadlineDate, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING id, title, description, category, deadlineDate, user_id';
+            const result = await pool.query(query,
+                [task.title, task.description, task.category, task.deadlineDate, user_id]);
+            return result.rows[0] as TaskType
         } catch {
             throw new DBError('Error creating task', 500)
         }
     }
 
-    const updateTask = (id: number, taskProperty: TaskType, user_id: number) => {
+    const updateTask = async (id: number, taskProperty: TaskType, user_id: number) => {
         try {
-            return db.prepare('UPDATE tasks SET title = ?, description = ?, category = ?, deadlineDate = ?, status = ? WHERE id = ? AND user_id = ? RETURNING id, title, description, category, deadlineDate, status')
-                .get(taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, taskProperty.status, id, user_id) as TaskType;
+            const query = 'UPDATE tasks SET title = $1, description = $2, category = $3, deadlineDate = $4, status = $5 WHERE id = $6 AND user_id = $7 RETURNING id, title, description, category, deadlineDate, status';
+            return await pool.query(query,
+                [taskProperty.title, taskProperty.description, taskProperty.category, taskProperty.deadlineDate, taskProperty.status, id, user_id]);
         } catch {
             throw new DBError('Error updating task', 500);
         }
     }
 
-    const deleteTask = (task_id: number, user_id: number) => {
+    const deleteTask = async (task_id: number, user_id: number) => {
         try {
-            const result = db.prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?').run(task_id, user_id);
-            return result.changes > 0
+            const result = await pool.query('DELETE FROM tasks WHERE id = $1 AND user_id = $2', [task_id, user_id]);
+            return result.rows[0];
         } catch {
             throw new DBError('Error deleting task', 500);
         }

@@ -7,7 +7,8 @@
     "test": "",
     "start": "ts-node src/modules/app/app.ts",
     "dev": "tsx src/modules/app/app.ts",
-    "watch": "tsx --watch src/modules/app/app.ts"
+    "watch": "tsx --watch src/modules/app/app.ts",
+    "migrate": "node-pg-migrate"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.20.0",
+    "node-pg-migrate": "^8.0.4",
     "ts-node": "^10.9.2",
     "tsx": "^4.22.3"
   }

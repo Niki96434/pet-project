@@ -1,5 +1,5 @@
 import { type NextFunction, type Response, type Request } from "express";
-import { db } from "./../app/db.js";
+import { pool } from "./../app/db.js";
 import bcrypt from 'bcryptjs';
 import { validationResult } from "express-validator";
 import { type UserEntity } from './types.js';
@@ -7,7 +7,7 @@ import { decodedRefreshToken, generateAccessToken, generateRefreshToken } from "
 
 export const authController = () => {
 
-    const register = (req: Request, res: Response) => {
+    const register = async (req: Request, res: Response) => {
         try {
             const errors = validationResult(req);
 
@@ -16,15 +16,15 @@ export const authController = () => {
             }
 
             const { username, password } = req.body;
-            const isExistUser = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+            const isExistUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
-            if (isExistUser) {
+            if (!isExistUser) {
                 return res.status(401).json({ error: `User with username: ${username} already exist` })
             }
 
             const hashPassword = bcrypt.hashSync(password, 10);
 
-            db.prepare('INSERT INTO users(username, password_hash) VALUES(?,?)').run(username, hashPassword);
+            await pool.query('INSERT INTO users(username, password_hash) VALUES($1,$2)', [username, hashPassword]);
 
             res.status(200).json({ message: 'Registration was successful' });
         } catch (e) {
@@ -36,7 +36,9 @@ export const authController = () => {
         try {
             const { username, password } = req.body;
 
-            const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as UserEntity;
+            const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+            const user: UserEntity | undefined = result.rows[0];
 
             if (!user) {
                 return res.status(401).json({ message: `User with username: ${username} does not exist` });
@@ -58,7 +60,7 @@ export const authController = () => {
                 maxAge: 1000 * 60 * 60 * 24,
             });
 
-            db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, user.id);
+            await pool.query('UPDATE users SET refresh_token = $1 WHERE id = $2', [refreshToken, user.id]);
 
             res.status(200).json({ id: user.id, name: user.username, accessToken: accessToken });
         } catch (e) {
@@ -75,7 +77,9 @@ export const authController = () => {
 
             const { id, username } = decodedRefreshToken(tokenFromCookie);
 
-            const tokenFromDB = db.prepare(`SELECT refresh_token from users WHERE id = ?`).get(id) as { refresh_token: string } | undefined;
+            const result = await pool.query(`SELECT refresh_token from users WHERE id = $1`, [id]);
+
+            const tokenFromDB = result.rows[0] as { refresh_token: string } | undefined;
 
             if (!tokenFromDB || !tokenFromDB.refresh_token) return res.status(401).json({ message: 'Empty refresh_token in DB' });
 
@@ -91,7 +95,7 @@ export const authController = () => {
                 maxAge: 1000 * 60 * 60 * 24,
             });
 
-            db.prepare('UPDATE users SET refresh_token = ? WHERE id = ?').run(refreshToken, id);
+            await pool.query('UPDATE users SET refresh_token = $1 WHERE id = $2', [refreshToken, id]);
             res.status(200).json({ accessToken });
         } catch {
             res.status(401).json({ message: 'Refresh tokens error' });
@@ -103,7 +107,7 @@ export const authController = () => {
             const { refreshToken } = req.cookies;
 
             if (refreshToken) {
-                db.prepare('UPDATE users SET refresh_token = NULL WHERE refresh_token = ?').run(refreshToken);
+                pool.query('UPDATE users SET refresh_token = NULL WHERE refresh_token = $1', [refreshToken]);
             }
 
             res.clearCookie('refreshToken', {

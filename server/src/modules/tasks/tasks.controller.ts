@@ -30,7 +30,7 @@ function TaskController({ taskService }: ITaskService) {
         try {
             const user_id = req.user?.id as number;
             const task_id = req.params['id'];
-            // убрать валидаторы
+
             TasksValidator.checkTaskId(Number(task_id));
             const task = taskService.getTask(Number(task_id), Number(user_id));
             res.status(200).json(task);
@@ -44,7 +44,6 @@ function TaskController({ taskService }: ITaskService) {
             const task = req.body;
             const user_id = req.user?.id as number;
 
-            // убрать валидаторы в мидлвары ( хочу на zod)
             TasksValidator.isValidTaskFields(task);
 
             const newTask = taskService.createTask(task, user_id);
@@ -60,7 +59,7 @@ function TaskController({ taskService }: ITaskService) {
             const task = req.body;
 
             const user_id = req.user?.id as number;
-            // убрать валидаторы в мидлвары ( на zod)
+
             TasksValidator.checkTaskId(Number(task_id));
             TasksValidator.isValidTaskFields(task);
 
@@ -77,7 +76,6 @@ function TaskController({ taskService }: ITaskService) {
 
             const user_id = req.user?.id as number;
 
-            // убрать валидаторы в мидлвары ( на zod)
             TasksValidator.checkTaskId(Number(task_id));
 
             taskService.deleteTask(Number(task_id), user_id);

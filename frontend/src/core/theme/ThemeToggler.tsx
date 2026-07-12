@@ -1,4 +1,4 @@
-import { useTheme } from '../../../shared/lib/hooks/useTheme';
+import { useTheme } from './useTheme';
 import styles from './ThemeToggler.module.css';
 
 function ThemeToggler() {

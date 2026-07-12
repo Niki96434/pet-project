@@ -27,12 +27,3 @@ export const useTaskModalStore = create<TaskState>((set) => ({
     closeAddModal: () => set({ isAddModalOpen: false }),
 
 }));
-
-export const getTaskId = (state: TaskState) => state.taskId;
-export const setTaskId = (id: number) => (state: TaskState) => state.taskId = id;
-
-export const openEditModal = (state: TaskState) => state.openEditModal;
-export const closeEditModal = (state: TaskState) => state.closeEditModal;
-
-export const openAddModal = (state: TaskState) => state.openAddModal;
-export const closeAddModal = (state: TaskState) => state.closeAddModal;

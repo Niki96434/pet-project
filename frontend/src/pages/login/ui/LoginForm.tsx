@@ -6,15 +6,13 @@ import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
 import { type UserState, useUserStore } from "../model/useUserStore";
 import { useAuth } from "../../../shared/model/useAuth";
-import { useQueryClient } from "@tanstack/react-query";
+import { queryClient } from "../../../shared/api/queryClient";
 
 export function LoginForm() {
 
     const navigate = useNavigate();
 
     const loginUser = useLoginData();
-
-    const queryClient = useQueryClient();
 
     const setCreds = useUserStore((state: UserState) => state.setCredentials);
     const { setIsAuth } = useAuth();

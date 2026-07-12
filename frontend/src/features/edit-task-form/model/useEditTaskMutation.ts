@@ -1,14 +1,13 @@
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { toaster } from '../../../shared/lib/ui/toaster';
 import { type UpdateTaskDto, taskApi } from '../../../entities/tasks';
+import { queryClient } from '../../../shared/api/queryClient';
 
 interface EditTaskMutationProps {
     closeEditModal: () => void;
 }
 
 export function useEditTaskMutation({ closeEditModal }: EditTaskMutationProps) {
-
-    const queryClient = useQueryClient();
 
     const updateTaskMutation = useMutation({
         mutationFn: ({ id, data }: { id: string, data: UpdateTaskDto }) => taskApi.updateTask(id, data),

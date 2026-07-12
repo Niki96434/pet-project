@@ -3,9 +3,10 @@ import './DropdownMenu.css';
 import { IconButton, Menu, Portal, Stack, Icon } from "@chakra-ui/react";
 import { useState } from "react";
 import ellipsis from './../../../assets/ellipsis.svg';
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { taskApi } from './../../tasks/api/taskApi';
-import { setTaskId, useTaskModalStore, type TaskState } from '../model/useTaskModalStore.ts';
+import { useTaskModalStore, type TaskState } from '../model/useTaskModalStore.ts';
+import { queryClient } from '../../../shared/api/queryClient.ts';
 
 interface DropdownMenuProps {
     id: number;
@@ -13,11 +14,8 @@ interface DropdownMenuProps {
 
 export default function DropdownMenu({ id }: DropdownMenuProps) {
     const [open, setOpen] = useState(false);
-    const queryClient = useQueryClient();
 
-    useTaskModalStore(setTaskId(id));
-
-    const openEditModal = useTaskModalStore((state: TaskState) => state.openEditModal);
+    const { openEditModal } = useTaskModalStore((state: TaskState) => state);
 
     const mutationDelete = useMutation({
         mutationFn: async () => {
@@ -41,7 +39,7 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content>
-                            <Menu.Item value="edit" onClick={() => openEditModal()}>Редактировать</Menu.Item>
+                            <Menu.Item value="edit" onClick={openEditModal}>Редактировать</Menu.Item>
                             <Menu.Item value="del" onClick={() => mutationDelete.mutate()}>Удалить</Menu.Item>
                         </Menu.Content>
                     </Menu.Positioner>

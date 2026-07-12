@@ -1,7 +1,7 @@
 import { type DropResult } from '@hello-pangea/dnd';
 import { type Task } from '../../../entities/tasks';
 import { useUpdateTaskStatus } from '../../../entities/tasks/model/useUpdateTaskStatus';
-import type { Board } from '../ui/TaskBoards';
+import type { Board } from '../ui/DragAndDrop';
 
 interface useDragTasksType {
     boards: Board[];
@@ -45,9 +45,9 @@ export function useDragTasks({ boards, setBoards }: useDragTasksType) {
             }
             const newItems = [...currentBoard.items];
             switch (destination.droppableId) {
-                case '0': taskStatus = 'Not completed'; break;
-                case '1': taskStatus = 'In process'; break;
-                case '2': taskStatus = 'Completed'; break;
+                case '1': taskStatus = 'Not completed'; break;
+                case '2': taskStatus = 'In process'; break;
+                case '3': taskStatus = 'Completed'; break;
                 default: taskStatus = task.status;
             }
             const newTask = { ...task, status: taskStatus, id: Number(draggableId) };

@@ -1,6 +1,6 @@
 import { Toaster } from "../shared/lib/ui/toaster";
 import { Outlet } from 'react-router';
-import { NavBar, SideBar } from '../widgets/header';
+import { NavBar, SideBar } from '../widgets';
 import { useTheme } from '../core/theme/useTheme';
 import './AppContent.css';
 import './styles/index.css';

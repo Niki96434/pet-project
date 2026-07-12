@@ -1,11 +1,12 @@
 .container {
     height: 75px;
-    padding: 30px;
+    width: calc(100% - 72px);
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-left: 75px;
     background-color: var(--bg-navbar);
+    box-sizing: border-box;
     gap: 10px;
+    padding: 30px;
 }

@@ -1,12 +1,14 @@
-import { useUserStore, type UserState } from '../../../pages/login/model/useUserStore';
 import styles from './UserCard.module.css'
 
-function UserCard() {
+interface UserCardProps {
+    initial: string;
+}
 
-    const username = useUserStore((state: UserState) => state.name);
+function UserCard({ initial }: UserCardProps) {
+
     return (
         <div className={styles.container}>
-            {username?.split('')[0]}
+            {initial}
         </div>
     )
 }

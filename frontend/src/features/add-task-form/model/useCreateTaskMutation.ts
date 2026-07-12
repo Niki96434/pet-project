@@ -1,8 +1,8 @@
-import { taskApi } from '../../../../entities/tasks';
+import { taskApi } from '../../../entities/tasks';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-import { toaster } from "../../../../shared/lib/ui/toaster";
-import { type CreateTaskDto } from '../../../../entities/tasks/model/types';
+import { toaster } from "../../../shared/lib/ui/toaster";
+import { type CreateTaskDto } from '../../../entities/tasks/model/types';
 
 interface CreateTaskProps {
     handleModal: () => void;

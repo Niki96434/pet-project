@@ -1,6 +1,6 @@
 import { type DropResult } from '@hello-pangea/dnd';
-import { type Task } from '../../../../entities/tasks';
-import { useUpdateTaskStatus } from '../../../../entities/tasks/model/useUpdateTaskStatus';
+import { type Task } from '../../../entities/tasks';
+import { useUpdateTaskStatus } from '../../../entities/tasks/model/useUpdateTaskStatus';
 import type { Board } from '../ui/TaskBoards';
 
 interface useDragTasksType {

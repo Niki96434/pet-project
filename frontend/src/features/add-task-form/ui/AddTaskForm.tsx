@@ -1,13 +1,13 @@
-import { FormInput } from '../../../../shared/ui';
-import { SelectField } from '../../../../shared/ui/SelectField';
-import { Categories } from '../../../../entities/tasks/model/types';
+import { FormInput } from '../../../shared/ui';
+import { SelectField } from '../../../shared/ui/SelectField';
+import { Categories } from '../../../entities/tasks/model/types';
 import './AddTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from 'react-hook-form';
 import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
 import { useForm } from 'react-hook-form';
-import { type CreateTaskDto } from '../../../../entities/tasks';
+import { type CreateTaskDto } from '../../../entities/tasks';
 
 interface AddTaskFormProps {
     handleModal: () => void;

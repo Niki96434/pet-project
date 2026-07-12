@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { toaster } from '../../../../shared/lib/ui/toaster';
-import { type UpdateTaskDto, taskApi } from '../../../../entities/tasks';
+import { toaster } from '../../../shared/lib/ui/toaster';
+import { type UpdateTaskDto, taskApi } from '../../../entities/tasks';
 
 interface EditTaskMutationProps {
     closeEditModal: () => void;

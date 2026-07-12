@@ -34,6 +34,6 @@
   },
   "include": [
     "src",
-    "src/features/tasks/drag-and-drop/ui/.tsxAndDrop.tsx"
+    "src/features/drag-and-drop/ui/.tsxAndDrop.tsx"
   ]
 }

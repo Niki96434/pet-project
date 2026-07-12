@@ -1,12 +1,12 @@
-import { FormInput, SelectField } from '../../../../shared/ui';
-import { taskApi, Categories, type Task, type UpdateTaskDto } from './../../../../entities/tasks';
-import { useTaskModalStore, getTaskId } from '../../../../entities/tasks/model/useTaskModalStore.ts';
+import { FormInput, SelectField } from '../../../shared/ui/index.ts';
+import { taskApi, Categories, type Task, type UpdateTaskDto } from '../../../entities/tasks/index.ts';
+import { useTaskModalStore, getTaskId } from '../../../entities/tasks/model/useTaskModalStore.ts';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useQuery } from '@tanstack/react-query';
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
-import { useEditTaskMutation } from '../model/useEditTaskMutation';
+import { useEditTaskMutation } from '../model/useEditTaskMutation.ts';
 
 interface EditFormProps {
     closeEditModal: () => void;

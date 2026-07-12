@@ -1,6 +1,6 @@
 import { it, expect, describe } from 'vitest';
 import { getFilteredTasks } from './getFilteredTasks';
-import { mockData } from '../../../../entities/tasks';
+import { mockData } from '../../../entities/tasks';
 
 describe('filtered tasks', () => {
 

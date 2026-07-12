@@ -30,7 +30,7 @@ export const authApi = {
         })
     },
     refreshTokens: async () => {
-        return axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/refresh`, {
+        return axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/refresh`, {}, {
             withCredentials: true
         });
     }

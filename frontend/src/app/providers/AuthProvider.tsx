@@ -1,4 +1,4 @@
-import { AuthContext, type isAuthValue } from "../../shared/context/AuthContext";
+import { AuthContext, type isAuthValue } from "../../shared/api/context/AuthContext";
 import React, { useMemo, useState } from "react";
 
 interface AuthProviderProps {

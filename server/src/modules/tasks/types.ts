@@ -8,7 +8,7 @@ export default interface TaskType {
     id: number;
     title: string;
     description: string;
-    deadlineDate: string;
+    deadline_date: string;
     category: CategoryType;
     status: status;
     user_id: UserEntity['id'];
@@ -16,4 +16,12 @@ export default interface TaskType {
 
 export interface IUser {
     user: UserEntity;
+}
+
+export interface CreateTaskDto {
+    title: string;
+    description: string;
+    deadline_date: string;
+    category: CategoryType;
+    status: status;
 }

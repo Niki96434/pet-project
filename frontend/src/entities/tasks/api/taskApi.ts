@@ -2,7 +2,7 @@ import type { CreateTaskDto, UpdateTaskDto, Task } from '../model/types';
 import { apiClient } from '../../../shared/api/apiClient';
 
 export const taskApi = {
-    getTasks: async (): Promise<Task[]> => {
+    getTasks: async () => {
         const response = await apiClient.get<Task[]>('/api/tasks');
         if (response.status === 401) {
             return [];
@@ -10,8 +10,8 @@ export const taskApi = {
             return response.data
         }
     },
-    createTask: async (task: CreateTaskDto, user_id: number) => {
-        const response = await apiClient.post<Task>('/api/tasks', { ...task, user_id: user_id });
+    createTask: async (task: CreateTaskDto) => {
+        const response = await apiClient.post<Task>('/api/tasks', task);
         return response.data
     },
     getTaskById: async (id: string) => {
@@ -20,9 +20,9 @@ export const taskApi = {
     },
     updateTask: (id: string, task: UpdateTaskDto) => apiClient.put<Task>(`/api/tasks/${id}`, task),
     deleteTask: (id: string) => apiClient.delete(`/api/tasks/${id}`),
-    filterTaskByDay: async (deadlineDate: string) => {
+    filterTaskByDay: async (deadline_date: string) => {
         const { data } = await apiClient.get<Task[]>('/api/tasks', {
-            params: { deadlineDate }
+            params: { deadline_date }
         });
         return data
     },

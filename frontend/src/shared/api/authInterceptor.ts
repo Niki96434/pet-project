@@ -35,7 +35,6 @@ apiClient.interceptors.response.use(
 
             } catch (refreshError) {
                 localStorage.removeItem('accessToken');
-                // возможно нужно еще удалить кукис с refresh-токеном и из бд удалить
                 return Promise.reject(refreshError);
             }
         }

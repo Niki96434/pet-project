@@ -17,7 +17,7 @@ export default function Task({ task }: TaskProps) {
             </div>
             <div className='category-and-date'>
                 <CategoryBadge category={task.category} />
-                <div className='task-date'>{task.deadlineDate}</div>
+                <div className='task-date'>{task.deadline_date}</div>
             </div>
         </div>
     )

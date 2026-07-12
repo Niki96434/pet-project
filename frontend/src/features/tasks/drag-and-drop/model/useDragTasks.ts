@@ -1,7 +1,7 @@
 import { type DropResult } from '@hello-pangea/dnd';
 import { type Task } from '../../../../entities/tasks';
 import { useUpdateTaskStatus } from '../../../../entities/tasks/model/useUpdateTaskStatus';
-import type { Board } from '../ui/DragAndDrop';
+import type { Board } from '../ui/TaskBoards';
 
 interface useDragTasksType {
     boards: Board[];
@@ -23,7 +23,6 @@ export function useDragTasks({ boards, setBoards }: useDragTasksType) {
             const previousBoard = boards.find((b) => b.id === Number(source.droppableId));
 
             if (!previousBoard) {
-                console.log('прошлой доски нет');
                 return;
             }
 
@@ -42,7 +41,6 @@ export function useDragTasks({ boards, setBoards }: useDragTasksType) {
             const currentBoard = boards.find((b) => b.id === Number(destination.droppableId));
 
             if (!currentBoard) {
-                console.log('текущей доски нет');
                 return;
             }
             const newItems = [...currentBoard.items];

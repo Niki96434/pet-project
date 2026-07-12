@@ -4,10 +4,11 @@ import { type Task } from "./types";
 
 const TASK_STALE_TIME = 5 * 60 * 1000;
 const TASK_GC_TIME = 10 * 60 * 1000;
+const EMPTY_TASKS: Task[] = [];
 
 export function useGetTasks() {
 
-    const { data: tasks = [], status, error } = useQuery<Task[]>({
+    const { data: tasks = EMPTY_TASKS, status, error } = useQuery<Task[]>({
         queryKey: ['tasks'],
         queryFn: () => taskApi.getTasks(),
         refetchOnWindowFocus: false,

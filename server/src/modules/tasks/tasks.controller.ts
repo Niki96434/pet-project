@@ -5,55 +5,56 @@ import type TaskType from './types.ts';
 
 interface ITaskService {
     taskService: {
-        getTasks(user_id: number): TaskType[];
-        getTask(id: number, user_id: number): TaskType | undefined;
-        createTask(task: TaskType, user_id: number): TaskType;
-        updateTask(id: number, task: TaskType, user_id: number): TaskType | undefined;
-        deleteTask(id: number, user_id: number): void;
+        getTasks(user_id: number): Promise<TaskType[]>;
+        getTask(id: number, user_id: number): Promise<TaskType | undefined>;
+        createTask(task: TaskType, user_id: number): Promise<TaskType>;
+        updateTask(id: number, task: TaskType, user_id: number): Promise<TaskType>;
+        deleteTask(id: number, user_id: number): Promise<TaskType>;
     }
 }
 
+
 function TaskController({ taskService }: ITaskService) {
 
-    const getTasks = (req: Request, res: Response, next: NextFunction) => {
+    const getTasks = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const user_id = req.user?.id as number;
 
-            const tasks = taskService.getTasks(user_id);
-            res.status(200).json(tasks ?? []);
+            const tasks = await taskService.getTasks(user_id);
+            res.status(200).json(tasks);
         } catch (e) {
             next(e);
         }
     }
 
-    const getTask = (req: Request, res: Response, next: NextFunction) => {
+    const getTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const user_id = req.user?.id as number;
             const task_id = req.params['id'];
 
             TasksValidator.checkTaskId(Number(task_id));
-            const task = taskService.getTask(Number(task_id), Number(user_id));
+            const task = await taskService.getTask(Number(task_id), Number(user_id));
             res.status(200).json(task);
         } catch (e) {
             next(e);
         }
     }
 
-    const createTask = (req: Request, res: Response, next: NextFunction) => {
+    const createTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const task = req.body;
             const user_id = req.user?.id as number;
 
             TasksValidator.isValidTaskFields(task);
 
-            const newTask = taskService.createTask(task, user_id);
+            const newTask = await taskService.createTask(task, user_id);
             res.status(201).json(newTask);
         } catch (e) {
             next(e);
         }
     }
 
-    const updateTask = (req: Request, res: Response, next: NextFunction) => {
+    const updateTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const task_id = req.params['id'];
             const task = req.body;
@@ -63,14 +64,14 @@ function TaskController({ taskService }: ITaskService) {
             TasksValidator.checkTaskId(Number(task_id));
             TasksValidator.isValidTaskFields(task);
 
-            const updatedTask = taskService.updateTask(Number(task_id), task, Number(user_id));
+            const updatedTask = await taskService.updateTask(Number(task_id), task, Number(user_id));
             res.status(200).json(updatedTask);
         } catch (e) {
             next(e);
         }
     }
 
-    const deleteTask = (req: Request, res: Response, next: NextFunction) => {
+    const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const task_id = req.params['id'];
 
@@ -78,7 +79,7 @@ function TaskController({ taskService }: ITaskService) {
 
             TasksValidator.checkTaskId(Number(task_id));
 
-            taskService.deleteTask(Number(task_id), user_id);
+            await taskService.deleteTask(Number(task_id), user_id);
             res.status(204).end();
         } catch (e) {
             next(e);

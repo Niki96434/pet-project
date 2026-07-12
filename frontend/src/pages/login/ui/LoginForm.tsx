@@ -6,12 +6,15 @@ import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
 import { type UserState, useUserStore } from "../model/useUserStore";
 import { useAuth } from "../../../shared/model/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function LoginForm() {
 
     const navigate = useNavigate();
 
     const loginUser = useLoginData();
+
+    const queryClient = useQueryClient();
 
     const setCreds = useUserStore((state: UserState) => state.setCredentials);
     const { setIsAuth } = useAuth();
@@ -27,7 +30,6 @@ export function LoginForm() {
 
     const onSubmit = async (data: LoginUserDto) => {
         try {
-            // проверить нужна ли здесь валидация
             const { id, name, accessToken } = await loginUser.mutateAsync(data);
             if (!accessToken || accessToken.trim() === '') {
                 return navigate('/login');
@@ -36,6 +38,9 @@ export function LoginForm() {
 
             setCreds(id, name);
             setIsAuth(true);
+
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+
             return navigate('/home');
         } catch {
             return navigate('/register');

@@ -3,15 +3,15 @@ export type CategoryType = typeof Categories[number];
 
 export const statuses = ['Not completed', 'In process', 'Completed'] as const;
 
-export type statusType = typeof statuses[number];
+export type StatusType = typeof statuses[number];
 
 export interface Task {
     id: number;
     title: string;
     description?: string;
-    deadlineDate: string;
+    deadline_date: string;
     category: CategoryType;
-    status: statusType;
+    status: StatusType;
     user_id: number;
 }
 
@@ -20,16 +20,17 @@ export type menuActionType = 'edit' | 'del' | '';
 export interface CreateTaskDto {
     title: string;
     description?: string;
-    deadlineDate: string;
+    deadline_date: string;
     category: CategoryType;
+    status: StatusType;
 }
 
 export interface UpdateTaskDto {
     title: string;
     description?: string;
-    deadlineDate: string;
+    deadline_date: string;
     category: CategoryType;
-    status: statusType;
+    status: StatusType;
 }
 
 export interface TaskListDto {

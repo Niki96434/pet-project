@@ -1,6 +1,6 @@
 import { FormInput, SelectField } from '../../../../shared/ui';
 import { taskApi, Categories, type Task, type UpdateTaskDto } from './../../../../entities/tasks';
-import { useEditTaskStore, getTaskId } from '../../../../entities/tasks/model/store';
+import { useTaskModalStore, getTaskId } from '../../../../entities/tasks/model/useTaskModalStore.ts';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,13 +14,13 @@ interface EditFormProps {
 
 export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
-    const id = useEditTaskStore(getTaskId);
+    const id = useTaskModalStore(getTaskId);
 
     const defaultTask: UpdateTaskDto = {
         title: '',
         description: '',
         category: 'Misc',
-        deadlineDate: '',
+        deadline_date: '',
         status: 'Not completed'
     }
 
@@ -35,7 +35,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
             title: task.title,
             description: task.description || '',
             category: task.category,
-            deadlineDate: task.deadlineDate,
+            deadline_date: task.deadline_date,
             status: task.status
         },
         delayError: 500,
@@ -68,7 +68,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
                 })} />
                 <div className='error-hint'>{errors.description && `* ${errors.description?.message}`}</div>
                 <SelectField options={Categories} selectName={'category'}  {...register("category", { required: true })}>Categories</SelectField>
-                <Controller control={control} name='deadlineDate' render={({ field }) => {
+                <Controller control={control} name='deadline_date' render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,
                         '0')}-${String(date.getDate()).padStart(2, '0')}` : "")} value={field.value} onBlur={field.onBlur} />
                 }} />

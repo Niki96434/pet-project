@@ -22,7 +22,8 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
             title: '',
             description: '',
             category: 'Misc',
-            deadlineDate: '',
+            deadline_date: '',
+            status: 'Not completed',
         },
         delayError: 500,
         mode: 'onChange'
@@ -46,7 +47,7 @@ export function AddTaskForm({ handleModal }: AddTaskFormProps) {
                 )} placeholder={'Prepare for the math test'} children={''} />
                 <span className='error-hint'> {errors.description && ('*' + errors.description.message || '* Error')}</span>
                 <SelectField {...register('category')} selectName={'category'} options={Categories}>Categories</SelectField>
-                <Controller name="deadlineDate" rules={{ required: true }} control={control} render={({ field }) => {
+                <Controller name="deadline_date" rules={{ required: true }} control={control} render={({ field }) => {
                     return <DatePicker onChange={(date: Date | null) => field.onChange(date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,
                         '0')}-${String(date.getDate()).padStart(2, '0')}` : "")} value={field.value} onBlur={field.onBlur} />
                 }} />

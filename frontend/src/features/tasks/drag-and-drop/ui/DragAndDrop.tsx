@@ -1,47 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
-import { TaskBoard } from "../../../../entities/tasks";
-import { AddTaskForm } from '../../add-task-form/ui/AddTaskForm';
-import { EditTaskForm } from "../../edit-task-form/ui/EditTaskForm";
-import { useEditTaskStore, closeModal, handleEditModal } from "../../../../entities/tasks/model/store";
+import { AddTaskForm } from '../../add-task-form/ui/AddTaskForm.tsx';
+import { EditTaskForm } from "../../edit-task-form/ui/EditTaskForm.tsx";
+import { useTaskModalStore } from "../../../../entities/tasks/model/useTaskModalStore.ts";
 import './DragAndDrop.css';
-import { useGetTasks } from "../../../../entities/tasks/model/useGetTasks";
-import { type Task } from "../../../../entities/tasks";
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
-import { useDragTasks } from "../model/useDragTasks";
-import { getBoardsFromTasks } from "../model/getBoardsFromTasks";
-
-export interface Board {
-    id: number;
-    title: string;
-    items: Task[];
-}
+import { useGetTasks } from "../../../../entities/tasks/model/useGetTasks.ts";
+import type { TaskState } from '../../../../entities/tasks/model/useTaskModalStore.ts';
+import { TaskBoards } from "./TaskBoards.tsx";
 
 export function DragAndDrop() {
-    const [isOpenAddTaskModal, setOpenAddTaskModal] = useState<boolean>(false); // вынести в zustand вместе с useEditTaskStore
-    const isOpenEditModal = useEditTaskStore(handleEditModal);
-    const closeEditModal = useEditTaskStore(closeModal);
+    const isEditModalOpen = useTaskModalStore((state: TaskState) => state.isEditModalOpen);
+    const closeEditModal = useTaskModalStore((state: TaskState) => state.closeEditModal);
+
+    const isAddModalOpen = useTaskModalStore((state: TaskState) => state.isAddModalOpen);
+    const closeAddModal = useTaskModalStore((state: TaskState) => state.closeAddModal);
 
     const { status, error, tasks } = useGetTasks();
 
-    const initialBoards = useMemo(() => getBoardsFromTasks(tasks), [tasks]);
-
-    const [boards, setBoards] = useState<Board[]>(initialBoards);
-
-    useEffect(() => {
-        const loadBoards = () => {
-            setBoards(initialBoards);
-        }
-        loadBoards();
-    }, [initialBoards]);
-
-    const handleDragEnd = useDragTasks({ boards, setBoards });
-
     const closeAllModal = () => {
-        if (isOpenAddTaskModal) {
-            setOpenAddTaskModal(false);
-        } else if (isOpenEditModal) {
+        if (isAddModalOpen) {
+            closeAddModal();
+        } else if (isEditModalOpen) {
             closeEditModal();
         }
+    }
+
+    if (status === 'pending') {
+        return <span>Загрузка задач...</span>
     }
 
     if (status === 'error') {
@@ -50,27 +33,9 @@ export function DragAndDrop() {
 
     return (
         <div className='todos-page' onClick={closeAllModal}>
-            <div className="list">
-                <DragDropContext onDragEnd={handleDragEnd}>
-                    <div className="boards">
-                        {boards.map((board) => {
-                            return (
-                                <Droppable droppableId={String(board.id)} key={board.id} type="drop-tasks">
-                                    {(provided) => {
-                                        return (
-                                            <div ref={provided.innerRef} {...provided.droppableProps}>
-                                                <TaskBoard key={board.id} tasks={board.items} handleModal={() => setOpenAddTaskModal(true)}>{board.title}</TaskBoard>
-                                                {provided.placeholder}
-                                            </div>)
-                                    }}
-                                </Droppable>
-                            )
-                        })}
-                    </div>
-                </DragDropContext>
-            </div>
-            {isOpenEditModal && <EditTaskForm closeEditModal={closeEditModal} />}
-            {isOpenAddTaskModal && <AddTaskForm handleModal={() => setOpenAddTaskModal(false)} />}
+            <TaskBoards tasks={tasks} />
+            {isEditModalOpen && <EditTaskForm closeEditModal={closeEditModal} />}
+            {isAddModalOpen && <AddTaskForm handleModal={closeAddModal} />}
         </div>
     )
 }

@@ -4,19 +4,19 @@ import { TaskNotFoundError, AccessDeniedError } from "./customErrors.js";
 
 interface ITaskRepository {
     repo: {
-        getTasks(user_id: number): TaskType[];
-        getTask(id: number, user_id: number): TaskType | undefined;
-        createTask(task: TaskType, user_id: number): TaskType;
-        updateTask(id: number, task: TaskType, user_id: number): TaskType;
-        deleteTask(id: number, user_id: number): boolean;
+        getTasks(user_id: number): Promise<TaskType[]>;
+        getTask(id: number, user_id: number): Promise<TaskType | undefined>;
+        createTask(task: TaskType, user_id: number): Promise<TaskType>;
+        updateTask(id: number, task: TaskType, user_id: number): Promise<TaskType>;
+        deleteTask(id: number, user_id: number): Promise<TaskType>;
     }
 }
 
 function TaskService({ repo }: ITaskRepository) {
 
-    const _getTaskAndCheckAccess = (task_id: number, user_id: number) => {
+    const _getTaskAndCheckAccess = async (task_id: number, user_id: number) => {
 
-        const task = repo.getTask(task_id, user_id);
+        const task = await repo.getTask(task_id, user_id);
 
         if (!task) {
             throw new TaskNotFoundError(`Task not found`, 404);
@@ -29,28 +29,29 @@ function TaskService({ repo }: ITaskRepository) {
         return task;
     };
 
-    const getTasks = (user_id: number) => {
-        return repo.getTasks(user_id);
+    const getTasks = async (user_id: number): Promise<TaskType[]> => {
+        return await repo.getTasks(user_id);
     }
 
-    const getTask = (task_id: number, user_id: number) => {
-        return _getTaskAndCheckAccess(task_id, user_id)
+    const getTask = async (task_id: number, user_id: number) => {
+        return await _getTaskAndCheckAccess(task_id, user_id)
     }
 
-    const createTask = (task: TaskType, user_id: number) => {
-        return repo.createTask(task, user_id);
+    const createTask = async (task: TaskType, user_id: number) => {
+        return await repo.createTask(task, user_id);
     }
 
-    const updateTask = (task_id: number, task: TaskType, user_id: number) => {
-        _getTaskAndCheckAccess(task_id, user_id);
+    const updateTask = async (task_id: number, task: TaskType, user_id: number): Promise<TaskType> => {
+        await _getTaskAndCheckAccess(task_id, user_id);
 
-        return repo.updateTask(task_id, task, user_id);
+        return await repo.updateTask(task_id, task, user_id);
     }
 
-    const deleteTask = (task_id: number, user_id: number) => {
-        _getTaskAndCheckAccess(task_id, user_id);
+    const deleteTask = async (task_id: number, user_id: number): Promise<TaskType> => {
+        await _getTaskAndCheckAccess(task_id, user_id);
 
-        return repo.deleteTask(task_id, user_id);
+        const res = await repo.deleteTask(task_id, user_id);
+        return res
     }
 
     return { getTasks, getTask, createTask, updateTask, deleteTask }

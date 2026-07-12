@@ -5,7 +5,7 @@ import { useState } from "react";
 import ellipsis from './../../../assets/ellipsis.svg';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { taskApi } from './../../tasks/api/taskApi';
-import { openModal, setTaskId, useEditTaskStore } from '../model/store';
+import { setTaskId, useTaskModalStore, type TaskState } from '../model/useTaskModalStore.ts';
 
 interface DropdownMenuProps {
     id: number;
@@ -15,9 +15,9 @@ export default function DropdownMenu({ id }: DropdownMenuProps) {
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
-    useEditTaskStore(setTaskId(id));
+    useTaskModalStore(setTaskId(id));
 
-    const openEditModal = useEditTaskStore(openModal);
+    const openEditModal = useTaskModalStore((state: TaskState) => state.openEditModal);
 
     const mutationDelete = useMutation({
         mutationFn: async () => {

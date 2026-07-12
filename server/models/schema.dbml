@@ -1,0 +1,18 @@
+Table "users" {
+  "id" SERIAL [pk, increment]
+  "username" VARCHAR(30) [unique, not null]
+  "password_hash" TEXT [not null]
+  "refresh_token" TEXT
+}
+
+Table "tasks" {
+  "id" SERIAL [pk, increment]
+  "title" VARCHAR(30) [not null]
+  "description" TEXT
+  "category" VARCHAR(15) [not null]
+  "deadline_date" TIMESTAMP [default: `NOW()`]
+  "status" VARCHAR(20) [not null, default: 'Not completed']
+  "user_id" INTEGER [not null]
+}
+
+Ref "tasks_fk":"users"."id" < "tasks"."user_id" [delete: cascade]

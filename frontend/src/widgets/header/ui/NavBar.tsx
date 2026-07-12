@@ -1,6 +1,6 @@
 "use client"
 import styles from './NavBar.module.css';
-import { ThemeToggler } from '../../../features/add-theme';
+import { ThemeToggler } from '../../../core/theme/ThemeToggler';
 import UserCard from '../../../entities/users/ui/UserCard';
 import DropdownButton from '../../../shared/ui/DropdownButton';
 import { useAuth } from '../../../shared/model/useAuth';

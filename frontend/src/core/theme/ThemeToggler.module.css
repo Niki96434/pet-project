@@ -21,13 +21,13 @@
 }
 
 .checkbox_light {
-    background-image: url('./../../../assets/light_theme.svg');
+    background-image: url('./../../assets/light_theme.svg');
     background-size: 100% 100% !important;
 }
 
 .checkbox_dark {
     background-position: -2px center;
-    background-image: url('./../../../assets/dark_theme.svg');
+    background-image: url('./../../assets/dark_theme.svg');
     background-size: 120% 120% !important;
 }
 
@@ -43,12 +43,12 @@
 
 .slider_light {
     left: -3px;
-    background-image: url('./../../../assets/sun.svg');
+    background-image: url('./../../assets/sun.svg');
     background-size: 100% 100% !important;
 }
 
 .slider_dark {
-    background-image: url('./../../../assets/moon.svg');
+    background-image: url('./../../assets/moon.svg');
     background-size: 115% 115% !important;
     top: 1px;
 }

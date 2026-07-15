@@ -1,11 +1,11 @@
-import { type Task } from '../../../../entities/tasks';
+import { type Task } from '../../../entities/tasks';
 
 export const mockTasks: Task[] = [{
     id: 1,
-    title: 'покормить собачку',
+    title: 'Покормить собачку',
     description: '',
     category: 'Life',
-    deadlineDate: '',
+    deadline_date: '',
     status: 'Not completed',
     user_id: 1,
 }, {
@@ -13,7 +13,7 @@ export const mockTasks: Task[] = [{
     title: 'Помыть голову',
     description: '',
     category: 'Health',
-    deadlineDate: '',
+    deadline_date: '',
     status: 'Not completed',
     user_id: 2,
 }, {
@@ -21,7 +21,7 @@ export const mockTasks: Task[] = [{
     title: 'Учиться юнит-тестированию',
     description: '',
     category: 'Study',
-    deadlineDate: '',
+    deadline_date: '',
     status: 'In process',
     user_id: 3,
 }

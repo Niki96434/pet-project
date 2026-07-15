@@ -1,20 +1,24 @@
-import { it, expect, describe } from 'vitest';
 import { getFilteredTasks } from './getFilteredTasks';
-import { mockData } from '../../../entities/tasks';
+import { mockTasks, type Task } from './../../../entities/tasks';
 
-describe('filtered tasks', () => {
+interface TestDataType {
+    tasks: Task[] | null,
+    status: Task['status'],
+    filteredTasks: Task[]
+}
 
-    it('should return [] if task list is empty', () => {
-        expect(getFilteredTasks([], 'Not completed')).toHaveLength(0);
-    });
+describe('get filtered tasks by status', () => {
+    const testData: TestDataType[] = [
+        { tasks: [], status: 'Not completed', filteredTasks: [] },
+        { tasks: mockTasks, status: 'Completed', filteredTasks: [] },
+        { tasks: mockTasks, status: 'Not completed', filteredTasks: [mockTasks[0], mockTasks[1]] },
+        { tasks: null, status: 'Not completed', filteredTasks: [] },
+    ];
 
-    it('should return 2 task when status is "Not completed"', () => {
-        const res = getFilteredTasks(mockData, 'Not completed');
-        expect(res).toHaveLength(2);
-    });
+    test.each(testData)('getFilteredTasks($tasks, $status) -> $filteredTasks', ({ tasks, status, filteredTasks }: TestDataType) => {
 
-    it('should return 0 tasks if no tasks match the status', () => {
-        const res = getFilteredTasks(mockData, 'Completed');
-        expect(res).toHaveLength(0);
+        const data = getFilteredTasks(tasks, status);
+
+        expect(data).toEqual(filteredTasks);
     });
 });

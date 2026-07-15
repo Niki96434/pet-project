@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { mockTasks } from '../api/mocks/tasks.mock';
+import { mockTasks } from '../../../features/drag-and-drop/model/tasks.mock';
 import { taskApi } from '../api/taskApi';
 import { useGetTasks } from './useGetTasks';
 import { QueryClient } from '@tanstack/react-query';
@@ -32,6 +32,7 @@ describe('useGetTasks', () => {
         getTasks.mockResolvedValue(mockTasks);
         const { result } = renderHook(() => useGetTasks(), { wrapper });
         await waitFor(() => {
+            // инкапсулировать результат в один объект и сравнивать с помощью toStrictEqual/toEqual
             expect(result.current.status).toBe('success');
             expect(result.current.tasks).toEqual(mockTasks);
         });

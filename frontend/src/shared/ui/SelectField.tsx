@@ -1,10 +1,10 @@
 import type React from 'react';
-import type { CategoryType, statusType } from '../../entities/tasks/model/types';
+import type { CategoryType, StatusType } from '../../entities/tasks/model/types';
 import './SelectField.css';
 import type { RefCallBack } from 'react-hook-form';
 
 interface SelectFieldProps {
-    options: readonly CategoryType[] | readonly statusType[];
+    options: readonly CategoryType[] | readonly StatusType[];
     ref: RefCallBack;
     children: React.ReactNode;
     selectName: string;

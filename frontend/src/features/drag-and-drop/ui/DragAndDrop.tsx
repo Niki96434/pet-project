@@ -1,14 +1,11 @@
 import { AddTaskForm } from '../../add-task-form/ui/AddTaskForm.tsx';
 import { EditTaskForm } from "../../edit-task-form/ui/EditTaskForm.tsx";
-import { useGetTasks } from "../../../entities/tasks/model/useGetTasks.ts";
-import { DragAndDropView } from "./DragAndDropView.tsx";
-import { useTaskModalStore } from "../../../entities/tasks/model/useTaskModalStore.ts";
-import type { TaskState } from '../../../entities/tasks/model/useTaskModalStore.ts';
-import { useDragTasks } from "../model/useDragTasks.ts";
-import { getBoardsFromTasks } from "../model/getBoardsFromTasks.ts";
-import { useEffect, useState } from "react";
 import { type Task } from "../../../entities/tasks/index.ts";
 import { DragDropContext } from '@hello-pangea/dnd';
+import styles from './DragAndDrop.module.css';
+import { TaskBoard } from '../../../entities/tasks/ui/TaskBoard';
+import { Droppable } from '@hello-pangea/dnd';
+import { useKanbanBoard } from '../model/useKanbanBoard.ts';
 
 export interface Board {
     id: number;
@@ -17,49 +14,49 @@ export interface Board {
 }
 
 export function DragAndDrop() {
+
     const {
-        isEditModalOpen, closeEditModal,
-        isAddModalOpen, closeAddModal,
-        openAddModal
-    } = useTaskModalStore((state: TaskState) => state);
-
-    const closeAllModal = () => {
-        if (isAddModalOpen) {
-            closeAddModal();
-        } else if (isEditModalOpen) {
-            closeEditModal();
-        }
-    }
-
-    const { status, error, tasks } = useGetTasks();
-
-    const [boards, setBoards] = useState<Board[]>([]);
-
-    useEffect(() => {
-        const loadBoards = () => {
-            setBoards(getBoardsFromTasks(tasks));
-        }
-        loadBoards();
-    }, [tasks]);
-
-    const handleDragEnd = useDragTasks({ boards, setBoards });
+        openAddModal,
+        closeAllModal,
+        isEditModalOpen,
+        isAddModalOpen,
+        closeEditModal,
+        closeAddModal,
+        status,
+        error,
+        boards,
+        handleDragEnd
+    } = useKanbanBoard();
 
     if (status === 'pending') {
         return <span>Загрузка задач...</span>
     }
 
     if (status === 'error') {
-        return <span>Ошибка: {error?.message}</span>
+        return <span>Ошибка: {error?.message} </span>
     }
+
 
     return (
         <div onClick={closeAllModal}>
             <DragDropContext onDragEnd={handleDragEnd}>
-                <DragAndDropView
-                    boards={boards}
-                    openAddModal={openAddModal}
-                />
+                <div className={styles.content}>
+                    {boards.map((board) => {
+                        return (
+                            <Droppable droppableId={String(board.id)} key={board.id} type="drop-tasks">
+                                {(provided) => {
+                                    return (
+                                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                                            <TaskBoard tasks={board.items} handleModal={openAddModal}>{board.title}</TaskBoard>
+                                            {provided.placeholder}
+                                        </div>)
+                                }}
+                            </Droppable>
+                        )
+                    })}
+                </div>
             </DragDropContext>
+
             {isEditModalOpen && <EditTaskForm closeEditModal={closeEditModal} />}
             {isAddModalOpen && <AddTaskForm handleModal={closeAddModal} />}
         </div>

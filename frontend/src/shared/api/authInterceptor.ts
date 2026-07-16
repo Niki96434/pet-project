@@ -1,6 +1,7 @@
 import { type InternalAxiosRequestConfig } from 'axios';
 import { apiClient } from "./apiClient";
 import { authApi } from './../../entities/users/api/authApi';
+import { useAuthStore } from '../model/useAuthStore';
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken');
@@ -35,6 +36,10 @@ apiClient.interceptors.response.use(
 
             } catch (refreshError) {
                 localStorage.removeItem('accessToken');
+
+                const logout = useAuthStore((state) => state.actions.logout);
+                logout();
+
                 return Promise.reject(refreshError);
             }
         }

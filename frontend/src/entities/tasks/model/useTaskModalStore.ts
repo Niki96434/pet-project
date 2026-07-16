@@ -1,29 +1,38 @@
 import { create } from 'zustand';
 
-export interface TaskState {
+interface ModalStatesType {
     taskId: number;
     isEditModalOpen: boolean;
     isAddModalOpen: boolean;
+}
 
+interface ModalActionsType {
     setTaskId: (taskId: number) => void;
     openEditModal: () => void;
     closeEditModal: () => void;
-
     openAddModal: () => void;
     closeAddModal: () => void;
 }
-export const useTaskModalStore = create<TaskState>((set) => ({
-    taskId: 0,
 
+interface TaskStore extends ModalStatesType {
+    actions: ModalActionsType
+}
+
+const defaultModalState = {
+    taskId: 0,
     isEditModalOpen: false,
     isAddModalOpen: false,
+}
 
-    setTaskId: (id: number) => set({ taskId: id }),
+export const useTaskModalStore = create<TaskStore>((set) => ({
+    ...defaultModalState,
 
-    openEditModal: () => set({ isEditModalOpen: true }),
-    closeEditModal: () => set({ isEditModalOpen: false }),
-
-    openAddModal: () => set({ isAddModalOpen: true }),
-    closeAddModal: () => set({ isAddModalOpen: false }),
+    actions: {
+        setTaskId: (id: number) => set({ taskId: id }),
+        openEditModal: () => set({ isEditModalOpen: true }),
+        closeEditModal: () => set({ isEditModalOpen: false }),
+        openAddModal: () => set({ isAddModalOpen: true }),
+        closeAddModal: () => set({ isAddModalOpen: false }),
+    }
 
 }));

@@ -6,17 +6,22 @@ import styles from './DropdownButton.module.css';
 import { useLogout } from "../../pages/login/api/useLogout";
 
 interface DropdownButtonProps {
-    setIsAuth: (isAuth: boolean) => void;
+    logout: () => void;
 }
 
-const DropdownButton = ({ setIsAuth }: DropdownButtonProps) => {
+const DropdownButton = ({ logout }: DropdownButtonProps) => {
     const menu = useMenu();
-    const logout = useLogout();
+    const logoutMutation = useLogout();
 
     const handleLogout = async () => {
-        logout.mutateAsync();
-        setIsAuth(false);
-        localStorage.removeItem('accessToken');
+        try {
+            logoutMutation.mutateAsync();
+        } catch {
+            console.log('Ошибка при запросе логаута на сервер');
+        } finally {
+            logout();
+            localStorage.removeItem('accessToken');
+        }
     }
 
     return (

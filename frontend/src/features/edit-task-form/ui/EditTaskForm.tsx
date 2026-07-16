@@ -1,6 +1,6 @@
 import { FormInput, SelectField } from '../../../shared/ui/index.ts';
 import { taskApi, Categories, type Task, type UpdateTaskDto } from '../../../entities/tasks/index.ts';
-import { useTaskModalStore, type TaskState } from '../../../entities/tasks/model/useTaskModalStore.ts';
+import { useTaskModalStore } from '../../../entities/tasks/model/useTaskModalStore.ts';
 import './EditTaskForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,7 +14,7 @@ interface EditFormProps {
 
 export function EditTaskForm({ closeEditModal }: EditFormProps) {
 
-    const id = useTaskModalStore((state: TaskState) => state.taskId);
+    const id = useTaskModalStore((state) => state.taskId);
 
     const defaultTask: UpdateTaskDto = {
         title: '',
@@ -48,6 +48,7 @@ export function EditTaskForm({ closeEditModal }: EditFormProps) {
     const onSubmit: SubmitHandler<UpdateTaskDto> = (data) => {
         updateTaskMutation.mutate({ id: id.toString(), data: data });
     };
+
     if (isLoading) {
         return <div>Загрузка..</div>
     }

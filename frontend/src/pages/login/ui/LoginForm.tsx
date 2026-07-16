@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { type LoginUserDto } from "../../../entities/users/api/authApi";
 import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
-import { useAuth } from "../../../shared/model/useAuth";
 import { queryClient } from "../../../shared/api/queryClient";
+import { useAuthStore } from "../../../shared/model/useAuthStore";
 
 export function LoginForm() {
 
@@ -13,7 +13,7 @@ export function LoginForm() {
 
     const loginUser = useLoginData();
 
-    const { setIsAuth } = useAuth();
+    const { setAuth } = useAuthStore((state) => state.actions);
 
     const { register, handleSubmit, formState: { errors, isValid } } = useForm<LoginUserDto>({
         values: {
@@ -31,10 +31,8 @@ export function LoginForm() {
                 return navigate('/login');
             }
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('user_id', id);
-            localStorage.setItem('username', name);
 
-            setIsAuth(true);
+            setAuth({ id: id, username: name });
 
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
 

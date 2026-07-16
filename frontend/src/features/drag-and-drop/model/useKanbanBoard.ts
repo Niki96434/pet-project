@@ -1,6 +1,5 @@
 import { useGetTasks } from "../../../entities/tasks/model/useGetTasks.ts";
 import { useTaskModalStore } from "../../../entities/tasks/model/useTaskModalStore.ts";
-import type { TaskState } from '../../../entities/tasks/model/useTaskModalStore.ts';
 import { useDragTasks } from "./useDragTasks.ts";
 import { getTaskBoards } from "./getTaskBoards.ts";
 import { useEffect, useState } from "react";
@@ -9,10 +8,14 @@ import { type Board } from "../ui/DragAndDrop.tsx";
 export function useKanbanBoard() {
 
     const {
-        isEditModalOpen, closeEditModal,
-        isAddModalOpen, closeAddModal,
+        closeEditModal,
+        closeAddModal,
         openAddModal
-    } = useTaskModalStore((state: TaskState) => state);
+    } = useTaskModalStore((state) => state.actions);
+
+    const {
+        isAddModalOpen, isEditModalOpen
+    } = useTaskModalStore((state) => state);
 
     const closeAllModal = () => {
         if (isAddModalOpen) {

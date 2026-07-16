@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sidebar > should display app logo in the sidebar 1`] = `
+<img
+  alt="logo"
+  class="_logo_1740f5"
+  src="/public/icons/base-icon.png"
+/>
+`;

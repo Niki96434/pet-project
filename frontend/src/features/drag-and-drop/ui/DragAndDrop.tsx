@@ -36,7 +36,6 @@ export function DragAndDrop() {
         return <span>Ошибка: {error?.message} </span>
     }
 
-
     return (
         <div onClick={closeAllModal}>
             <DragDropContext onDragEnd={handleDragEnd}>

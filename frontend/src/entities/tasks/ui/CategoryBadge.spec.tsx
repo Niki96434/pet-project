@@ -11,6 +11,7 @@ describe('CategoryBadge', () => {
     it('renders CategoryBadge component', () => {
         try {
             const categoryComponent = renderCategoryBadge('Misc');
+
             expect(screen.getByText('Misc')).toBeInTheDocument();
             expect(categoryComponent).toMatchSnapshot();
         } catch (e) {

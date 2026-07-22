@@ -31,6 +31,9 @@ const initialAuthCreds: AuthCredentialsType = {
     }
 }
 
+/**
+ * @description "partialize" option saves contexts(states) without actions since actions(functions) are serialized in JSON into an empty object.
+ */
 export const useAuthStore = create<AuthStore>()(
     persist((set) => ({
         ...initialAuthCreds,

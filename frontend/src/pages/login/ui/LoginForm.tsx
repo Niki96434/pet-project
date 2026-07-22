@@ -5,7 +5,7 @@ import { type LoginUserDto } from "../../../entities/users/api/authApi";
 import styles from './LoginForm.module.css';
 import { NavLink } from 'react-router';
 import { queryClient } from "../../../shared/api/queryClient";
-import { useAuthStore } from "../../../shared/model/useAuthStore";
+import { useAuthStore } from "../api/useAuthStore";
 
 export function LoginForm() {
 

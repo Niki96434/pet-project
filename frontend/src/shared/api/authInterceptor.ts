@@ -1,7 +1,7 @@
 import { type InternalAxiosRequestConfig } from 'axios';
 import { apiClient } from "./apiClient";
 import { authApi } from './../../entities/users/api/authApi';
-import { useAuthStore } from '../model/useAuthStore';
+import { useAuthStore } from '../../pages/login/api/useAuthStore';
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const accessToken = localStorage.getItem('accessToken');

@@ -3,7 +3,7 @@ import styles from './NavBar.module.css';
 import { ThemeToggler } from '../../core/theme/ThemeToggler';
 import UserCard from '../../entities/users/ui/UserCard';
 import DropdownButton from '../../shared/ui/DropdownButton';
-import { useAuthStore } from '../../shared/model/useAuthStore';
+import { useAuthStore } from '../../pages/login/api/useAuthStore';
 
 export function NavBar() {
     const { logout } = useAuthStore((state) => state.actions);

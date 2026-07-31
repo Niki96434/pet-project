@@ -1,74 +1,75 @@
 .task-card {
-    width: 290px;
-    height: 110px;
-    border: 1px solid #d9d9dc;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    background-color: #F9F8FF;
-    padding: 5px;
-    box-sizing: content-box;
-    position: relative;
+  width: 290px;
+  height: 110px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: content-box;
+  position: relative;
+  background-color: var(--bg-content);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .task-top {
-    display: flex;
-    flex-direction: row;
-    gap: 6px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
 }
 
 .task-checkbox {
-    background-image: url('./../../../assets/unactiveCheckbox.svg');
-    width: 17px;
-    height: 17px;
-    border-color: #BBBABE;
-    text-decoration: none;
-    color: black;
+  background-image: url("./../../../assets/unactiveCheckbox.svg");
+  width: 17px;
+  height: 17px;
+  border-color: #bbbabe;
+  text-decoration: none;
+  color: black;
 }
 
 .task-checkbox:checked {
-    background-image: url('./../../../assets/activeCheckbox.svg');
+  background-image: url("./../../../assets/activeCheckbox.svg");
 }
 
 .task-title {
-    font-size: 16px;
-    font-weight: 700;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.task-checkbox:checked+p {
-    text-decoration-color: #FD71AF;
-    text-decoration: line-through;
-    color: #FD71AF;
+.task-checkbox:checked + p {
+  text-decoration-color: #fd71af;
+  text-decoration: line-through;
+  color: #fd71af;
 }
 
 .category-and-date {
-    display: flex;
-    flex-direction: row;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
 .task-date {
-    position: absolute;
-    color: #BBBABE;
-    right: 0px;
+  position: absolute;
+  color: var(--text-color);
+  right: 0px;
 }
 
 .ellipsis-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('./../../../assets/ellipsis.svg');
-    margin-left: auto;
+  width: 20px;
+  height: 20px;
+  background-image: url("./../../../assets/ellipsis.svg");
+  margin-left: auto;
 }
 
 .active-menu {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background-color: #FD71AF;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #fd71af;
 }
 
 .btn-return-task {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }

@@ -1,72 +1,79 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 10px;
-    width: 100%;
-    max-width: 448px;
-    height: 571px;
-    border-radius: 20px;
-    border: 1px solid white;
-    box-shadow: 1px 0px 10px 5px rgb(210, 210, 210);
-    padding: 48px 56px;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 448px;
+  height: 571px;
+  border-radius: 20px;
+  border: 1px solid white;
+  box-shadow: var(--shadow-color);
+  padding: 48px 56px;
+  box-sizing: border-box;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
 }
 
 span {
-    color: var(--error-text);
+  color: var(--error-text);
 }
 
 .btn,
 .form input {
-    width: 320px;
-    height: 52px;
-    border: 1px solid rgb(184, 184, 184);
-    border-radius: 15px;
-    padding-left: var(--input-padding-left);
-    padding-right: var(--input-padding-right);
+  width: 320px;
+  height: 52px;
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 15px;
+  padding-left: var(--input-padding-left);
+  padding-right: var(--input-padding-right);
 }
 
 .form h1 {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .btn {
-    background-color: #FD71AF;
-    cursor: pointer;
+  background-color: #fd71af;
+  cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #d8367f;
+  background-color: #d8367f;
 }
 
 .btn:active {
-    background-color: aliceblue;
+  background-color: aliceblue;
 }
 
 .or {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .center {
-    text-align: center;
-    color: gray;
+  text-align: center;
+  color: gray;
 }
 
-
 .line {
-    width: 150px;
-    height: 1px;
-    background-color: rgb(212, 212, 212);
+  width: 150px;
+  height: 1px;
+  background-color: rgb(212, 212, 212);
+}
+
+h1 {
+  color: var(--secondary-text);
+}
+
+strong {
+  color: var(--text-color);
 }

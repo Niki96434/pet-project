@@ -1,16 +1,16 @@
-@import './themes.css';
-@import './variables.css';
-@import './fonts.css';
+@import "./themes.css";
+@import "./variables.css";
+@import "./fonts.css";
 
 html,
 body,
 #root {
-    background-color: var(--bg-primary);
-    color: var(--text-color);
-    font-family: var(--font-family-base);
-    font-weight: var(--font-weight-base);
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+  background-color: var(--bg-content);
+  color: var(--text-color);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-base);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }

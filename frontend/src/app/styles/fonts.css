@@ -1,15 +1,14 @@
 @font-face {
-    font-family: 'Roboto';
-    src: url('/fonts/Roboto-Variable.woff2') format('woff2');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: fallback;
+  font-family: "Roboto";
+  src: url("/fonts/Roboto-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: fallback;
 }
 
 :root {
-    --font-family-base: 'Roboto', sans-serif;
-    --font-weight-base: 400;
-    --font-family-accent: 'Roboto', sans-serif;
-    --font-weight-accent: 700;
-    /* добавить акцентный стиль */
+  --font-family-base: "Roboto", sans-serif;
+  --font-weight-base: 400;
+  --font-family-accent: "Roboto", sans-serif;
+  --font-weight-accent: 700;
 }

@@ -1,71 +1,75 @@
 .add-form-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #30303097;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0px;
-    z-index: 9999999999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #30303097;
+  color: var(--text-color);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  right: 5px;
+  z-index: 99999;
 }
 
 .task-form-container {
-    width: 408px;
-    height: 502px;
-    border: 3px dashed #FD71AF;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: white;
+  width: 408px;
+  height: 502px;
+  border: 3px solid #fd71af;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--bg-content);
 }
 
 .close-button {
-    width: 76px;
-    height: 36px;
-    background-color: white;
-    border: 1px solid #666666;
-    border-radius: 8px;
+  width: 76px;
+  height: 36px;
+  background-color: white;
+  border: 1px solid #666666;
+  border-radius: 8px;
 }
 
 .submit-button {
-    width: 154px;
-    height: 36px;
-    background-color: #FD71AF;
-    border: 1px solid #666666;
-    border-radius: 8px;
+  width: 154px;
+  height: 36px;
+  background-color: #fd71af;
+  border: 1px solid #666666;
+  border-radius: 8px;
 }
 
 .submit-button:active {
-    background-color: #ba5281;
+  background-color: #ba5281;
 }
 
 .submit-button:disabled {
-    color: #666666b6;
+  color: #666666b6;
 }
 
 .form-button-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 .task-form-container input {
-    width: 320px;
-    height: 52px;
-    border: 1px solid rgb(184, 184, 184);
-    border-radius: 15px;
+  width: 320px;
+  height: 52px;
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 15px;
 }
 
 .error-hint {
-    color: red;
-    font-weight: 700;
+  color: red;
+  font-weight: 700;
 }
 
 .add-form-title {
-    font-weight: 700;
-    font-size: 24px;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--text-color);
 }

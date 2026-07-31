@@ -1,6 +1,5 @@
 .content {
-    display: flex;
-    flex-direction: row;
-    gap: 100px;
-    margin: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
 }
